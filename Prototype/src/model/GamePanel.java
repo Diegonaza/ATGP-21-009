@@ -19,35 +19,40 @@ import tiles.TileManager;
  */
 public class GamePanel extends JPanel implements Runnable{
     //Screen Settings
-    final int orinalTileSize = 16;
-    final int scale = 3;
-    public int tileSize = orinalTileSize * scale;
-    public final int  maxScreenCol = 16;
-    public final int  maxScreenRow = 12;
+    final int orinalTileSize = 16; // 16x16 tile, basic pixel-art size.
+    final int scale = 3; // The scale for pixel art will redeem it to 48 pixels.
+    public int tileSize = orinalTileSize * scale; // Final tile size
+    public final int  maxScreenCol = 20;
+    public final int  maxScreenRow = 15;
+    //  4/3 - proportion from width and height.
+    
     public final int  screenWidth = tileSize * maxScreenCol;
     public final int  screenHigth = tileSize * maxScreenRow;
-    public final long jumpingTime = 200;
+    //960 x 720 resolution
+    
+    
+    //public final long jumpingTime = 200;  - To be implemented in the future
     TileManager tileManager = new TileManager(this);
-    KeyHundle keyHundle = new KeyHundle();
+    KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyHundle);
+    Player player = new Player(this, keyHandler);
     
     //FPS
     int FPS = 60;
+    //Setting Frames per second at 60
     
     public GamePanel(){
     this.setFocusable(true);
-    this.setDoubleBuffered(true);
+    this.setDoubleBuffered(true); 
+    //Eases on rendenzing processing
     
-    this.setPreferredSize(new Dimension(screenWidth,screenHigth));
-    this.setBackground(Color.black);
-    this.setDoubleBuffered(true);
-    this.addKeyListener(keyHundle);
-    this.setFocusable(true);
+    this.setPreferredSize(new Dimension(screenWidth,screenHigth)); // set dimentions for the screen
+    this.addKeyListener(keyHandler); // Adds the keyboard movement controllet
+    
     
     }
     
-    public void startGameThread(){
+    public void startChronos(){
     gameThread = new Thread(this);
     gameThread.start();
     }
@@ -84,7 +89,8 @@ public class GamePanel extends JPanel implements Runnable{
             
         }
         
-    }*/
+    }
+    secondary gameloop*/
     
    @Override
     public void run() {
@@ -119,7 +125,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
             if (timer >= 1000000000) {
                 
-                System.out.println("FPS"+drawCounter); 
+                System.out.println("Running at 60FPS"+ drawCounter); 
                 drawCounter = 0;
                 timer = 0;
             }

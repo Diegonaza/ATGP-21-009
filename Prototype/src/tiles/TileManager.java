@@ -34,12 +34,14 @@ public class TileManager {
         
        
            try {  
-            FileReader fileReader = new FileReader("src/maps/map");
-          
+           FileReader fileReader = new FileReader("src/maps/map");          
            BufferedReader bufferedReader = new BufferedReader(fileReader);
+           
                 int col = 0;
                 int row = 0;
                 while (col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow) {                    
+                    
+                    
                     
                     String line = bufferedReader.readLine();
                     

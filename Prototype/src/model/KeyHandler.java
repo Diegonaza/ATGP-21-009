@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
  *
  * @author valter
  */
-public class KeyHundle implements KeyListener{
+public class KeyHandler implements KeyListener{
     public boolean upPressed;
     public boolean downPressed;
     public boolean leftPressed;

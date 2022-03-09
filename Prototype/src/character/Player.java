@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import model.GamePanel;
-import model.KeyHundle;
+import model.KeyHandler;
 
 /**
  *
@@ -19,12 +19,12 @@ import model.KeyHundle;
 public class Player extends Character{
     
     GamePanel  gamePanel;//instanciates Game Panel Class
-    KeyHundle keyHundle;
+    KeyHandler keyHandler;
     private Image image;
     
-    public Player(GamePanel  gamePanel, KeyHundle keyHundle){
+    public Player(GamePanel  gamePanel, KeyHandler keyHundle){
     this.gamePanel = gamePanel;
-    this.keyHundle = keyHundle;
+    this.keyHandler = keyHundle;
     this.setDefaultvalues();
     this.getPlayerImg();
     }
@@ -35,8 +35,8 @@ public class Player extends Character{
         }
     
     public void setDefaultvalues(){
-    x = 100;
-    y = 100;
+    x = 144;
+    y = 384;
     speed = 4;
     counter = 4;
     
@@ -44,15 +44,15 @@ public class Player extends Character{
     
     public void update(){
         
-        if (keyHundle.upPressed == true) {
+        if (keyHandler.upPressed == true) {
             y -= speed;
-        }else if (keyHundle.downPressed == true) {
+        }else if (keyHandler.downPressed == true) {
             y += speed;
-        }else if (keyHundle.leftPressed == true) {
+        }else if (keyHandler.leftPressed == true) {
             x -= speed;
-        }else if (keyHundle.rightPressed == true) {
+        }else if (keyHandler.rightPressed == true) {
             x += speed;
-        }else if (keyHundle.jumpingPressed) {
+        }else if (keyHandler.jumpingPressed) {
             y--;
         }
            

@@ -19,18 +19,45 @@ public class View {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        String[] gameTitle = {"Galaxy Chronicles: Zenith, the invisible Enemy", "Galaxy Chronicles: Zenith, the invinsible Enemy", "Galaxy Chronicles: Zenith, the invincible Enemy" };
+        //Titles to be shown accordingly to conclusion in game.
+        int conclusion = 0;       
+        //This variable will be modified in the future to be modified in case of loadings.
+        int cases;
+        //Variable to select the index for the gameTitle array.
+        
+        if(conclusion < 60){
+            cases = 1;}
+        else if(conclusion < 30){
+            cases = 0;}
+        else{cases = 2;  }
+        //in case the conclusion is smaller than 30 and 60, selects the first case
+        //if conclusion is smaler than 60 only, selects the second case
+        // if conclusion is equal or bigger to 60, selects the third case.
+        
+        
+        
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Set default operation to finish the program if window is closed.
         window.setResizable(false);
-        window.setTitle("Galaxy Chronicles:  Zenith, the Invisible Enemy (The invincible Enemy)");
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        //Won't allow user to modify the window.
+        window.setTitle(gameTitle[cases]);
+        //Set the title accordingly to the game progression.
         
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
         window.pack();
-        gamePanel.startGameThread();
+        //create, and add the Game Panel to the window, and display it.
+        gamePanel.startChronos();
+        //
+        
+        window.setLocationRelativeTo(null);
+        
+        window.setVisible(true);
+        
+        
         
       
         
