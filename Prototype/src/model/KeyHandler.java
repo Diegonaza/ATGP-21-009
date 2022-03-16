@@ -13,11 +13,12 @@ import java.awt.event.KeyListener;
  * @author valter
  */
 public class KeyHandler implements KeyListener{
-    public boolean upPressed;
+       public boolean upPressed;
     public boolean downPressed;
     public boolean leftPressed;
     public boolean rightPressed;
     public boolean jumpingPressed = false;
+    public long jumpingTime = 200;
    
     @Override
     public void keyTyped(KeyEvent ke) {
@@ -28,7 +29,7 @@ public class KeyHandler implements KeyListener{
         
         int code = ke.getKeyCode();
         
-        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP ) {
+       if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP ) {
             upPressed = true; 
             
         }
@@ -45,10 +46,10 @@ public class KeyHandler implements KeyListener{
             rightPressed = true;
              
         }
-        if (code == KeyEvent.VK_SPACE) {
+        if (code == KeyEvent.VK_SPACE ) {
             jumpingPressed = true;
-            new Thread(new GamePanel()).start();
             
+                     
             
         }
     }
@@ -58,7 +59,7 @@ public class KeyHandler implements KeyListener{
         
         int code = ke.getKeyCode();
         
-        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+       if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = false; 
             
         }
@@ -75,11 +76,15 @@ public class KeyHandler implements KeyListener{
             rightPressed = false;
             
         }
+        if (code == KeyEvent.VK_SPACE) {
+            jumpingPressed = false;
+          
+             
+        }
       
     }
-   
      
+}
     
     
-    }
 

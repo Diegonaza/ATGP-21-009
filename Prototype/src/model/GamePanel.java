@@ -18,16 +18,16 @@ import tiles.TileManager;
  * @author valter
  */
 public class GamePanel extends JPanel implements Runnable{
-    //Screen Settings
+   //Screen Settings
     final int orinalTileSize = 16; // 16x16 tile, basic pixel-art size.
     final int scale = 3; // The scale for pixel art will redeem it to 48 pixels.
     public int tileSize = orinalTileSize * scale; // Final tile size
-    public final int  maxScreenCol = 20;
-    public final int  maxScreenRow = 15;
+   // public final int  maxScreenCol = 20;delet
+    //public final int  maxScreenRow = 15;
     //  4/3 - proportion from width and height.
     
-    public final int  screenWidth = tileSize * maxScreenCol;
-    public final int  screenHigth = tileSize * maxScreenRow;
+   // public final int  screenWidth = tileSize * maxScreenCol;delet
+   // public final int  screenHigth = tileSize * maxScreenRow;
     //960 x 720 resolution
     
     
@@ -35,21 +35,29 @@ public class GamePanel extends JPanel implements Runnable{
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyHandler);
+    public Player player = new Player(this, keyHandler);
     
     //FPS
     int FPS = 60;
     //Setting Frames per second at 60
+    
+    //World Settings
+    public final int maxWorldCol = 40;
+    public final int maxWorldRow = 15;
+    public final int worldWidth = tileSize * maxWorldCol; 
+    public final int  worldHight = tileSize * maxWorldRow; 
+    
+    public CollisionDetection colDet =  new CollisionDetection(this);;
     
     public GamePanel(){
     this.setFocusable(true);
     this.setDoubleBuffered(true); 
     //Eases on rendenzing processing
     
-    this.setPreferredSize(new Dimension(screenWidth,screenHigth)); // set dimentions for the screen
+    this.setPreferredSize(new Dimension(worldHight,worldHight)); // set dimentions for the screen
     this.addKeyListener(keyHandler); // Adds the keyboard movement controllet
     
-    
+    colDet =  new CollisionDetection(this);
     }
     
     public void startChronos(){

@@ -17,14 +17,14 @@ import model.GamePanel;
  */
 public class TileManager {
     
-    GamePanel gamePanel;
-    Tiles[] tile;
-    int tileOreder[][];
+    GamePanel gp;
+    public Tiles[] tile;
+    public int tileOreder[][];
 
     public TileManager(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+        this.gp = gamePanel;
         tile = new Tiles[12];
-        tileOreder = new int[gamePanel.maxScreenCol][gamePanel.maxScreenRow];
+        tileOreder = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
          getTileImage();
          loadMap(); 
        
@@ -39,20 +39,20 @@ public class TileManager {
            
                 int col = 0;
                 int row = 0;
-                while (col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow) {                    
+                while (col < gp.maxWorldCol && row < gp.maxWorldRow) {                    
                     
                     
                     
                     String line = bufferedReader.readLine();
                     
-                    while (col < gamePanel.maxScreenCol) {
+                    while (col < gp.maxWorldCol) {
                         
                         String numbers[] = line.split(" ");
                         int num = Integer.parseInt(numbers[col]);
                         tileOreder[col][row] = num;
                         col++;
                     }
-                    if (col == gamePanel.maxScreenCol) {
+                    if (col == gp.maxWorldCol) {
                         col = 0;
                         row++;
                         
@@ -91,30 +91,47 @@ public class TileManager {
             tile[8].image =  new ImageIcon("src/tilesSprite/path3.png");
             tile[9] = new Tiles();
             tile[9].image =  new ImageIcon("src/tilesSprite/glass_door_right_base.png");
-             tile[10] = new Tiles();
+            tile[10] = new Tiles();
             tile[10].image =  new ImageIcon("src/tilesSprite/glass_door_right_top.png");
             tile[11] = new Tiles();
-            tile[11].image =  new ImageIcon("src/tilesSprite/hidrante.png");
+            tile[11].image =  new ImageIcon("src/tilesSprite/wall.png");
+            tile[11].colision = true;
     }
     public void drawTiles(Graphics2D graphics2D){
         
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
+        int worldCol = 0;
+        int WorldRow = 0;
         
-        while (col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow)   {            
+       // int x = 0;deleted
+        //int y = 0;
+        
+        while (worldCol < gp.maxWorldCol && WorldRow < gp.maxWorldRow)   {            
             
-            int tileNumner = tileOreder[col][row];
-          
-             graphics2D.drawImage(tile[tileNumner].image.getImage(),x,y,gamePanel.tileSize,gamePanel.tileSize,null);
-             col++;
-              x += gamePanel.tileSize;
-             if (col == gamePanel.maxScreenCol) {
-                  col = 0;
-                 x = 0;
-                 row++;
-                 y+= gamePanel.tileSize;
+            int tileNumner = tileOreder[worldCol][WorldRow];
+            
+            int worldX = worldCol * gp.tileSize;
+            int worldY = WorldRow * gp.tileSize;
+            
+            int screenX = worldX - gp.player.WorldX +  gp.player.screenX;
+            int ScreenY = worldY - gp.player.WorldY +  gp.player.screenY;
+            
+            if ( worldX + gp.tileSize >  gp.player.WorldX -  gp.player.screenX &&
+                 worldX - gp.tileSize <  gp.player.WorldX +  gp.player.screenX &&
+                 worldY + gp.tileSize >  gp.player.WorldY -  gp.player.screenY &&
+                 worldY - gp.tileSize < gp.player.WorldY +  gp.player.screenY) {
+                
+                    graphics2D.drawImage(tile[tileNumner].image.getImage(),screenX,ScreenY,gp.tileSize,gp.tileSize,null);
+           
+            }
+             graphics2D.drawImage(tile[tileNumner].image.getImage(),screenX,ScreenY,gp.tileSize,gp.tileSize,null);
+             worldCol++;
+             
+             // x += gp.tileSize;deleted
+             if (worldCol == gp.maxWorldCol) {
+                  worldCol = 0;
+                // x = 0;deleted
+                 WorldRow++;
+                // y+= gp.tileSize;deleted
             
                 }
     
