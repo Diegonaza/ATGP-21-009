@@ -10,9 +10,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import model.GamePanel;
 import model.KeyHandler;
 
@@ -25,8 +22,7 @@ public class Player extends Character{
     //instanciates Game Panel Class
     KeyHandler keyHandler;
     private Image image;
-    public int screenX;
-    public int screenY;
+    
     //chaged
     public Player(GamePanel gp, KeyHandler keyHundle){
     super(gp);   //chaged
@@ -48,7 +44,8 @@ public class Player extends Character{
     
     public void getPlayerImg() {
        
-         idle1 = setup("/playerSprite/berg_down_1.png");
+        
+        idle1 = setup("/playerSprite/berg_down_1.png");
         idle2 = setup("/playerSprite/berg_down_2.png");
         left1 = setup("/playerSprite/berg_left_1.png");
         left2 = setup("/playerSprite/berg_left_2.png");
@@ -58,7 +55,9 @@ public class Player extends Character{
         attack_left = setup("/playerSprite/attack_left.png");
         
         //Set image path to an image variable.
-        }
+    }
+    
+    
     
     public void setDefaultvalues(){
     //player first position 

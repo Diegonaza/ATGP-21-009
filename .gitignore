@@ -12,3 +12,6 @@ Saved
 *.suo
 *.xcodeproj
 *.xcworkspace
+/Prototype_tester/nbproject/private/
+/Prototype_tester/build/
+/Prototype_tester/dist/

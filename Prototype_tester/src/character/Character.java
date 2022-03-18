@@ -22,14 +22,15 @@ public class Character {
   public double counter = 4;//jump
   
   public int WorldX ,WorldY;
+  public int screenX, screenY;
   
-  public BufferedImage idle1, idle2, left1, left2, right1, right2, attack_right, attack_left; //
+  public BufferedImage idle1, idle2, left1, left2, right1, right2, attack_right, attack_left; // all characters movement types.
   
   public String direction;
   public int spriteCounter;
   public int spriteNumber = 1;
   
-  public Rectangle solidArea;
+  public Rectangle solidArea = new Rectangle(0,0,48,48);
   public boolean isColisionOn = false;
   
   public GamePanel gp;
@@ -38,9 +39,8 @@ public class Character {
       this.gp = gp;
   
   
-  
   }
-     public BufferedImage setup(String imagePath){
+  public BufferedImage setup(String imagePath){
         
         
         BufferedImage image = null;
@@ -55,5 +55,4 @@ public class Character {
         
         return image;
     }
-  
 }
