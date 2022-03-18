@@ -12,6 +12,12 @@ import model.GamePanel;
 public class Citizen extends Character{
     public int infection = 0;
     
+    public Citizen(GamePanel gp){
+        
+        super(gp);
+        getCitizenImg();
+    }
+    
     public void getCitizenImg() {
        
           //Infection table:
