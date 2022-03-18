@@ -46,6 +46,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxWorldRow = 15;
     public final int worldWidth = tileSize * maxWorldCol; 
     public final int  worldHight = tileSize * maxWorldRow; 
+    public final int screenHight = tileSize * 15;
+    public final int screenWidth = tileSize * 20;
     
     public CollisionDetection colDet =  new CollisionDetection(this);;
     
@@ -54,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
     this.setDoubleBuffered(true); 
     //Eases on rendenzing processing
     
-    this.setPreferredSize(new Dimension(worldHight,worldHight)); // set dimentions for the screen
+    this.setPreferredSize(new Dimension(screenWidth,screenHight)); // set dimentions for the screen
     this.addKeyListener(keyHandler); // Adds the keyboard movement controllet
     
     colDet =  new CollisionDetection(this);

@@ -34,31 +34,31 @@ public class CollisionDetection {
          switch(character.direction){
              
              case "up": characterTopRow = (characterWorldTopY - character.speed)/gp.tileSize;
-             TileNum1 = gp.tileManager.tileOreder[characterLeftCol][characterTopRow];
-             TileNum2 = gp.tileManager.tileOreder[characterRigthCol][characterTopRow];
+             TileNum1 = gp.tileManager.tileOrderer[characterLeftCol][characterTopRow];
+             TileNum2 = gp.tileManager.tileOrderer[characterRigthCol][characterTopRow];
                  if (gp.tileManager.tile[TileNum1].colision == true || gp.tileManager.tile[TileNum2].colision == true) {
                     character.isColisionOn = true;
                      
                  }
              break;
               case "down":characterBottonRow = (characterWorldBottonY + character.speed)/gp.tileSize;
-             TileNum1 = gp.tileManager.tileOreder[characterLeftCol][characterBottonRow];
-             TileNum2 = gp.tileManager.tileOreder[characterRigthCol][characterBottonRow];
+             TileNum1 = gp.tileManager.tileOrderer[characterLeftCol][characterBottonRow];
+             TileNum2 = gp.tileManager.tileOrderer[characterRigthCol][characterBottonRow];
                  if (gp.tileManager.tile[TileNum1].colision == true || gp.tileManager.tile[TileNum2].colision == true) {
                     character.isColisionOn = true;
                      
                  }
              break;
               case "left": characterLeftCol= (characterWorldLeftX - character.speed)/gp.tileSize;
-             TileNum1 = gp.tileManager.tileOreder[characterLeftCol][characterTopRow];
-             TileNum2 = gp.tileManager.tileOreder[characterLeftCol][characterBottonRow];
+             TileNum1 = gp.tileManager.tileOrderer[characterLeftCol][characterTopRow];
+             TileNum2 = gp.tileManager.tileOrderer[characterLeftCol][characterBottonRow];
                  if (gp.tileManager.tile[TileNum1].colision == true || gp.tileManager.tile[TileNum2].colision == true) {
                     character.isColisionOn = true;
                  }
              break;
               case "right": characterRigthCol= (characterWorldRigthX + character.speed)/gp.tileSize;
-             TileNum1 = gp.tileManager.tileOreder[characterRigthCol][characterTopRow];
-             TileNum2 = gp.tileManager.tileOreder[characterRigthCol][characterBottonRow];
+             TileNum1 = gp.tileManager.tileOrderer[characterRigthCol][characterTopRow];
+             TileNum2 = gp.tileManager.tileOrderer[characterRigthCol][characterBottonRow];
                  if (gp.tileManager.tile[TileNum1].colision == true || gp.tileManager.tile[TileNum2].colision == true) {
                     character.isColisionOn = true;
                  }

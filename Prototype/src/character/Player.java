@@ -33,7 +33,7 @@ public class Player extends Character{
     this.keyHandler = keyHundle;
     
     //Screen Setting
-    screenX = 98;
+    screenX = 300;
     screenY = 430;
     
     //collision
@@ -69,7 +69,7 @@ public class Player extends Character{
  
     
     //character moving position
-    WorldX = gp.tileSize * 3;
+    WorldX = gp.tileSize * 7;
     WorldY = gp.tileSize * 9;
     
     //position to be fixed in the future for the player sprite

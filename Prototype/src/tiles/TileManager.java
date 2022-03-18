@@ -19,12 +19,12 @@ public class TileManager {
     
     GamePanel gp;
     public Tiles[] tile;
-    public int tileOreder[][];
+    public int tileOrderer[][];
 
     public TileManager(GamePanel gamePanel) {
         this.gp = gamePanel;
         tile = new Tiles[12];
-        tileOreder = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
+        tileOrderer = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
          getTileImage();
          loadMap(); 
        
@@ -49,7 +49,7 @@ public class TileManager {
                         
                         String numbers[] = line.split(" ");
                         int num = Integer.parseInt(numbers[col]);
-                        tileOreder[col][row] = num;
+                        tileOrderer[col][row] = num;
                         col++;
                     }
                     if (col == gp.maxWorldCol) {
@@ -107,7 +107,7 @@ public class TileManager {
         
         while (worldCol < gp.maxWorldCol && WorldRow < gp.maxWorldRow)   {            
             
-            int tileNumner = tileOreder[worldCol][WorldRow];
+            int tileNumner = tileOrderer[worldCol][WorldRow];
             
             int worldX = worldCol * gp.tileSize;
             int worldY = WorldRow * gp.tileSize;
