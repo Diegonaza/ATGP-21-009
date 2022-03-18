@@ -96,6 +96,7 @@ public class TileManager {
             tile[11] = new Tiles();
             tile[11].image =  new ImageIcon("src/tilesSprite/wall.png");
             tile[11].colision = true;
+            
     }
     public void drawTiles(Graphics2D graphics2D){
         

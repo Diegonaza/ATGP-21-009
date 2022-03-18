@@ -44,7 +44,7 @@ public class KeyHandler implements KeyListener{
             rightPressed = true;
              
         }
-        if (code == KeyEvent.VK_W ) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP ) {
             jumpingPressed = true;  }
         
         if (code == KeyEvent.VK_SPACE ) {
@@ -67,7 +67,7 @@ public class KeyHandler implements KeyListener{
             rightPressed = false;
             
         }
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP ) {
             jumpingPressed = false;}
         
         if (code == KeyEvent.VK_SPACE ) {
