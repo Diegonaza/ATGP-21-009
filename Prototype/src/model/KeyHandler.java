@@ -18,6 +18,7 @@ public class KeyHandler implements KeyListener{
     public boolean leftPressed;
     public boolean rightPressed;
     public boolean jumpingPressed = false;
+    public boolean attackPressed = false;
     public long jumpingTime = 200;
    
     @Override
@@ -29,10 +30,7 @@ public class KeyHandler implements KeyListener{
         
         int code = ke.getKeyCode();
         
-       if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP ) {
-            upPressed = true; 
-            
-        }
+       
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             downPressed = true;
             
@@ -46,12 +44,11 @@ public class KeyHandler implements KeyListener{
             rightPressed = true;
              
         }
+        if (code == KeyEvent.VK_W ) {
+            jumpingPressed = true;  }
+        
         if (code == KeyEvent.VK_SPACE ) {
-            jumpingPressed = true;
-            
-                     
-            
-        }
+            attackPressed = true;  }
     }
 
     @Override
@@ -59,14 +56,8 @@ public class KeyHandler implements KeyListener{
         
         int code = ke.getKeyCode();
         
-       if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            upPressed = false; 
-            
-        }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            downPressed = false;
-            
-            
+        downPressed = false;            
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
             leftPressed = false;
@@ -76,11 +67,11 @@ public class KeyHandler implements KeyListener{
             rightPressed = false;
             
         }
-        if (code == KeyEvent.VK_SPACE) {
-            jumpingPressed = false;
-          
-             
-        }
+        if (code == KeyEvent.VK_W) {
+            jumpingPressed = false;}
+        
+        if (code == KeyEvent.VK_SPACE ) {
+            attackPressed = false;  }
       
     }
      

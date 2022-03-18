@@ -55,6 +55,9 @@ public class Player extends Character{
         left2 = ImageIO.read(getClass().getResourceAsStream("/playerSprite/berg_left_2.png"));
         right1 = ImageIO.read(getClass().getResourceAsStream("/playerSprite/berg_right_1.png"));
         right2 = ImageIO.read(getClass().getResourceAsStream("/playerSprite/berg_right_2.png"));
+        attack_right = ImageIO.read(getClass().getResourceAsStream("/playerSprite/attack_right.png"));
+        attack_left = ImageIO.read(getClass().getResourceAsStream("/playerSprite/attack_left.png"));
+        
         //Set image path to an image variable.
         }catch(IOException e){
             e.printStackTrace();
@@ -88,36 +91,41 @@ public class Player extends Character{
             direction = "down";
            
             
-        }else*/ if (keyHandler.leftPressed == true) {
+        }else*/ 
+            if (keyHandler.leftPressed == true) {
             direction = "left";
-         
-             counter += 0.05;
-            if (keyHandler.jumpingPressed == true){
-               
-            WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
-            if (counter >= 7){
-                counter  = 4;
-                 
-            }if (WorldY <= 430 && keyHandler.jumpingPressed == false){//define top
-           WorldY +=10;
-        
-              }
-            }
-        }else if (keyHandler.rightPressed == true) {
-            direction = "right";         
-          
-            if (keyHandler.jumpingPressed == true){
-            
             counter += 0.05;
-            WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
             
-            if (counter >= 7){
+                if (keyHandler.jumpingPressed == true){
+                WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
+                if (counter >= 7){
+                counter  = 4;    }
+                if (WorldY <= 430 && keyHandler.jumpingPressed == false){//define top
+                WorldY +=10;                                            }
+                                                      }
                 
-                counter  = 4;
-               }
-            }
+            if (keyHandler.attackPressed == true){
+                    direction = "attack_left";   }    
+                                                }
             
-        }else if (keyHandler.jumpingPressed == true) {
+            
+            else if (keyHandler.rightPressed == true) {
+            direction = "right";         
+                 if (keyHandler.jumpingPressed == true){
+                counter += 0.05;
+                WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
+                 if (counter >= 7){
+                counter  = 4;    }                    }
+                 
+                 
+                 if(keyHandler.attackPressed == true){
+                        direction = "attack_right";
+                    }
+                                                      }
+            
+            
+            
+            else if (keyHandler.jumpingPressed == true) {
            
             //makes the player jump
             counter += 0.05;
@@ -200,7 +208,22 @@ public class Player extends Character{
                      image = right1;}
                  if(spriteNumber == 2){
                      image = right2;}
-                 break;}
+                 break;
+             case "attack_left":
+                 if(spriteNumber == 1){
+                     image = attack_left;}
+                 if(spriteNumber == 2){
+                     image = left1;}
+                 
+                 break;
+             case "attack_right":
+                 if(spriteNumber == 1){
+                     image = attack_right;}
+                 if(spriteNumber == 2){
+                     image = right1;}
+                 break;    
+       
+       }
                    
          g2d.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);//changed
 
