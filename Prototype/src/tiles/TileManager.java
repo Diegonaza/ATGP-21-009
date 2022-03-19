@@ -23,7 +23,7 @@ public class TileManager {
 
     public TileManager(GamePanel gamePanel) {
         this.gp = gamePanel;
-        tile = new Tiles[12];
+        tile = new Tiles[30];
         tileOrderer = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
          getTileImage();
          loadMap(); 
@@ -96,7 +96,40 @@ public class TileManager {
             tile[11] = new Tiles();
             tile[11].image =  new ImageIcon("src/tilesSprite/wall.png");
             tile[11].colision = true;
-            
+            tile[12] = new Tiles();
+            tile[12].image =  new ImageIcon("src/tilesSprite/caffe.png");
+            tile[13] = new Tiles();
+            tile[13].image =  new ImageIcon("src/tilesSprite/caffe2.png");
+            tile[14] = new Tiles();
+            tile[14].image =  new ImageIcon("src/tilesSprite/caffe3.png");
+            tile[15] = new Tiles();
+            tile[15].image =  new ImageIcon("src/tilesSprite/caffe4.png");
+            tile[16] = new Tiles();
+            tile[16].image =  new ImageIcon("src/tilesSprite/caffe5.png");
+            tile[17] = new Tiles();
+            tile[17].image =  new ImageIcon("src/tilesSprite/caffe6.png");
+            tile[18] = new Tiles();
+            tile[18].image =  new ImageIcon("src/tilesSprite/caffe7.png");
+            tile[19] = new Tiles();
+            tile[19].image =  new ImageIcon("src/tilesSprite/caffe8.png");
+            tile[20] = new Tiles();
+            tile[20].image =  new ImageIcon("src/tilesSprite/caffe9.png");
+            tile[21] = new Tiles();
+            tile[21].image =  new ImageIcon("src/tilesSprite/caffe10.png");
+            tile[22] = new Tiles();
+            tile[22].image =  new ImageIcon("src/tilesSprite/caffe11.png");
+            tile[23] = new Tiles();
+            tile[23].image =  new ImageIcon("src/tilesSprite/caffe12.png");
+            tile[24] = new Tiles();
+            tile[24].image =  new ImageIcon("src/tilesSprite/caffe13.png");
+            tile[25] = new Tiles();
+            tile[25].image =  new ImageIcon("src/tilesSprite/caffe14.png");
+            tile[26] = new Tiles();
+            tile[26].image =  new ImageIcon("src/tilesSprite/caffe15.png");
+            tile[27] = new Tiles();
+            tile[27].image =  new ImageIcon("src/tilesSprite/caffe16.png");
+          
+          
     }
     public void drawTiles(Graphics2D graphics2D){
         
