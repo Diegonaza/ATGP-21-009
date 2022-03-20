@@ -35,9 +35,11 @@ public class GamePanel extends JPanel implements Runnable{
     //public final long jumpingTime = 200;  - To be implemented in the future
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
-    Thread gameThread;
-    public Player player = new Player(this, keyHandler);
+    Sound sound = new Sound();
     
+    
+    public Player player = new Player(this, keyHandler);
+    Thread gameThread;
     //FPS
     int FPS = 60;
     //Setting Frames per second at 60
@@ -72,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void GameSetUp(){
        setA.setObjects();
+       playSound(0);//play sound
         
     }
     
@@ -184,6 +187,29 @@ public class GamePanel extends JPanel implements Runnable{
         g2d.dispose();
     
     }
+    
+    //sound player
+    public void playSound(int i){
+    
+    sound.setSound(i);
+    sound.play();
+    sound.loop();
+    }
+    
+      public void stopSound(int i){
+    
+   
+    sound.stop();
+  
+    }
+    
+    public void playSE(int i){
+    
+    sound.setSound(i);
+    sound.play();
+   
+    }
+
 
 
 }
