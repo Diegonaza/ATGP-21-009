@@ -49,6 +49,7 @@ public class View {
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
         window.pack();
+        gamePanel.GameSetUp();
         //create, and add the Game Panel to the window, and display it.
         gamePanel.startChronos();
         //

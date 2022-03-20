@@ -95,7 +95,6 @@ public class TileManager {
             tile[10].image =  new ImageIcon("src/tilesSprite/glass_door_right_top.png");
             tile[11] = new Tiles();
             tile[11].image =  new ImageIcon("src/tilesSprite/wall.png");
-            tile[11].colision = true;
             tile[12] = new Tiles();
             tile[12].image =  new ImageIcon("src/tilesSprite/caffe.png");
             tile[13] = new Tiles();

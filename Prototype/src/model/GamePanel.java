@@ -5,6 +5,7 @@
  */
 package model;
 
+import Objects.SuperObject;
 import character.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,6 +51,13 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = tileSize * 20;
     
     public CollisionDetection colDet =  new CollisionDetection(this);;
+    public SetAssets setA = new SetAssets(this);
+    public SuperObject obj[] = new SuperObject[10]; 
+    
+    
+    
+    
+    
     
     public GamePanel(){
     this.setFocusable(true);
@@ -60,6 +68,11 @@ public class GamePanel extends JPanel implements Runnable{
     this.addKeyListener(keyHandler); // Adds the keyboard movement controllet
     
     colDet =  new CollisionDetection(this);
+    }
+    
+    public void GameSetUp(){
+       setA.setObjects();
+        
     }
     
     public void startChronos(){
@@ -154,7 +167,19 @@ public class GamePanel extends JPanel implements Runnable{
         
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;  
+        //tiles
         tileManager.drawTiles(g2d);
+        
+        //objects
+        for(int i = 0; i < obj.length; i++){
+           if(obj[i] != null){ //check if the slot is empty (avoid nullpointer)
+               obj[i].drawObjects(g2d, this);
+           } 
+            
+            
+        }
+        
+        //player
         player.paintComponent( g2d);//calls method player.paintComponent
         g2d.dispose();
     
