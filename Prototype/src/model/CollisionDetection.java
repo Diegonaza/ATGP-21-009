@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package model;
-import character.Character;
+import character.Characters;
 /**
  *
  * @author valter
@@ -16,12 +16,12 @@ public class CollisionDetection {
         this.gp = gp;
     }
     
-    public void checkColision(Character character){
+    public void checkColision(Characters character){
         //World colision Detection
-        int characterWorldLeftX = character.WorldX + character.solidArea.x;
-        int characterWorldRigthX = character.WorldX + character.solidArea.x + character.solidArea.width;
-        int characterWorldTopY = character.WorldY + character.solidArea.y;
-        int characterWorldBottonY = character.WorldY + character.solidArea.y + character.solidArea.height;
+        int characterWorldLeftX = character.worldX + character.solidArea.x;
+        int characterWorldRigthX = character.worldX + character.solidArea.x + character.solidArea.width;
+        int characterWorldTopY = character.worldY + character.solidArea.y;
+        int characterWorldBottonY = character.worldY + character.solidArea.y + character.solidArea.height;
       
          //World colision Detection Player 
          int characterLeftCol = characterWorldLeftX/gp.tileSize;

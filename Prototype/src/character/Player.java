@@ -15,12 +15,14 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import model.GamePanel;
 import model.KeyHandler;
+import model.UtilityTool;
+import tiles.Tiles;
 
 /**
  *
  * @author valter
  */
-public class Player extends Character{
+public class Player extends Characters{
     
     //instanciates Game Panel Class
     KeyHandler keyHandler;
@@ -60,13 +62,13 @@ public class Player extends Character{
         //Set image path to an image variable.
         }
     
-    public void setDefaultvalues(){
+     public void setDefaultvalues(){
     //player first position 
  
     
     //character moving position
-    WorldX = gp.tileSize * 7;
-    WorldY = gp.tileSize * 9;
+    worldX = gp.tileSize * 7;
+    worldY = gp.tileSize * 9;
     
     //position to be fixed in the future for the player sprite
     speed = 4;
@@ -94,11 +96,11 @@ public class Player extends Character{
             
                 if (keyHandler.jumpingPressed == true){
                     gp.playSE(1);//sound player jumping
-                WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
+                worldY = worldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
                 if (counter >= 7){
                 counter  = 4;    }
-                if (WorldY <= 430 && keyHandler.jumpingPressed == false){//define top
-                WorldY +=10;                                            }
+                if (worldY <= 430 && keyHandler.jumpingPressed == false){//define top
+                worldY +=10;                                            }
                                                       }
                 
             if (keyHandler.attackPressed == true){
@@ -111,7 +113,7 @@ public class Player extends Character{
                  if (keyHandler.jumpingPressed == true){
                  gp.playSE(1);//sound player jumping
                 counter += 0.05;
-                WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
+                worldY = worldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
                  if (counter >= 7){
                 counter  = 4;    }                    }
                  
@@ -127,7 +129,7 @@ public class Player extends Character{
            
             //makes the player jump
             counter += 0.05;
-            WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5);
+            worldY = worldY +(int)((Math.sin(counter)+ Math.cos(counter))*5);
              gp.playSE(1);//sound player jumping
             if (counter >= 7){
                 counter  = 4;
@@ -143,12 +145,12 @@ public class Player extends Character{
         }
          
        
-        if (WorldY <= 430 && keyHandler.jumpingPressed == false){//define top
-            WorldY +=10;
+        if (worldY <= 430 && keyHandler.jumpingPressed == false){//define top
+            worldY +=10;
         
         } 
-        if (WorldY >= 430){//define ground
-            WorldY = 430;
+        if (worldY >= 430){//define ground
+            worldY = 430;
         }
         
         //colision checker
@@ -163,9 +165,9 @@ public class Player extends Character{
              break;
              case "down": WorldY += speed;
              break;*/
-             case "left": WorldX -= speed;
+             case "left": worldX -= speed;
              break;
-             case "right": WorldX += speed;
+             case "right": worldX += speed;
              break;
                      
          }

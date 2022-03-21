@@ -6,6 +6,7 @@
 package model;
 
 import Objects.SuperObject;
+
 import character.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import tiles.TileManager;
+import character.Characters;
 
 /**
  *
@@ -55,6 +57,9 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionDetection colDet =  new CollisionDetection(this);;
     public SetAssets setA = new SetAssets(this);
     public SuperObject obj[] = new SuperObject[10]; 
+    public Characters npc[] = new Characters[10]; 
+    
+   
     
     
     
@@ -74,6 +79,8 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void GameSetUp(){
        setA.setObjects();
+       setA.setNPC();
+       
        playSound(0);//play sound
         
     }
@@ -160,9 +167,17 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        
+        //update player
         player.update();//calls method 
-              
+        
+        //update citizen
+        for (int i = 0; i < npc.length; i++) {
+            if (npc[i] != null) {
+                npc[i].update();
+                
+            }
+            
+        }
     }
     
     @Override
@@ -170,8 +185,20 @@ public class GamePanel extends JPanel implements Runnable{
         
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;  
+        
+        //Debug
+        long drawStart = 0;
+        drawStart = System.nanoTime();
+        
+        
+        
         //tiles
         tileManager.drawTiles(g2d);
+        
+        //debuging
+        long drawEnd = System.nanoTime();
+        long passed = drawEnd - drawStart;
+        System.out.println(passed);
         
         //objects
         for(int i = 0; i < obj.length; i++){
@@ -181,6 +208,16 @@ public class GamePanel extends JPanel implements Runnable{
             
             
         }
+        
+          //Draw NPC
+        for(int i = 0; i < npc.length; i++){
+           if(npc[i] != null){ //check if the slot is empty (avoid nullpointer)
+               npc[i].draw(g2d);
+           } 
+            
+            
+        }
+      
         
         //player
         player.paintComponent( g2d);//calls method player.paintComponent

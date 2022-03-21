@@ -13,8 +13,8 @@ import javax.swing.ImageIcon;
  * @author valter
  */
 public class Tiles {
-    public ImageIcon image;
-   // public BufferedImage image;
+  
+    public BufferedImage image;
     public boolean colision;
     
     

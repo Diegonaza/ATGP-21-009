@@ -3,27 +3,32 @@ package character;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import model.GamePanel;
 
 /**
  *
  * @author aliss
  */
-public class Citizen extends Character{
-    public int infection = 0;
+public class Citizen extends Characters{
+    public int infection = 1;
+    
     
     public Citizen(GamePanel gp){
         
         super(gp);
+        direction = "right";
+        speed = 1;
         getCitizenImg();
     }
-    
+
+  
     public void getCitizenImg() {
        
           //Infection table:
           //  0: Blank; 1:Blue  2:Red  3:Yellow;  4:Pink;  5:Black
           
-          
+         
         switch(infection){
             case 0:
                 right1 = setup("/citizenSprites/Blank/blank_right_1.png");
@@ -92,7 +97,7 @@ public class Citizen extends Character{
     
     
      public void draw(Graphics2D g2, GamePanel gp){
-    BufferedImage image = null;
+     BufferedImage image = null;
        switch(direction){
                        
              case "left":
@@ -124,8 +129,28 @@ public class Citizen extends Character{
        
        }
                    
-         g2.drawImage(image,0,434,gp.tileSize,gp.tileSize,null);
+         g2.drawImage(image,0,400,gp.tileSize,gp.tileSize,null);
         
     }
+     
+     
+    @Override
+    public void setAction(){
+        
+        actionLockCounter ++;
+        if(actionLockCounter == 120){
+        
+        Random random = new Random(); 
+        int i = random.nextInt(100)+1;//pick up a ramdom  number from 1 to 100
+        
+        if (i <= 50 ) {
+            direction  = "right";
+            
+        }else if (i >= 50) {
+            direction  = "left";
+        }
+        actionLockCounter = 0;
     
+    }
+    }
 }

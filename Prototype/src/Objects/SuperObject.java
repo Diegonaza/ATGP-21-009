@@ -22,13 +22,13 @@ public class SuperObject {
     
     
     public void drawObjects(Graphics2D graphics2D, GamePanel gp){
-            int screenX = worldX - gp.player.WorldX +  gp.player.screenX;
-            int ScreenY = worldY - gp.player.WorldY +  gp.player.screenY;
+            int screenX = worldX - gp.player.worldX +  gp.player.screenX;
+            int ScreenY = worldY - gp.player.worldY +  gp.player.screenY;
             
-            if ( worldX + gp.tileSize >  gp.player.WorldX -  gp.player.screenX &&
-                 worldX - gp.tileSize <  gp.player.WorldX +  gp.player.screenX &&
-                 worldY + gp.tileSize >  gp.player.WorldY -  gp.player.screenY &&
-                 worldY - gp.tileSize < gp.player.WorldY +  gp.player.screenY) {
+            if ( worldX + gp.tileSize >  gp.player.worldX -  gp.player.screenX &&
+                 worldX - gp.tileSize <  gp.player.worldX +  gp.player.screenX &&
+                 worldY + gp.tileSize >  gp.player.worldY -  gp.player.screenY &&
+                 worldY - gp.tileSize < gp.player.worldY +  gp.player.screenY) {
                 
                     graphics2D.drawImage(image,screenX,ScreenY,gp.tileSize,gp.tileSize,null);
            

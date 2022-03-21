@@ -6,6 +6,8 @@
 package model;
 
 import Objects.objKey;
+import character.Citizen;
+
 
 /**
  *
@@ -17,6 +19,7 @@ public class SetAssets {
     
     public SetAssets(GamePanel gp){
         this.gp = gp;
+        
      
     }
   
@@ -32,5 +35,13 @@ public class SetAssets {
       
       
         
+    }
+    
+    public void setNPC(){
+    
+    gp.npc[0] = new Citizen(gp);
+    gp.npc[0] .worldX = gp.tileSize * 20;
+    gp.npc[0] .worldY = gp.tileSize * 9;
+    
     }
 }
