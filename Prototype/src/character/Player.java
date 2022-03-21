@@ -76,9 +76,9 @@ public class Player extends Character{
     
     public void update(){
         
-        if(keyHandler.downPressed == true || keyHandler.jumpingPressed == true || keyHandler.leftPressed == true ||           keyHandler.rightPressed == true || keyHandler.upPressed == true){
+        if(keyHandler.downPressed == true || keyHandler.jumpingPressed == true || keyHandler.leftPressed == true ||   keyHandler.rightPressed == true || keyHandler.upPressed == true){
         //Starting the loop for the sprites in case the keyboard key is pressed. 
-    
+         
              
         /* if (keyHandler.upPressed == true) {
             direction = "up";
@@ -93,6 +93,7 @@ public class Player extends Character{
             counter += 0.05;
             
                 if (keyHandler.jumpingPressed == true){
+                    gp.playSE(1);//sound player jumping
                 WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
                 if (counter >= 7){
                 counter  = 4;    }
@@ -108,6 +109,7 @@ public class Player extends Character{
             else if (keyHandler.rightPressed == true) {
             direction = "right";         
                  if (keyHandler.jumpingPressed == true){
+                 gp.playSE(1);//sound player jumping
                 counter += 0.05;
                 WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
                  if (counter >= 7){
@@ -125,13 +127,15 @@ public class Player extends Character{
            
             //makes the player jump
             counter += 0.05;
-            WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5); 
+            WorldY = WorldY +(int)((Math.sin(counter)+ Math.cos(counter))*5);
+             gp.playSE(1);//sound player jumping
             if (counter >= 7){
                 counter  = 4;
             }
          
            //makes the player go back to the initial position after reased button
         }else if(keyHandler.jumpingPressed == false){
+                gp.stopSound();
                 counter = 4;
         }
         }else{

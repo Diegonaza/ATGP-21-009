@@ -17,13 +17,13 @@ import javax.sound.sampled.Clip;
  */
 public class Sound {
     
-   
+    //array of sounds
     URL url[] = new URL[30];
     Clip clip;
     public Sound() {
         
        url[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
-      
+       url[1] = getClass().getResource("/sound/berg_jump.wav");
     }
     
     public void setSound(int i){
@@ -33,7 +33,7 @@ public class Sound {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url[i]);
             clip = AudioSystem.getClip(null);
             clip.open(audioIn);
-           
+            System.out.println(audioIn.getFormat());
         } catch (Exception e) {
             e.printStackTrace();
         }
