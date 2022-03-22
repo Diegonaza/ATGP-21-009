@@ -29,6 +29,8 @@ public class Player extends Characters{
     private Image image;
     public int screenX;
     public int screenY;
+    int hasItem = 0;
+    
     //chaged
     public Player(GamePanel gp, KeyHandler keyHundle){
     super(gp);   //chaged
@@ -42,6 +44,8 @@ public class Player extends Characters{
     solidArea = new Rectangle();
     solidArea.x = 8;
     solidArea.y = 16;
+    solidAreaDefaultX= solidArea.x;
+    solidAreaDefaultY= solidArea.y;
     solidArea.height = 32;
     solidArea.width = 32;
     this.setDefaultvalues();
@@ -62,18 +66,18 @@ public class Player extends Characters{
         //Set image path to an image variable.
         }
     
-     public void setDefaultvalues(){
-    //player first position 
- 
-    
-    //character moving position
-    worldX = gp.tileSize * 7;
-    worldY = gp.tileSize * 9;
-    
-    //position to be fixed in the future for the player sprite
-    speed = 4;
-    direction = "idle";
-    
+    public void setDefaultvalues(){
+        //player first position
+        
+        
+        //character moving position
+        worldX = gp.tileSize * 7;
+        worldY = gp.tileSize * 9;
+        
+        //position to be fixed in the future for the player sprite
+        speed = 4;
+        direction = "idle";
+        
     }
     
     public void update(){
@@ -157,6 +161,10 @@ public class Player extends Characters{
         isColisionOn = false;
         gp.colDet.checkColision(this);
         
+        //check object collision
+        int objectIndex = gp.colDet.objectChecker(this,true);
+        pickObject(objectIndex);
+        
         //if colision is false player can move
         if (isColisionOn == false) {
             
@@ -186,6 +194,29 @@ public class Player extends Characters{
     
     }
     
+    public void pickObject(int i){
+        if(i != 999){  //999 because it is a number that we don't use in the arrays
+         
+         
+         String objectName =   gp.obj[i].name;
+         
+         switch(objectName){
+             case "gun":
+                 hasItem++;
+                 gp.obj[i] = null;
+                 System.out.println("item"+hasItem);
+                 break;
+             case "mask":
+                 gp.obj[i] = null;
+                 hasItem++;        
+                 break;
+                 
+             
+             
+         }
+        }
+        
+    }
      public void paintComponent(Graphics2D g2d){
            
         

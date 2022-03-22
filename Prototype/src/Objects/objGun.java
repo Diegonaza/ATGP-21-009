@@ -12,18 +12,18 @@ import javax.imageio.ImageIO;
  *
  * @author mvini
  */
-public class objKey extends SuperObject {
+public class objGun extends SuperObject {
     
-    public objKey(){
+    public objGun(){
         
-        name = "Key";
+        name = "gun";
         try{
             image = ImageIO.read(getClass().getResourceAsStream("arma1.png"));
             
         }catch(IOException e){
             e.printStackTrace();
         }
-        
+        collision = true;
         
         
         

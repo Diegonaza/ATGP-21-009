@@ -32,6 +32,7 @@ public class Characters {
   public int spriteNumber = 1;
   
   public Rectangle solidArea;
+  public int solidAreaDefaultX, solidAreaDefaultY;
   public boolean isColisionOn = false;
   public int actionLockCounter = 0;
   

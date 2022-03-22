@@ -5,7 +5,8 @@
  */
 package model;
 
-import Objects.objKey;
+import Objects.objGun;
+import Objects.objMask;
 import character.Citizen;
 
 
@@ -25,14 +26,17 @@ public class SetAssets {
   
     //instanciate the object keys and set them in the specific place of the map
     public void setObjects(){
-      gp.obj[0] = new objKey();  
+      gp.obj[0] = new objGun();  
       gp.obj[0].worldX = 20 * gp.tileSize;
       gp.obj[0].worldY = 9 * gp.tileSize;  
       
-      gp.obj[1] = new objKey();
-      gp.obj[1].worldX = 13 * gp.tileSize;
+      gp.obj[1] = new objGun();
+      gp.obj[1].worldX = 17 * gp.tileSize;
       gp.obj[1].worldY = 9 * gp.tileSize;  
       
+         gp.obj[2] = new objMask();
+      gp.obj[2].worldX = 13 * gp.tileSize;
+      gp.obj[2].worldY = 9 * gp.tileSize;     
       
         
     }
