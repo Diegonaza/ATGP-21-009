@@ -4,7 +4,13 @@
  */
 package character;
 
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 import model.GamePanel;
+import java.util.*;
 
 /**
  *
@@ -15,12 +21,19 @@ public class Zenith extends Super_Projectile {
     
     
     
-   public Zenith(GamePanel gp, int infection){
+   public Zenith(GamePanel gp){
        super(gp);
-             
        
-       
+        
+        infection = 2;
+        direction = "left";
+        speed = 7;
+        
+        getZenithImage();
+                    
    }
+   
+   
    
    public void getZenithImage(){
        
@@ -88,4 +101,114 @@ public class Zenith extends Super_Projectile {
    }
     
 }
+   
+   
+   public void setInfection(String infectionType){
+    
+       int i;
+       switch(infectionType){
+           case "Blue":
+               this.infection = 1;
+               break;
+           case "Red":
+               this.infection = 2;
+               break;              
+           case "Yellow":
+               this.infection = 3;
+               break;
+           case "Pink":
+               this.infection = 4;
+               break;
+           case "Black":
+               this.infection = 5;
+               break;
+                  }
+             
+   }// Defines the infection type.
+
+
+    @Override
+    public void draw(Graphics2D g2) {
+	
+        int screenX = worldX - gp.player.worldX + gp.player.screenX + 200;
+            int screenY = worldY - gp.player.worldY +  gp.player.screenY + 280;
+            
+            if ( worldX + gp.tileSize >  gp.player.worldX -  gp.player.screenX &&
+                 worldX - gp.tileSize <  gp.player.worldX +  gp.player.screenX &&
+                 worldY + gp.tileSize >  gp.player.worldY -  gp.player.screenY &&
+                 worldY - gp.tileSize < gp.player.worldY +  gp.player.screenY) {
+        
+        
+        BufferedImage image = null;
+             
+        switch(direction){
+                case "left":
+                 if(spriteNumber == 1){
+                     image = left1;}
+                 if(spriteNumber == 2){
+                     image = left2;}
+                 break;
+                 
+             case "right":
+                 if(spriteNumber == 1){
+                     image = right1;}
+                 if(spriteNumber == 2){
+                     image = right2;}
+                 break;
+                 
+             case "up":
+                 if(spriteNumber == 1){
+                     image = up1;}
+                 if(spriteNumber == 2){
+                     image = up2;}
+                 break;
+                 
+             case "down":
+                 if(spriteNumber == 1){
+                     image = down1;}
+                 if(spriteNumber == 2){
+                     image = down2;}
+                 break;     
+        }
+       g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+       }
+    }
+                   
+    @Override
+    public void setAction(){
+        int j  = 0;//comparasion integer
+        actionLockCounter ++;
+        if(actionLockCounter == 120){
+        
+        Random random = new Random(); 
+        int i = random.nextInt(4);//pick up a ramdom  number from 1 to 100
+        
+        if(i != j){            
+        switch(i){
+            case 1:
+            direction  = "right";
+            j = i;
+            break;
+            
+            case 2:
+            direction  = "left";
+            j = i;
+            break;
+            
+            case 3:
+            direction  = "up";
+            j = i;
+            break;
+            
+            case 4:
+            direction  = "down";
+            j = i;
+            break;        }
+        
+        }else{ setAction(); }
+        actionLockCounter = 0;
+    
+    }
+    }
+	
 }

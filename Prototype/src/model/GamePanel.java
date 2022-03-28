@@ -8,13 +8,14 @@ package model;
 import Objects.SuperObject;
 
 import character.Player;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import tiles.TileManager;
 import character.Characters;
+import character.Super_Projectile;
+import character.Zenith;
 
 /**
  *
@@ -41,6 +42,9 @@ public class GamePanel extends JPanel implements Runnable{
     
     
     public Player player = new Player(this, keyHandler);
+    
+    
+    
     Thread gameThread;
     //FPS
     int FPS = 60;
@@ -58,6 +62,8 @@ public class GamePanel extends JPanel implements Runnable{
     public SetAssets setA = new SetAssets(this);
     public SuperObject obj[] = new SuperObject[10]; 
     public Characters npc[] = new Characters[10]; 
+    
+    public Super_Projectile zenith[] = new Super_Projectile[10]; // this number will have to be a variable that changes with difficulty.
     
    
     
@@ -80,6 +86,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void GameSetUp(){
        setA.setObjects();
        setA.setNPC();
+       setA.setZenith();
        
        playSound(0);//play sound
         
@@ -158,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
             if (timer >= 1000000000) {
                 
-                System.out.println("Running at 60FPS"+ drawCounter); 
+                System.out.println("Running at "+ drawCounter + " FPS"); 
                 drawCounter = 0;
                 timer = 0;
             }
@@ -175,8 +182,14 @@ public class GamePanel extends JPanel implements Runnable{
             if (npc[i] != null) {
                 npc[i].update();
                 
-            }
+            }}
             
+            
+            for (int i = 0; i < zenith.length; i++) {
+            if (zenith[i] != null) {
+                zenith[i].update();
+                
+            }           
         }
     }
     
@@ -198,7 +211,7 @@ public class GamePanel extends JPanel implements Runnable{
         //debuging
         long drawEnd = System.nanoTime();
         long passed = drawEnd - drawStart;
-        System.out.println(passed);
+        
         
         //objects
         for(int i = 0; i < obj.length; i++){
@@ -214,13 +227,17 @@ public class GamePanel extends JPanel implements Runnable{
            if(npc[i] != null){ //check if the slot is empty (avoid nullpointer)
                npc[i].draw(g2d);
            } 
-            
-            
+        }
+          //Draw Zeniths
+        for(int i = 0; i < zenith.length; i++){
+           if(zenith[i] != null){ //check if the slot is empty (avoid nullpointer)
+               zenith[i].draw(g2d);
+           }  
         }
       
         
         //player
-        player.paintComponent( g2d);//calls method player.paintComponent
+        player.paintComponent(g2d);//calls method player.paintComponent
         g2d.dispose();
     
     }
@@ -234,14 +251,10 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
       public void stopSound(){
-    
-   
     sound.stop();
-  
-    }
+  }
     
     public void playSE(int i){
-    
     sound.setSound(i);
     sound.play();
    

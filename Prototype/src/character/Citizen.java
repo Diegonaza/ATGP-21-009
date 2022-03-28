@@ -96,42 +96,42 @@ public class Citizen extends Characters{
         }
     
     
-     public void draw(Graphics2D g2, GamePanel gp){
-     BufferedImage image = null;
-       switch(direction){
-                       
-             case "left":
-                 if(spriteNumber == 1){
-                     image = left1;}
-                 if(spriteNumber == 2){
-                     image = left2;}
-                 break;
-                 
-             case "right":
-                 if(spriteNumber == 1){
-                     image = right1;}
-                 if(spriteNumber == 2){
-                     image = right2;}
-                 break;
-             case "attack_left":
-                 if(spriteNumber == 1){
-                     image = attack_left;}
-                 if(spriteNumber == 2){
-                     image = left1;}
-                 
-                 break;
-             case "attack_right":
-                 if(spriteNumber == 1){
-                     image = attack_right;}
-                 if(spriteNumber == 2){
-                     image = right1;}
-                 break;    
-       
-       }
-                   
-         g2.drawImage(image,0,400,gp.tileSize,gp.tileSize,null);
-        
-    }
+//     public void draw(Graphics2D g2, GamePanel gp){
+//     BufferedImage image = null;
+//       switch(direction){
+//                       
+//             case "left":
+//                 if(spriteNumber == 1){
+//                     image = left1;}
+//                 if(spriteNumber == 2){
+//                     image = left2;}
+//                 break;
+//                 
+//             case "right":
+//                 if(spriteNumber == 1){
+//                     image = right1;}
+//                 if(spriteNumber == 2){
+//                     image = right2;}
+//                 break;
+//             case "attack_left":
+//                 if(spriteNumber == 1){
+//                     image = attack_left;}
+//                 if(spriteNumber == 2){
+//                     image = left1;}
+//                 
+//                 break;
+//             case "attack_right":
+//                 if(spriteNumber == 1){
+//                     image = attack_right;}
+//                 if(spriteNumber == 2){
+//                     image = right1;}
+//                 break;    
+//       
+//       }
+//                   
+//         g2.drawImage(image,0,400,gp.tileSize,gp.tileSize,null);
+//        
+//    }// Method is not utilized.
      
      
     @Override
@@ -141,7 +141,7 @@ public class Citizen extends Characters{
         if(actionLockCounter == 120){
         
         Random random = new Random(); 
-        int i = random.nextInt(100)+1;//pick up a ramdom  number from 1 to 100
+        int i = random.nextInt(100)+1;//pick up a random  number from 1 to 100
         
         if (i <= 50 ) {
             direction  = "right";

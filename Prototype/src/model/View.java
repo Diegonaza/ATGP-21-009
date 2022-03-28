@@ -47,9 +47,10 @@ public class View {
         //Set the title accordingly to the game progression.
         
         GamePanel gamePanel = new GamePanel();
+        gamePanel.GameSetUp();
         window.add(gamePanel);
         window.pack();
-        gamePanel.GameSetUp();
+        
         //create, and add the Game Panel to the window, and display it.
         gamePanel.startChronos();
         //

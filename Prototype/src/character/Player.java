@@ -32,9 +32,9 @@ public class Player extends Characters{
     int hasItem = 0;
     
     //chaged
-    public Player(GamePanel gp, KeyHandler keyHundle){
+    public Player(GamePanel gp, KeyHandler keyHandler){
     super(gp);   //chaged
-    this.keyHandler = keyHundle;
+    this.keyHandler = keyHandler;
     
     //Screen Setting
     screenX = 300;
@@ -80,6 +80,7 @@ public class Player extends Characters{
         
     }
     
+    @Override
     public void update(){
         
         if(keyHandler.downPressed == true || keyHandler.jumpingPressed == true || keyHandler.leftPressed == true ||   keyHandler.rightPressed == true || keyHandler.upPressed == true){

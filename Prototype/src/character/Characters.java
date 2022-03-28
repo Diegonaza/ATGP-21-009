@@ -90,7 +90,7 @@ public class Characters {
     BufferedImage image = null;
     
             int screenX = worldX - gp.player.worldX +  gp.player.screenX;
-            int ScreenY = worldY - gp.player.worldY +  gp.player.screenY;
+            int screenY = worldY - gp.player.worldY +  gp.player.screenY;
             
             if ( worldX + gp.tileSize >  gp.player.worldX -  gp.player.screenX &&
                  worldX - gp.tileSize <  gp.player.worldX +  gp.player.screenX &&
@@ -128,7 +128,7 @@ public class Characters {
        
        }
                    
-         g2.drawImage(image,screenX,ScreenY,gp.tileSize,gp.tileSize,null);
+         g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
 
             }
   

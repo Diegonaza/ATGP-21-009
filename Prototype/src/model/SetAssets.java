@@ -8,6 +8,7 @@ package model;
 import Objects.objGun;
 import Objects.objMask;
 import character.Citizen;
+import character.Zenith;
 
 
 /**
@@ -47,5 +48,21 @@ public class SetAssets {
     gp.npc[0] .worldX = gp.tileSize * 20;
     gp.npc[0] .worldY = gp.tileSize * 9;
     
+    }
+    
+    public void setZenith(){
+        //Modifies the array of superparticles and fill it with Zenith particles.
+        
+        Zenith particle = new Zenith(gp);
+        particle.setInfection("Blue");
+        particle.worldX = 15;
+        particle.worldY = 9;
+        particle.speed = 1;
+                
+        gp.zenith[0] = particle;
+        
+        //add loop for more using difficulty variable, also consider infection type
+        
+        
     }
 }
