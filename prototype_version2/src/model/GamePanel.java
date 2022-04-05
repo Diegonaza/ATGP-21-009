@@ -321,18 +321,17 @@ public class GamePanel extends JPanel implements Runnable{
 
       //backgroun moviments
         
-      
-            world.paintWorld(g2d,player,player.nx2);      
-          
+
+        world.paintWorld(g2d,player,player.nx2);              
         
-      
+         
+         //make the world move
+       for(Platform p : platforms)p.draw(g2d); 
+
        player.paintComponent( g2d,this); 
       
         
-        
-         //make the world move
-         for(Platform p : platforms)p.draw(g2d); 
-
+     
        
         
        //calls method player.paintComponent
