@@ -42,7 +42,7 @@ public class TileMapper {
   public int[][] solidData;
   Platform platform;
   Handler handler;
-  boolean doOnce = true;
+  
   
    
     
@@ -173,7 +173,7 @@ public class TileMapper {
     }catch(Exception e){
         e.printStackTrace();
     }
-  
+        GenerateMap();
     }
  
     public void LoadTiles(String mapName,int width,int height){
@@ -200,7 +200,7 @@ public class TileMapper {
          
     }
     
-    public void GenerateMap(Graphics2D g){
+    public void GenerateMap(){
         int scaleImage = 1;
         
         for(int i = 0; i<tilesetHeight; i++){
@@ -230,12 +230,7 @@ public class TileMapper {
     }
     
     public void Draw(Graphics2D g){
-        
-    
-      if(doOnce == true){
-          GenerateMap(g);
-          doOnce = false;
-      }
+       
       
   }
     

@@ -39,6 +39,8 @@ public class Platform extends GameObject{
         }
         
     }
+    
+    //commented lines inside this method are for debug purposes, will draw the collision boxes for each platform
     @Override
     public void Draw(Graphics2D gtd){
        // gtd.setColor(Color.BLACK);
@@ -52,7 +54,7 @@ public class Platform extends GameObject{
     public void tick(){
         
     }
-    
+    //check Collision against projectiles
      public void tick(Handler h){
          for(int i = 0; i<h.projectiles.size(); i++){
              if(hitBox.intersects(h.projectiles.get(i).hitBox)){
@@ -61,6 +63,7 @@ public class Platform extends GameObject{
          }
     }
     
+     //update location based on the camera scrolling/movement
     public void setLocation(int cameraX, int cameraY){
         this.x = startX-cameraX;
         this.y = startY-cameraY;

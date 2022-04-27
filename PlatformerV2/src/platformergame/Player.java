@@ -60,12 +60,11 @@ public class Player extends GameObject {
         ImportImage();
     }
     
-    //tick
+    //tick  "update"
     @Override
     public void tick(){
-       // System.out.println(cState);
-      //Character States  
-     
+       
+      //Update Character State
       
        if(keyFire==true&&xSpeed==0){
           cState = cState.Shooting;
@@ -114,7 +113,7 @@ public class Player extends GameObject {
         }
       
       
-      //Player Movement
+      //Update Player Movement
       if(keyLeft && keyRight || !keyLeft && !keyRight) xSpeed *= 0.8;
       else if(keyLeft && !keyRight){
           xSpeed --;
@@ -184,7 +183,10 @@ public class Player extends GameObject {
            
           
         
-       
+       //Moves the camera based on the offSet in the X vector in this case 200 to the left and 400 to the right
+       //So if the player X position is not within this offset the camera will  move or else we move the player instead of the camera
+       //The Camera X value is stored in the GamePanel class, which will pass it as a parameter to a method in the Handler class 
+       //this method updates the Objects location based on the camera movement// the method -->     handler.UpdatePlatforms();
         if(x<=200&&xSpeed<=0 || x>=400&&xSpeed>=0){
             panel.cameraX+=xSpeed;
             locationX+=xSpeed;
@@ -203,7 +205,7 @@ public class Player extends GameObject {
             panel.cameraY+=ySpeed;
             locationY+=ySpeed;
             hitBox.y =y;
-           // panel.handler.updateEnemies(panel.cameraX, panel.cameraY);
+           
         }else{
            y += ySpeed;
            hitBox.y = y;
@@ -213,18 +215,23 @@ public class Player extends GameObject {
        
         
         
-        
+        //updateLocation has the same functionality as the updatePlatforms method, but it is called for the background only
         panel.l.updateLocation(panel.cameraX);
         panel.handler.updatePlatforms(panel.cameraX, panel.cameraY);
         
         
         // Character State Machine
+        //This will select which sprite sheet to use depending on which state the character is
+        //and set the variables accordingly so the animation works correctly 
         switch(cState){
             case Walking:{
-            
+                //Sprite Sheet to use
                 spriteSheetIndex=2;
+                //How many Frames we have in this animation
                 sheetLenght = 6;
+                //How fast should we play this animation
                 animPlayRate=4;
+                //Call animation Method
                 Animation();
                 break;
             }
@@ -269,6 +276,7 @@ public class Player extends GameObject {
          
     }
     
+    //Spawn projectile is still a work in progress
     public void Shoot(int fr){
         this.fireRate = fr;
         if(fireRateCounter==fireRate){
@@ -294,23 +302,24 @@ public class Player extends GameObject {
     public void Draw(Graphics2D gtd){
       
         gtd.setColor(Color.red);
-        //gtd.fillRect(x, y, width, height);
-        
+       //gtd.fillRect(x, y, width, height);
+        //Flips the image based on the direction the character is facing
         if(direction == direction.Right)
             gtd.drawImage(characterSprite, x-30, y-10,100,100,panel);
         if(direction == direction.Left)
-            gtd.drawImage(characterSprite, x-20+100, y-10,-100,100,panel);
+            gtd.drawImage(characterSprite, x-20+80, y-10,-100,100,panel);
         
        
     }
     
+    //Responds to Player Input
      public void KeyPressed(KeyEvent e){
         int key = e.getKeyCode();
-        if(e.getKeyChar()== 'a') {
+        if(key == KeyEvent.VK_A) {
             keyLeft = true;
             
         }
-        if(e.getKeyChar() == 'd'){
+        if(key == KeyEvent.VK_D){
             keyRight = true;
             
         }
@@ -334,12 +343,13 @@ public class Player extends GameObject {
     
     public void KeyReleased(KeyEvent e){
         int key = e.getKeyCode();
-        if(e.getKeyChar()== 'a') keyLeft = false;
-        if(e.getKeyChar() == 'd') keyRight = false;
-        if(e.getKeyChar()=='f')keyFire = false;
+        if(key ==KeyEvent.VK_A) keyLeft = false;
+        if(key ==KeyEvent.VK_D) keyRight = false;
+        if(key ==KeyEvent.VK_F)keyFire = false;
         if(key ==KeyEvent.VK_SPACE)keyJump = false;
     }
     
+    //Load all sprite Sheets into memory
     public void ImportImage(){
         
         InputStream is = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Idle.png");
@@ -363,6 +373,7 @@ public class Player extends GameObject {
         }
     }
     
+    //Get a sub image from the sprite sheet
      public void updateImage(BufferedImage image,int x, int y){
         
         characterSprite = image.getSubimage(x, y, 48, 48);
@@ -372,22 +383,29 @@ public class Player extends GameObject {
      
      
      public void Animation(){
-         
+         //every update increase this counter
            animCounter++;
+           
           if(animCounter>animPlayRate){
             
         animCounter=0;
         }
+          //if the counter is equal to the desired play rate, go to the next frame
+          //the higher the play rate value the longer it will take to go to the next frame
         if(animCounter==animPlayRate){
-           
+           //if we are not in the last frame go to the next
             if(spriteIndex<sheetLenght){
+                //get a sub image from the sprite sheet the spriteIndex variable represents 
+                //the current frame, 48 is the size of the sub image,which should be saved in a variable in the future (e.g int spriteSize)
                 updateImage(sprites[spriteSheetIndex],(spriteIndex* 48)-48,0);
                 spriteIndex++;
                  
                 
             }else{
+                //if is the last frame go back to the first frame
                 spriteIndex = 1;
             }
+            //resets the counter
             animCounter = 0;
         }
         

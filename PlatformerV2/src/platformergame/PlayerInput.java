@@ -12,6 +12,10 @@ import java.awt.event.KeyEvent;
  *
  * @author diego
  */
+
+//Class that captures the player's input, has a reference to the gamePanel class
+//because the character is being spawned in the gamePanel class at this point, needs to be changed in the future
+//as the player should be spawned from the map class
 public class PlayerInput extends KeyAdapter{
     GamePanel panel;
     

@@ -35,15 +35,23 @@ public class GamePanel extends Canvas implements Runnable {
     LevelOne l = new LevelOne(this);
     
     public GamePanel(){
+        //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
         TileMapper tl = new TileMapper("Cave",handler);
+        //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
+        //Spawn a playing into the level
         player = new Player(250,200,this,ID.Player);
+        //Adds the key listener 
         this.addKeyListener(new PlayerInput(this));
+        //adds the player to handler object List
+        // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
         handler.addObject(player);
-        
+        //Spawn a Enemy into the level
          enemy = new Enemy(400,250,this,ID.Enemy);
+         //adds the Enemy to the handler Enemies List
          handler.enemies.add(enemy);
          new Window(800,600,"PlatformerV2",this);
+         //Start the game Loop
          Start();
          
       
@@ -147,14 +155,19 @@ public class GamePanel extends Canvas implements Runnable {
         Stop();
     }
     */
- 
-    
+      //GameLoop code Reference
+     //https://stackoverflow.com/questions/66079677/how-to-improve-the-framerate-in-simple-java-game-loop
+      
     @Override
     public  void run()
     {
+        //Desired  updates/Frames per second 
         final int desiredFPS = 60;
         final int desiredUPS = 60;
         
+        //Time is in nanoseconds, 1 second has 1 billion nano seconds so we divide 1 billion by the amount of times we want the game to upate
+        // this will result in 1 update every 33 million nanoseconds which is equivalent to 60 updates per second
+       
         final long updateThreshold = 1000000000 / desiredUPS;
         final long drawThreshold = 1000000000 / desiredFPS;
         
@@ -163,7 +176,7 @@ public class GamePanel extends Canvas implements Runnable {
         int fps = 0, ups = 0;
         
         loop:
-        while(true)
+        while(running)
         {
             if((System.nanoTime() - lastFPSUPSOutput) > 1000000000)
             {
@@ -175,14 +188,14 @@ public class GamePanel extends Canvas implements Runnable {
                 
                 lastFPSUPSOutput = System.nanoTime();
             }
-            
+            //IF the CURRENT time minus the time of the last update is bigger than the updateThreshold than we can update again
             if((System.nanoTime() - lastUPS) > updateThreshold)
             {
                 lastUPS = System.nanoTime();
                 handler.tick();
                 ups++;
             }
-            
+            //same logic as for updates per second , but this is for the frames per second
             if((System.nanoTime() - lastFPS) > drawThreshold)
             {
                 lastFPS = System.nanoTime();
@@ -203,7 +216,8 @@ public class GamePanel extends Canvas implements Runnable {
                 // Just in case
                 if(nanosToWait <= 0)
                     continue loop;
-                    
+                
+                //this how much the thread should " sleep " before the next " run "
                 try
                 {
                     Thread.sleep(nanosToWait / 1000000);

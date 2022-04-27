@@ -5,11 +5,11 @@
         <group>
             <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/platformergame/GamePanel.java</file>
             <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/platformergame/Handler.java</file>
+            <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/platformergame/PlayerInput.java</file>
             <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/platformergame/Projectile.java</file>
             <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/zMapEditor/TileMapper.java</file>
-            <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/platformergame/GameObject.java</file>
+            <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/platformergame/Player.java</file>
             <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/platformergame/Platform.java</file>
-            <file>file:/C:/Users/diego/Documents/NetBeansProjects/PlatformerV2/src/zMapEditor/Maps/Cave.json</file>
         </group>
     </open-files>
 </project-private>
