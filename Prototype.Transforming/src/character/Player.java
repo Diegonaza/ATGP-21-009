@@ -6,12 +6,16 @@
 package character;
 
 
+import Objects.GameObject;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import model.GamePanel;
 import model.KeyHandler;
+import model.UtilityTool;
 import platform.Platform;
 import platform.Platform1;
 import platform.SuperPlatform;
@@ -21,43 +25,50 @@ import platform.SuperPlatform;
  *
  * @author valter
  */
-public class Player extends Characters{
+public class Player extends GameObject{
     
     //instanciates Game Panel Class
-    KeyHandler keyHandler;
-    private Image image;
-    public int screenX;
-    public int screenY;
-    int hasItem = 0;
-    public int xspeed;
-    public int yspeed;
     
-    //chaged
-    public int x = 200;
-    public int y = 150;
-    public int nx2;
-    public int nx;
-    //chaged
-    public Player(GamePanel gp, KeyHandler keyHundle){
-     super(gp);  //chaged
-    this.keyHandler = keyHundle;
-     nx2 = 900;
-     nx = 0;
-    //
-    //chaged
-    //Screen Setting
-     //screenX = 300;
-     //screenY = 100;
-    
-    //collision
-    solidArea = new Rectangle(x,y,32,32);
- 
-    solidAreaDefaultX= solidArea.x;
-    solidAreaDefaultY= solidArea.y;
-   
-    this.setDefaultvalues();
-    this.getPlayerImg();
+    GamePanel panel;
+    int fireRateCounter=0;
+    int fireRate;
+    int startX;
+    int locationX;
+    int locationY;
+    int animCounter= 0;
+    int spriteIndex = 1;
+    int animPlayRate = 0;
+    int spriteSheetIndex, sheetLenght;
+    Rectangle hitBox;
+    CharacterState cState;
+    enum Direction{
+    Left(),Right();
     }
+    Direction direction ;
+    boolean keyLeft,keyRight,keyJump,keyFire;
+    
+    BufferedImage[] sprites = new BufferedImage[10];
+    BufferedImage characterSprite;
+    
+    Projectile projectile;
+    
+   public Player(int x, int y, GamePanel panel){
+        super(x,y);
+        this.x = x;
+        this.y = y;
+        this.startX = x;
+        this.locationX = x;
+        this.panel = panel;
+        width = 32;
+        height = 64;
+        hitBox = new Rectangle(x,y,width,height);
+        
+        
+        direction = direction.Right;
+        
+        getPlayerImg();
+    }
+   
     
     public void getPlayerImg() {
        
@@ -70,131 +81,254 @@ public class Player extends Characters{
         attack_right = setup("/playerSprite/attack_right.png");
         attack_left = setup("/playerSprite/attack_left.png");
         
+         try{
+         sprites[0] = idle1;
+         sprites[1] = idle2;
+         sprites[2] = left1;
+         sprites[3] = left2;
+         sprites[4] = right1;
+         sprites[5] = right2;
+         sprites[6] = attack_right;
+         sprites[7] = attack_left;
+         
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
         //Set image path to an image variable.
         }
     
-    public void setDefaultvalues(){
-        //player first position
+    
+        
+    public BufferedImage setup(String imagePath){
+      
+        UtilityTool utilityTool = new UtilityTool();
+                
+        BufferedImage image = null;
+        
+        try{
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath));
+            image = utilityTool.scaleImage(image, 48, 48);
+        }catch(IOException e){
+            System.out.println("Error reading image " + imagePath);
+            //If any problem with image, we get exactly which one is it.
+        }
         
         
-        //character moving position
-        //worldX = gp.tileSize * 1;
-        //worldY = gp.tileSize * 9;
-        
-        //position to be fixed in the future for the player sprite
-        speed = 5;
-        direction = "idle";
-        
+        return image;
     }
+    
+
     
     public void update(){
       
-      if(keyHandler.leftPressed && keyHandler.rightPressed || !keyHandler.leftPressed && !keyHandler.rightPressed) xspeed *= 0.4;
-      else if(keyHandler.leftPressed && !keyHandler.rightPressed){
-          direction ="left";
-        
-          }
-      else if(keyHandler.rightPressed && !keyHandler.leftPressed){
-          direction = "right"  ; 
-         
-          
-         }
-      
-      if(xspeed > 0 && xspeed<0.75)xspeed = 0;
-      if(xspeed<0 && xspeed> -0.75)xspeed = 0;
-      if(xspeed > 7)xspeed= 7;
-      if(xspeed<-7)xspeed = -7;
-        
-       if(keyHandler.jumpingPressed){
+          if(keyFire==true&&xSpeed==0){
+          cState = cState.Shooting;
+      }
        
-         solidArea.y++;
-          for(int i = 0; i<gp.platforms.size(); i++){
-              if(solidArea.intersects(gp.platforms.get(i).hitBox))yspeed = -20;
+       
+      if(xSpeed!=0 && ySpeed==0 ){
+          if(cState == cState.RunFiring && spriteIndex%2 !=0){
+              cState = cState.RunFiring;
+          }else{
+              cState = cState.Walking;
           }
           
-         solidArea.y--;     
-       }
+      }
       
-        yspeed += 1;
-        
-       
-       
-        //vertical collision
-         solidArea.y += yspeed;
-        for(Platform p: gp.platforms){
-            if(solidArea.intersects(p.hitBox)){
-                solidArea.y -= yspeed;
-                while(!p.hitBox.intersects(solidArea)) solidArea.y += Math.signum(yspeed);
-                solidArea.y -= Math.signum(yspeed);
-                yspeed = 0;
-                y = solidArea.y;
-            }
-        }
-        
+      if(xSpeed==0 && ySpeed <=0.5 && keyFire!=true){
+          if(cState == cState.Shooting && spriteIndex!=2){
+              cState = cState.Shooting;
+              
+          }else{
+              cState = cState.Idle;
+          }
           
-        //horizontal collision
-         solidArea.x += yspeed;
-        for(Platform p: gp.platforms){
-            if(solidArea.intersects(p.hitBox)){
-                solidArea.x -= xspeed;
-                while(!p.hitBox.intersects(solidArea)) solidArea.x += Math.signum(yspeed);
-                solidArea.x -= Math.signum(xspeed);
-                gp.worldX =+ x - solidArea.x;//subtract player area from platform
-                xspeed = 0;//stop player
-                solidArea.x = x;
-            }
-        }
-        
-        gp.worldX -= xspeed; 
+      }
+      
+      if(ySpeed>0.5 || ySpeed <0){
+          if(cState == cState.Shooting && spriteIndex!=2){
+              cState = cState.Shooting;
+          }else{
+              cState = cState.Jumping;
+          }
+      }
+      
+      if(cState == cState.Jumping && keyFire == true){
+          cState = cState.Shooting;
+      }
+      
      
-        y += yspeed;
-        nx2 = nx2 + xspeed;
-        nx = nx + xspeed;
+      if(keyFire==true&&cState==cState.Walking){
+          cState = cState.RunFiring;
+      }
+      
+       //Reset The variable the controls the fireRate
+        if(cState!=cState.Shooting && cState!=cState.RunFiring){
+            fireRateCounter=10;
+        }
+      
+      
+      //Update Player Movement
+      if(keyLeft && keyRight || !keyLeft && !keyRight) xSpeed *= 0.8;
+      else if(keyLeft && !keyRight){
+          xSpeed --;
+          
+          
+          direction = direction.Left;
+          
+      }
+      
+      else if(keyRight && !keyLeft){
+          xSpeed ++;
+          direction = direction.Right;
+      }
+      
+      //speed limit/smoothing
+      if(xSpeed > 0 && xSpeed<0.75)xSpeed = 0;
+      if(xSpeed<0 && xSpeed> -0.75)xSpeed =0;
+      if(xSpeed > 3)xSpeed= 3;
+      if(xSpeed<-3)xSpeed = -3;
+      
+      
+      //jump
+      if(keyJump){
+          hitBox.y++;
+          for(int i = 0; i<panel.handler.platforms.size(); i++){
+              if(panel.handler.platforms.get(i).hitBox.intersects(hitBox))ySpeed = -12;
+          }
+          
+         hitBox.y--;       
+      }
+      
+      //gravity
+        ySpeed += 0.5;
         
-        solidArea.x = x;
-        solidArea.y = y;
         
-        if (y > 800) {
-            gp.reset();
+        //vertical collision
+          hitBox.y += ySpeed;
+        for(Platform p: panel.handler.platforms){
+            if(hitBox.intersects(p.hitBox)){
+                hitBox.y -= ySpeed;
+                while(!p.hitBox.intersects(hitBox)) hitBox.y += Math.signum(ySpeed);
+                hitBox.y -= Math.signum(ySpeed);
+                ySpeed = 0;
+                y = hitBox.y;
+            }
         }
         
-        //colision checker
-        isColisionOn = false;
-       //gp.colDet.checkColision(this);
         
-        //check object collision
-        //int objectIndex = gp.colDet.objectChecker(this,true);
-      //  pickObject(objectIndex);
         
-          //check platform collision
-//        int patformIndex = gp.colDet.PlatformChecker(this,true);
-        //collideAtPlatform(patformIndex);
-        //if colision is false player can move
-        if (isColisionOn == false) {
-            
-            switch(direction){
-            /* case "up": worldY -= speed;                  
-             break;
-             case "down": worldY += speed;
-             break;*/
-             case "left": xspeed --;
-             break;
-             case "right": xspeed ++;
-             break;
-                     
-         }
-            
+        //horizontal collision
+        hitBox.x += xSpeed;
+        for(Platform p: panel.handler.platforms){
+            if(hitBox.intersects(p.hitBox)){
+                hitBox.x -= xSpeed;
+               while(!p.hitBox.intersects(hitBox)) hitBox.x += Math.signum(xSpeed);
+                hitBox.x -= Math.signum(xSpeed);
+                xSpeed = 0;
+                x = hitBox.x;
+            }
         }
-        spriteCounter++;//increases sprite counter for sprite Number Change
-        if(spriteCounter > 15)    {
-            if(spriteNumber == 1) {
-                spriteNumber = 2;
+        
+        
+        
+        
+        
+        
+           
+          
+        
+       //Moves the camera based on the offSet in the X vector in this case 200 to the left and 400 to the right
+       //So if the player X position is not within this offset the camera will  move or else we move the player instead of the camera
+       //The Camera X value is stored in the GamePanel class, which will pass it as a parameter to a method in the Handler class 
+       //this method updates the Objects location based on the camera movement// the method -->     handler.UpdatePlatforms();
+        if(x<=200&&xSpeed<=0 || x>=400&&xSpeed>=0){
+            panel.cameraX+=xSpeed;
+            locationX+=xSpeed;
+            hitBox.x =x;
+            
+        }else{
+           x += xSpeed;
+           hitBox.x = x;
+        }
+           
+          // panel.cameraY+= ySpeed;
+            
+         //  y +=ySpeed;
+         hitBox.y = y; 
+      if(y<=200&&ySpeed<=0 || y>=300&&ySpeed>=0){
+            panel.cameraY+=ySpeed;
+            locationY+=ySpeed;
+            hitBox.y =y;
+           
+        }else{
+           y += ySpeed;
+           hitBox.y = y;
+        }
+           
+         
+       
+        
+        
+        //updateLocation has the same functionality as the updatePlatforms method, but it is called for the background only
+        panel.l.updateLocation(panel.cameraX);
+        panel.handler.updatePlatforms(panel.cameraX, panel.cameraY);
+        
+        
+        // Character State Machine
+        //This will select which sprite sheet to use depending on which state the character is
+        //and set the variables accordingly so the animation works correctly 
+        switch(cState){
+            case Walking:{
+                //Sprite Sheet to use
+                spriteSheetIndex=2;
+                //How many Frames we have in this animation
+                sheetLenght = 6;
+                //How fast should we play this animation
+                animPlayRate=4;
+                //Call animation Method
+                Animation();
+                break;
             }
-            else if(spriteNumber == 2){
-                spriteNumber = 1;
+            
+            case Idle:{
+            
+                spriteSheetIndex=0;
+                sheetLenght = 5;
+                animPlayRate=4;
+                Animation();
+                break;
             }
-            spriteCounter = 0;        
-        }    
+            
+            case Jumping:{
+               
+                spriteSheetIndex =3;
+                sheetLenght = 2;
+                animPlayRate=4;
+                Animation();
+                break;
+            }
+            
+            case Shooting:{
+                
+                spriteSheetIndex = 5;
+                sheetLenght = 3;
+                animPlayRate=5;
+                Shoot(10);
+                Animation();
+                
+                break;
+            }
+             case RunFiring:{
+                spriteSheetIndex = 6;
+                sheetLenght = 6;
+                animPlayRate=4;
+                Shoot(10);
+                Animation();
+                break;
+            }
+        }
     
     }
     
@@ -313,5 +447,15 @@ public class Player extends Characters{
 
     
     } // Draw images into the screenX using the updated coordenate information from the player in the game panel, changes the image accordingly to spriteNumber value.
+
+    @Override
+    public void tick() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void Draw(Graphics2D g) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
       
 }

@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package Objects;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 
 /**
  *
@@ -14,22 +16,27 @@ import java.awt.Graphics2D;
 public abstract class GameObject {
     
     protected int x, y, width, height;
-    protected ID id;
     protected double xSpeed, ySpeed;
+    protected BufferedImage image, idle1, idle2, left1, left2, right1, right2, attack_right, attack_left;
     
-    public GameObject(int x, int y, ID id){
-        this.x = x;
-        this.y = y;
-        this.id = id;
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
     
     public GameObject(int x, int y){
         this.x = x;
         this.y = y;
+        
     }
     
     public abstract void tick();
     public abstract void Draw(Graphics2D g);
+    
 
     public void setX(int x) {
         this.x = x;
@@ -39,9 +46,6 @@ public abstract class GameObject {
         this.y = y;
     }
 
-    public void setId(ID id) {
-        this.id = id;
-    }
 
     public void setSpeedX(int velX) {
         this.xSpeed = xSpeed;
@@ -61,9 +65,6 @@ public abstract class GameObject {
         return y;
     }
 
-    public ID getId() {
-        return id;
-    }
 
     public double getSpeedX() {
         return xSpeed;
@@ -72,5 +73,8 @@ public abstract class GameObject {
     public double getSpeedY() {
         return ySpeed;
     }
+ 
+    
+    
     
 }

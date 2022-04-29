@@ -5,9 +5,11 @@
  */
 package model;
 
-import Objects.SuperObject;
-import Objects.objMask;
 
+
+
+
+import Objects.objMask;
 import character.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,18 +18,35 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import tiles.TileManager;
 import character.Characters;
+import java.awt.Canvas;
 import java.util.ArrayList;
 import java.util.Random;
 import platform.Platform;
 import platform.SuperPlatform;
 import platform.Platform1;
+import platformergame.Handler;
 import tiles.World;
+
+
+
 
 /**
  *
  * @author valter
  */
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends Canvas implements Runnable{
+    
+    
+    private Thread thread;
+    private boolean running = false;
+    Player player ;
+    //Enemy enemy;
+    boolean isVisible = true;
+    public Handler handler = new Handler();
+    int cameraX;
+    int cameraY;
+    //LevelOne l = new LevelOne(this);
+    
    //Screen Settings
     final int orinalTileSize = 16; // 16x16 tile, basic pixel-art size.
     final int scale = 3; // The scale for pixel art will redeem it to 48 pixels.
