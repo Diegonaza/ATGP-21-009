@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
  *
  * @author diego
  */
-public class Enemy extends GameObject {
+public class Citizen extends GameObject {
     
     GamePanel panel;
     double movementSpeed;
@@ -31,6 +31,31 @@ public class Enemy extends GameObject {
     Rectangle hitBox;
     Rectangle ledgeBox;
     CharacterState cState;
+
+    public Citizen(int x, int y, GamePanel gp, ID id, String type) {
+         super(x, y,id);
+         
+        this.x = x;
+        this.y = y;
+        this.id = id;
+        this.startX = x;
+        this.startY = y;
+        this.panel = gp;
+        this.camPrevY = panel.cameraY;
+        this.camPrevX = panel.cameraX;
+        width = 16;
+        height = 50;
+        hitBox = new Rectangle(x,y,width,height);
+        ledgeBox = new Rectangle(x,y,25,60);
+        this.player = (Player) this.panel.handler.object.get(0);
+        
+        direction = direction.Left;
+        
+        ImportImage(type);
+        SetSpeedX(-1);      
+    }
+    
+    
     enum Direction{
     Left(),Right();
     }
@@ -42,29 +67,7 @@ public class Enemy extends GameObject {
     Player player;
     int aTimer;
 
-    public Enemy(int x, int y, GamePanel panel, ID id) {
-        super(x, y,id);
-        this.x = x;
-        this.y = y;
-        this.id = id;
-        this.startX = x;
-        this.startY = y;
-        this.panel = panel;
-        this.camPrevY = panel.cameraY;
-        this.camPrevX = panel.cameraX;
-        width = 50;
-        height = 70;
-        hitBox = new Rectangle(x,y,width,height);
-        ledgeBox = new Rectangle(x,y,25,60);
-        this.player = (Player) this.panel.handler.object.get(0);
-        
-        direction = direction.Left;
-        
-        ImportImage();
-        SetSpeedX(-1);
-        
-    }
-    
+     
    
 
     @Override
@@ -171,14 +174,14 @@ public class Enemy extends GameObject {
             case Walking:{
             
                 spriteSheetIndex=1;
-                sheetLenght = 5;
+                sheetLenght = 1;
                 break;
             }
             
             case Idle:{
             
                 spriteSheetIndex=0;
-                sheetLenght = 4;
+                sheetLenght = 2;
                 break;
             }
                       
@@ -217,41 +220,67 @@ public class Enemy extends GameObject {
     public void Draw(Graphics2D gtd) {
      /// This rectangle represents the Object HitBox
         gtd.setColor(Color.red);
-      // gtd.fillRect(x, y, width, height);
+       gtd.fillRect(x, y, width, height); // Hitbox size
        gtd.fillRect(ledgeBox.x, ledgeBox.y, ledgeBox.width, ledgeBox.height);
        //these lines flips the image horizontally and adjust their x and y coordinates to match the object HitBox
         if(direction == direction.Right)
-            gtd.drawImage(characterSprite, x-50, y-40,150,150,panel);
+            gtd.drawImage(characterSprite, x-30, y + 2 ,50,50,panel);
+                //                                    /\ /\ 
+//                                            (Size parameters, change both
         if(direction == direction.Left)
-            gtd.drawImage(characterSprite, x+100, y-40,-150,150,panel);
+            gtd.drawImage(characterSprite, x+30, y + 2 ,-50,50,panel);
     }
             
     //Load all character sprite sheets into memory and saves them into an array.
-     public void ImportImage(){
-        InputStream is = getClass().getResourceAsStream("/Images/Zombie/zombie_Idle.png");
-        InputStream is1 = getClass().getResourceAsStream("/Images/Zombie/zombie_Walk.png");
+     public void ImportImage(String type){
+         
+         InputStream is = null;
+         
+         switch(type){
+             case "blue":
+              is = getClass().getResourceAsStream("/Images/Citizen/blue/blue_animation.png");
+             break;
+             case "white":
+             is = getClass().getResourceAsStream("/Images/Citizen/white/white_animation.png");
+             break;
+             case "red":
+             is = getClass().getResourceAsStream("/Images/Citizen/red/red_animation.png");
+             break;
+             case "yellow":
+             is = getClass().getResourceAsStream("/Images/Citizen/yellow/yellow_animation.png");
+             break;
+             case "black":
+             is = getClass().getResourceAsStream("/Images/Citizen/black/black_animation.png");
+             break;
+             case "pink":
+             is = getClass().getResourceAsStream("/Images/Citizen/pink/pink_animation.png");
+             break;    
+         }
+         
+        
        
         try{
          sprites[0] = ImageIO.read(is);
-         sprites[1] = ImageIO.read(is1);
-         
+                  
         }catch(Exception e){
             e.printStackTrace();
         }
     }
     // this method get subImages from a sprite sheet based on the x and y input coordinates
      public void UpdateImage(BufferedImage image,int x, int y){
-        characterSprite = image.getSubimage(x, y, 64, 64);
+        characterSprite = image.getSubimage(x, y, 16, 16);
         
     }
      
      public void Animation(){
         //Animation play rate, increments this variable every tick, the IF statement is where the actual rate is set
+        //in short words it makes the image transition faster.
         animPlayRate++;
         if(animPlayRate==8){
+            
            //Every x Ticks get the new sub image from the sprite sheet
             if(spriteIndex<sheetLenght){
-                UpdateImage(sprites[spriteSheetIndex],(spriteIndex* 64)-64,0);
+                UpdateImage(sprites[spriteSheetIndex],(spriteIndex* 16)-16,0);
                 spriteIndex++;
                  
                 

@@ -2,13 +2,10 @@ package platformergame;
 
 
 import java.awt.Color;
-import javax.swing.JPanel;
-import java.util.Timer;
 import java.awt.Graphics;
 import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
 import zMapEditor.TileMapper;
 
 
@@ -27,7 +24,7 @@ public class GamePanel extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
     Player player ;
-    Enemy enemy;
+    Citizen enemy;
     boolean isVisible = true;
     Handler handler = new Handler();
     int cameraX;
@@ -47,10 +44,10 @@ public class GamePanel extends Canvas implements Runnable {
         // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
         handler.addObject(player);
         //Spawn a Enemy into the level
-         enemy = new Enemy(400,250,this,ID.Enemy);
+             enemy = new Citizen(400,250,this, ID.Enemy,"red");
          //adds the Enemy to the handler Enemies List
          handler.enemies.add(enemy);
-         new Window(800,600,"PlatformerV2",this);
+         new Window(800,600,"The Invisible Enemy",this);
          //Start the game Loop
          Start();
          

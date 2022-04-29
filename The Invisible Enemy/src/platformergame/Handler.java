@@ -27,7 +27,7 @@ public class Handler {
     //Stores all Projectiles from the player Character
     LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
     //Stores all enemies in the level
-    LinkedList<Enemy> enemies = new LinkedList<Enemy>();
+    LinkedList<Citizen> enemies = new LinkedList<Citizen>();
     //Reference to the TileMapper Class
     TileMapper tl ;
     
