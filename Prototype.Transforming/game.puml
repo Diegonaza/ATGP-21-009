@@ -1,0 +1,43 @@
+@startuml
+annotation java.lang.Override
+class character.Character
+class character.Player
+class java.awt.Color
+class java.awt.Dimension
+class java.awt.Graphics
+class java.awt.Graphics2D
+class java.awt.event.KeyEvent
+class java.awt.image.BufferedImage
+class java.util.logging.Level
+class java.util.logging.Logger
+class javax.imageio.ImageIO
+class javax.swing.JFrame
+class javax.swing.JPanel
+class my2dgame.GamePanel
+class my2dgame.KeyHundle
+class my2dgame.My2DGame
+interface java.awt.event.KeyListener
+interface java.lang.Runnable
+character.Character ..> java.awt.image.BufferedImage
+character.Player --|> character.Character
+character.Player ..> java.awt.Color
+character.Player ..> java.awt.Graphics2D
+character.Player ..> java.awt.image.BufferedImage
+character.Player ..> javax.imageio.ImageIO
+character.Player ..> my2dgame.GamePanel
+character.Player ..> my2dgame.KeyHundle
+my2dgame.GamePanel ..> java.lang.Override
+my2dgame.GamePanel ..> character.Player
+my2dgame.GamePanel ..> java.awt.Color
+my2dgame.GamePanel ..> java.awt.Dimension
+my2dgame.GamePanel ..> java.awt.Graphics
+my2dgame.GamePanel ..> java.awt.Graphics2D
+my2dgame.GamePanel ..> java.util.logging.Level
+my2dgame.GamePanel ..> java.util.logging.Logger
+my2dgame.GamePanel --|> javax.swing.JPanel
+my2dgame.GamePanel --|> java.lang.Runnable
+my2dgame.KeyHundle ..> java.lang.Override
+my2dgame.KeyHundle ..> java.awt.event.KeyEvent
+my2dgame.KeyHundle --|> java.awt.event.KeyListener
+my2dgame.My2DGame ..> javax.swing.JFrame
+@enduml
