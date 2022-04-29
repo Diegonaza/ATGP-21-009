@@ -45,6 +45,7 @@ public class GamePanel extends Canvas implements Runnable{
     public Handler handler = new Handler();
     int cameraX;
     int cameraY;
+    
     //LevelOne l = new LevelOne(this);
     
    //Screen Settings

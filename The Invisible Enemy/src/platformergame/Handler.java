@@ -3,17 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package platformergame;
 
-import Objects.GameObject;
-import character.Player;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
-import model.Platform;
-import platformergame.Enemy;
-import platformergame.Projectile;
 import zMapEditor.TileMapper;
-
 
 /**
  *
@@ -55,8 +49,7 @@ public class Handler {
         }
         
         for(int i = 0; i<platforms.size(); i++){
-            platforms.get(i);
-            
+            platforms.get(i).tick(this);
             
         }
         

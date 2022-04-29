@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package platformergame;
 
-//in transition
-
-import Objects.GameObject;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -18,7 +16,7 @@ import java.awt.image.BufferedImage;
  */
 public class Platform extends GameObject{
     
-    public Rectangle hitBox;
+    Rectangle hitBox;
     int startX;
     int startY;
     BufferedImage img;

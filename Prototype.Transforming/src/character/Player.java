@@ -13,12 +13,11 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import model.GamePanel;
 import model.KeyHandler;
+import model.Platform;
 import model.UtilityTool;
-import platform.Platform;
-import platform.Platform1;
-import platform.SuperPlatform;
+
+
 
 
 /**
@@ -30,27 +29,27 @@ public class Player extends GameObject{
     //instanciates Game Panel Class
     
     GamePanel panel;
-    int fireRateCounter=0;
-    int fireRate;
-    int startX;
-    int locationX;
-    int locationY;
-    int animCounter= 0;
-    int spriteIndex = 1;
-    int animPlayRate = 0;
-    int spriteSheetIndex, sheetLenght;
-    Rectangle hitBox;
-    CharacterState cState;
-    enum Direction{
+    public int fireRateCounter=0;
+    public int fireRate;
+    public int startX;
+    public int locationX;
+    public int locationY;
+    public int animCounter= 0;
+    public int spriteIndex = 1;
+    public int animPlayRate = 0;
+    public int spriteSheetIndex, sheetLenght;
+    public Rectangle hitBox;
+    public CharacterState cState;
+    public enum Direction{
     Left(),Right();
     }
-    Direction direction ;
-    boolean keyLeft,keyRight,keyJump,keyFire;
+    public Direction direction ;
+    public boolean keyLeft,keyRight,keyJump,keyFire;
     
-    BufferedImage[] sprites = new BufferedImage[10];
-    BufferedImage characterSprite;
+    public BufferedImage[] sprites = new BufferedImage[10];
+    public BufferedImage characterSprite;
     
-    Projectile projectile;
+    public Projectile projectile;
     
    public Player(int x, int y, GamePanel panel){
         super(x,y);
@@ -194,7 +193,7 @@ public class Player extends GameObject{
       //jump
       if(keyJump){
           hitBox.y++;
-          for(int i = 0; i<panel.handler.platforms.size(); i++){
+          for(int i = 0; i< panel.handler.platforms.size(); i++){
               if(panel.handler.platforms.get(i).hitBox.intersects(hitBox))ySpeed = -12;
           }
           
