@@ -262,22 +262,22 @@ public class Citizen extends GameObject {
          
          switch(colour){
              case blue:
-              is = getClass().getResourceAsStream("/Images/Citizen/blue/blue_animation.png");
+              is = getClass().getResourceAsStream("/Images/Citizen/Blue/blue_animation.png");
              break;
              case white:
              is = getClass().getResourceAsStream("/Images/Citizen/white/white_animation.png");
              break;
              case red:
-             is = getClass().getResourceAsStream("/Images/Citizen/red/red_animation.png");
+             is = getClass().getResourceAsStream("/Images/Citizen/Red/red_animation.png");
              break;
              case yellow:
-             is = getClass().getResourceAsStream("/Images/Citizen/yellow/yellow_animation.png");
+             is = getClass().getResourceAsStream("/Images/Citizen/Yellow/yellow_animation.png");
              break;
              case black:
-             is = getClass().getResourceAsStream("/Images/Citizen/black/black_animation.png");
+             is = getClass().getResourceAsStream("/Images/Citizen/Black/black_animation.png");
              break;
              case pink:
-             is = getClass().getResourceAsStream("/Images/Citizen/pink/pink_animation.png");
+             is = getClass().getResourceAsStream("/Images/Citizen/Pink/pink_animation.png");
              break;    
          }
          

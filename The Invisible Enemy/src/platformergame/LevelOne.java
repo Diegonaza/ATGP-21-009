@@ -25,7 +25,7 @@ public class LevelOne {
     int rockSpeed;
     
     public LevelOne(GamePanel p){
-        InputStream is = getClass().getResourceAsStream("/Images/Map1/rocks_2.png");
+        InputStream is = getClass().getResourceAsStream("/Images/Map1/dublin.png");
         InputStream is1 = getClass().getResourceAsStream("/Images/Map1/clouds_2.png");
         InputStream is2 = getClass().getResourceAsStream("/Images/Map1/rocks_1.png");
          InputStream is3 = getClass().getResourceAsStream("/Images/Map1/sky.png");

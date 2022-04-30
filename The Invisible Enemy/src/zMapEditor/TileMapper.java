@@ -52,7 +52,7 @@ public class TileMapper {
     JSONParser parser = new JSONParser();
     try{
         //Read the json file and load it into memory
-        Object obj = parser.parse(new FileReader("src\\zMapEditor\\Maps\\"+mapName+".json"));
+        Object obj = parser.parse(new FileReader("src/zMapEditor/Maps/"+mapName+".json"));
         // convert Object into a json Object
         JSONObject jsonObject = (JSONObject) obj;
         JSONArray layers = (JSONArray)jsonObject.get("layers");
@@ -187,7 +187,7 @@ public class TileMapper {
             
             allTiles = new BufferedImage[tilesetHeight*tilesetWidth];
            
-              for(int i = 0; i<20; i++){
+              for(int i = 0; i<19; i++){
            for(int j = 0; j<30; j++){
              //  String temp = values[i][j];
                int p = tilesetData[i][j];

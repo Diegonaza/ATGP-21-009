@@ -360,7 +360,7 @@ public class Player extends GameObject {
     //Load all sprite Sheets into memory
     public void ImportImage(){
         
-        InputStream is = getClass().getResourceAsStream("/Images/Character/berg_Idle.png");
+        InputStream is = getClass().getResourceAsStream("/Images/Character/berg_idle.png");
         InputStream is1 = getClass().getResourceAsStream("/Images/Character/berg_run.png");
         InputStream is2 = getClass().getResourceAsStream("/Images/Character/berg_hit.png");
         InputStream is3 = getClass().getResourceAsStream("/Images/Character/berg_dead.png");
