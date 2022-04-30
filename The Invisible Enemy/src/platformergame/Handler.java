@@ -83,7 +83,7 @@ public class Handler {
             
             
            //Render Objects that are within the offSet , the offset is calculated based on the X position of the Player character on the screen
-            if(backgroundTiles.get(i).startX <= (p.locationX )&& backgroundTiles.get(i).startX>= p.locationX-300|| backgroundTiles.get(i).startX >= p.locationX && backgroundTiles.get(i).startX <= p.locationX+700){
+            if(backgroundTiles.get(i).startX <= (p.locationX )&& backgroundTiles.get(i).startX>= p.locationX-300|| backgroundTiles.get(i).startX >= p.locationX && backgroundTiles.get(i).startX <= p.locationX+1285){
                 backgroundTiles.get(i).Draw(g);
             }
             
@@ -93,7 +93,7 @@ public class Handler {
        
          
         for (int i = 0; i<platforms.size(); i++){
-          if(platforms.get(i).startX <= (p.locationX )&& platforms.get(i).startX>= p.locationX-300|| platforms.get(i).startX >= p.locationX && platforms.get(i).startX <= p.locationX+700)
+          if(platforms.get(i).startX <= (p.locationX )&& platforms.get(i).startX>= p.locationX-300|| platforms.get(i).startX >= p.locationX && platforms.get(i).startX <= p.locationX+1285)
             platforms.get(i).Draw(g);
         }
         

@@ -33,21 +33,21 @@ public class GamePanel extends Canvas implements Runnable {
     
     public GamePanel(){
         //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
-        TileMapper tl = new TileMapper("Cave",handler);
+        TileMapper tl = new TileMapper("Cave2",handler);
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
         //Spawn a playing into the level
-        player = new Player(250,200,this,ID.Player);
+        player = new Player(250,200,this);
         //Adds the key listener 
         this.addKeyListener(new PlayerInput(this));
         //adds the player to handler object List
         // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
         handler.addObject(player);
         //Spawn a Enemy into the level
-             enemy = new Citizen(400,250,this, ID.Enemy,"red");
+             enemy = new Citizen(400,250,this);
          //adds the Enemy to the handler Enemies List
          handler.enemies.add(enemy);
-         new Window(800,600,"The Invisible Enemy",this);
+         new Window(1280,800,"The Invisible Enemy",this);
          //Start the game Loop
          Start();
          

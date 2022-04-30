@@ -46,12 +46,12 @@ public class LevelOne {
     public void Draw(Graphics2D gtd){
         gtd.setColor(Color.red);
         //gtd.fillRect(x, y, width, height);
-        gtd.drawImage(img3,0,0,800,600,p);
-            gtd.drawImage(img2,-50,0,800,600,p);
-            gtd.drawImage(img1, x, 0,800,600,p);
-            gtd.drawImage(imgRockTwo, rockSpeed-20, 0,800,600,p); 
-            gtd.drawImage(img1, x+800, 0,800,600,p);
-        gtd.drawImage(imgRockTwo, rockSpeed+800-20, 0,800,600,p);
+        gtd.drawImage(img3,0,0,1280,800,p);
+            gtd.drawImage(img2,-50,0,1280,800,p);
+            gtd.drawImage(img1, x, 0,1280,800,p);
+            gtd.drawImage(imgRockTwo, rockSpeed-20, 0,1280,800,p); 
+            gtd.drawImage(img1, x+800, 0,1280,800,p);
+        gtd.drawImage(imgRockTwo, rockSpeed+1280-20, 0,1280,800,p);
     }
     
     public void updateLocation(int cam){

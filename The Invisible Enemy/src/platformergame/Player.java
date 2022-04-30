@@ -42,16 +42,15 @@ public class Player extends GameObject {
     Projectile projectile;
     
     
-    public Player(int x, int y, GamePanel panel,ID id){
-        super(x,y,id);
+    public Player(int x, int y, GamePanel panel){
+        super(x,y);
         this.x = x;
         this.y = y;
-        this.id = id;
         this.startX = x;
         this.locationX = x;
         this.panel = panel;
-        width = 32;
-        height = 64;
+        width = 20;
+        height = 20;
         hitBox = new Rectangle(x,y,width,height);
         
         
@@ -65,8 +64,7 @@ public class Player extends GameObject {
     public void tick(){
        
       //Update Character State
-      
-       if(keyFire==true&&xSpeed==0){
+      if(keyFire==true&&xSpeed==0){
           cState = cState.Shooting;
       }
        
@@ -131,8 +129,8 @@ public class Player extends GameObject {
       //speed limit/smoothing
       if(xSpeed > 0 && xSpeed<0.75)xSpeed = 0;
       if(xSpeed<0 && xSpeed> -0.75)xSpeed =0;
-      if(xSpeed > 3)xSpeed= 3;
-      if(xSpeed<-3)xSpeed = -3;
+      if(xSpeed > 5)xSpeed = 5;
+      if(xSpeed<-5)xSpeed = -5;
       
       
       //jump
@@ -200,18 +198,21 @@ public class Player extends GameObject {
           // panel.cameraY+= ySpeed;
             
          //  y +=ySpeed;
-         hitBox.y = y; 
-      if(y<=200&&ySpeed<=0 || y>=300&&ySpeed>=0){
-            panel.cameraY+=ySpeed;
-            locationY+=ySpeed;
-            hitBox.y =y;
-           
-        }else{
-           y += ySpeed;
-           hitBox.y = y;
-        }
-           
+         //hitBox.y = y; 
+
          
+//         if(y<=200&&ySpeed<=0 || y>=300&&ySpeed>=0){
+//            panel.cameraY+=ySpeed;
+//            locationY+=ySpeed;
+//            hitBox.y =y;
+//           
+//        }else{
+//           y += ySpeed;
+//           hitBox.y = y;
+//        }
+           
+         y += ySpeed;
+           hitBox.y = y;
        
         
         
@@ -226,11 +227,11 @@ public class Player extends GameObject {
         switch(cState){
             case Walking:{
                 //Sprite Sheet to use
-                spriteSheetIndex=2;
+                spriteSheetIndex = 1;
                 //How many Frames we have in this animation
-                sheetLenght = 6;
+                sheetLenght = 2;
                 //How fast should we play this animation
-                animPlayRate=4;
+                animPlayRate = 4;
                 //Call animation Method
                 Animation();
                 break;
@@ -238,40 +239,47 @@ public class Player extends GameObject {
             
             case Idle:{
             
-                spriteSheetIndex=0;
-                sheetLenght = 5;
-                animPlayRate=4;
+                spriteSheetIndex = 0;
+                sheetLenght = 2;
+                animPlayRate = 12;
                 Animation();
                 break;
             }
             
             case Jumping:{
                
-                spriteSheetIndex =3;
+                spriteSheetIndex = 0;
                 sheetLenght = 2;
-                animPlayRate=4;
+                animPlayRate = 2;
                 Animation();
                 break;
             }
             
             case Shooting:{
                 
-                spriteSheetIndex = 5;
-                sheetLenght = 3;
-                animPlayRate=5;
+                spriteSheetIndex = 4;
+                sheetLenght = 1;
+                animPlayRate = 5;
                 Shoot(10);
                 Animation();
                 
                 break;
             }
              case RunFiring:{
-                spriteSheetIndex = 6;
-                sheetLenght = 6;
+                spriteSheetIndex = 4;
+                sheetLenght = 1;
                 animPlayRate=4;
                 Shoot(10);
                 Animation();
                 break;
             }
+             
+//              sprites[0] = ImageIO.read(is); // idle (2 frames)
+//         sprites[1] = ImageIO.read(is1); // run (2 frames)
+//         sprites[2] = ImageIO.read(is2); // hit (2 frames)
+//         sprites[3] = ImageIO.read(is3); // death (2 frames)
+//         sprites[4] = ImageIO.read(is4); // attack (1 frame)
+             
         }
          
     }
@@ -281,11 +289,11 @@ public class Player extends GameObject {
         this.fireRate = fr;
         if(fireRateCounter==fireRate){
             if(direction == direction.Right){
-                 projectile = new Projectile(x+50,y+30,1,panel.handler);
+                 projectile = new Projectile(x+30,y,1,panel.handler);
                 panel.handler.projectiles.add(projectile);
                 fireRateCounter=0;
             }else{
-                projectile = new Projectile(x+50,y+30,-1,panel.handler);
+                projectile = new Projectile(x+30,y,-1,panel.handler);
                 panel.handler.projectiles.add(projectile);
                 fireRateCounter=0;
                 
@@ -302,12 +310,12 @@ public class Player extends GameObject {
     public void Draw(Graphics2D gtd){
       
         gtd.setColor(Color.red);
-       //gtd.fillRect(x, y, width, height);
+       //gtd.fillRect(x, y, width, height);  //Hitbox visible for testing
         //Flips the image based on the direction the character is facing
         if(direction == direction.Right)
-            gtd.drawImage(characterSprite, x-30, y-10,100,100,panel);
+            gtd.drawImage(characterSprite, x - 10 , y-30,50,50,panel);
         if(direction == direction.Left)
-            gtd.drawImage(characterSprite, x-20+80, y-10,-100,100,panel);
+            gtd.drawImage(characterSprite, x + 35  , y-30,-50,50,panel);
         
        
     }
@@ -352,22 +360,19 @@ public class Player extends GameObject {
     //Load all sprite Sheets into memory
     public void ImportImage(){
         
-        InputStream is = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Idle.png");
-        InputStream is1 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Crouch.png");
-        InputStream is2 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Run.png");
-        InputStream is3 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Jump.png");
-        InputStream is4 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Death.png");
-        InputStream is5 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Firing2.png");
-        InputStream is6 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Run_Fire2.png");
+        InputStream is = getClass().getResourceAsStream("/Images/Character/berg_Idle.png");
+        InputStream is1 = getClass().getResourceAsStream("/Images/Character/berg_run.png");
+        InputStream is2 = getClass().getResourceAsStream("/Images/Character/berg_hit.png");
+        InputStream is3 = getClass().getResourceAsStream("/Images/Character/berg_dead.png");
+        InputStream is4 = getClass().getResourceAsStream("/Images/Character/attack_right.png");
+        
         try{
-         sprites[0] = ImageIO.read(is);
-         sprites[1] = ImageIO.read(is1);
-         sprites[2] = ImageIO.read(is2);
-         sprites[3] = ImageIO.read(is3);
-         sprites[4] = ImageIO.read(is4);
-         sprites[5] = ImageIO.read(is5);
-         sprites[6] = ImageIO.read(is6);
-         
+         sprites[0] = ImageIO.read(is); // idle (2 frames)
+         sprites[1] = ImageIO.read(is1); // run (2 frames)
+         sprites[2] = ImageIO.read(is2); // hit (2 frames)
+         sprites[3] = ImageIO.read(is3); // death (2 frames)
+         sprites[4] = ImageIO.read(is4); // attack (1 frame)
+                  
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -376,7 +381,7 @@ public class Player extends GameObject {
     //Get a sub image from the sprite sheet
      public void updateImage(BufferedImage image,int x, int y){
         
-        characterSprite = image.getSubimage(x, y, 48, 48);
+        characterSprite = image.getSubimage(x, y, 16, 16);
         
     }
      
@@ -394,10 +399,10 @@ public class Player extends GameObject {
           //the higher the play rate value the longer it will take to go to the next frame
         if(animCounter==animPlayRate){
            //if we are not in the last frame go to the next
-            if(spriteIndex<sheetLenght){
+            if(spriteIndex <= sheetLenght){
                 //get a sub image from the sprite sheet the spriteIndex variable represents 
                 //the current frame, 48 is the size of the sub image,which should be saved in a variable in the future (e.g int spriteSize)
-                updateImage(sprites[spriteSheetIndex],(spriteIndex* 48)-48,0);
+                updateImage(sprites[spriteSheetIndex],(spriteIndex * 16)-16,0);
                 spriteIndex++;
                  
                 

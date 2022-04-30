@@ -30,10 +30,14 @@ public class Citizen extends GameObject {
     int spriteSheetIndex, sheetLenght;
     Rectangle hitBox;
     Rectangle ledgeBox;
+    enum CitizenType{
+    white(),black(),blue(),pink(),yellow(),red();
+    }
     CharacterState cState;
+    CitizenType colour;
 
-    public Citizen(int x, int y, GamePanel gp, ID id, String type) {
-         super(x, y,id);
+    public Citizen(int x, int y, GamePanel gp) {
+         super(x, y);
          
         this.x = x;
         this.y = y;
@@ -50,8 +54,9 @@ public class Citizen extends GameObject {
         this.player = (Player) this.panel.handler.object.get(0);
         
         direction = direction.Left;
+        colour = colour.red;
         
-        ImportImage(type);
+        ImportImage();
         SetSpeedX(-1);      
     }
     
@@ -200,6 +205,25 @@ public class Citizen extends GameObject {
         ledgeBox.height = 30;
        
        Animation();
+       
+       
+       for( int i = 0 ; i < panel.handler.projectiles.size(); i++  ){
+           
+           if(panel.handler.projectiles.get(i).hitBox.intersects(this.hitBox)){
+               
+               //Event ( dano)
+               
+               
+               panel.handler.projectiles.remove(i);
+               colour = colour.white;
+               ImportImage();
+               
+               
+           }
+       
+           
+       }
+       
         
         
     }
@@ -221,38 +245,38 @@ public class Citizen extends GameObject {
      /// This rectangle represents the Object HitBox
         gtd.setColor(Color.red);
        gtd.fillRect(x, y, width, height); // Hitbox size
-       gtd.fillRect(ledgeBox.x, ledgeBox.y, ledgeBox.width, ledgeBox.height);
+       //gtd.fillRect(ledgeBox.x, ledgeBox.y, ledgeBox.width, ledgeBox.height); // Other hitbox Approach
        //these lines flips the image horizontally and adjust their x and y coordinates to match the object HitBox
         if(direction == direction.Right)
             gtd.drawImage(characterSprite, x-30, y + 2 ,50,50,panel);
-                //                                    /\ /\ 
+                  //                                    /\ /\ 
 //                                            (Size parameters, change both
         if(direction == direction.Left)
             gtd.drawImage(characterSprite, x+30, y + 2 ,-50,50,panel);
     }
             
     //Load all character sprite sheets into memory and saves them into an array.
-     public void ImportImage(String type){
+     public void ImportImage(){
          
          InputStream is = null;
          
-         switch(type){
-             case "blue":
+         switch(colour){
+             case blue:
               is = getClass().getResourceAsStream("/Images/Citizen/blue/blue_animation.png");
              break;
-             case "white":
+             case white:
              is = getClass().getResourceAsStream("/Images/Citizen/white/white_animation.png");
              break;
-             case "red":
+             case red:
              is = getClass().getResourceAsStream("/Images/Citizen/red/red_animation.png");
              break;
-             case "yellow":
+             case yellow:
              is = getClass().getResourceAsStream("/Images/Citizen/yellow/yellow_animation.png");
              break;
-             case "black":
+             case black:
              is = getClass().getResourceAsStream("/Images/Citizen/black/black_animation.png");
              break;
-             case "pink":
+             case pink:
              is = getClass().getResourceAsStream("/Images/Citizen/pink/pink_animation.png");
              break;    
          }

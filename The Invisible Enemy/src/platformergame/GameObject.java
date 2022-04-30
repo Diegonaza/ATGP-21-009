@@ -17,6 +17,10 @@ public abstract class GameObject {
     protected ID id;
     protected double xSpeed, ySpeed;
     
+    ColourType ct;
+    
+    
+    
     public GameObject(int x, int y, ID id){
         this.x = x;
         this.y = y;
