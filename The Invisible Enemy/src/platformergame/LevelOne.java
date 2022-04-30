@@ -27,13 +27,13 @@ public class LevelOne {
     public LevelOne(GamePanel p){
         InputStream is = getClass().getResourceAsStream("/Images/Map1/dublin.png");
         InputStream is1 = getClass().getResourceAsStream("/Images/Map1/clouds_2.png");
-        InputStream is2 = getClass().getResourceAsStream("/Images/Map1/rocks_1.png");
+       // InputStream is2 = getClass().getResourceAsStream("/Images/Map1/rocks_1.png");//remored mountain
          InputStream is3 = getClass().getResourceAsStream("/Images/Map1/sky.png");
         p = p;
         try{
             imgRockTwo = ImageIO.read(is);
             img1 = ImageIO.read(is1);
-            img2 = ImageIO.read(is2);
+            //img2 = ImageIO.read(is2);//remored mountain
             img3 = ImageIO.read(is3);
             
         }catch(Exception e){
