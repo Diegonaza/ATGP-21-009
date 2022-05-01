@@ -7,6 +7,7 @@ import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import zMapEditor.TileMapper;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 /*
@@ -38,11 +39,21 @@ public class GamePanel extends Canvas implements Runnable {
         handler.setMapper(tl);
         //Spawn a playing into the level
         player = new Player(250,200,this);
+        // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
+        //adds the player to handler object List
+        handler.addObject(player);
+        
+        for(int i = 0 ; i<200; i++){
+            int randomX = ThreadLocalRandom.current().nextInt(250,451);
+            int randomY = ThreadLocalRandom.current().nextInt(30,100);
+            Zenith z = new Zenith(randomX,randomY,5,handler, this);
+            handler.addObject(z);
+        }
         //Adds the key listener 
         this.addKeyListener(new PlayerInput(this));
-        //adds the player to handler object List
-        // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
-        handler.addObject(player);
+        
+        
+        
         //Spawn a Enemy into the level
              enemy = new Citizen(400,250,this);
          //adds the Enemy to the handler Enemies List
@@ -177,8 +188,8 @@ public class GamePanel extends Canvas implements Runnable {
         {
             if((System.nanoTime() - lastFPSUPSOutput) > 1000000000)
             {
-                System.out.println("FPS: " + (double)fps);
-                System.out.println("UPS: " + (double)ups);
+              //  System.out.println("FPS: " + (double)fps);
+             //   System.out.println("UPS: " + (double)ups);
                 
                 fps = 0;
                 ups = 0;

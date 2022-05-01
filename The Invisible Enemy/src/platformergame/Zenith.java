@@ -16,10 +16,10 @@ public class Zenith extends GameObject{
 
     
     
-    int speedX = 10;
-    int speedY = 10;
-    int zenithSpeedX;
-    int zenithSpeedY;
+   //public int speedX ;
+    int speedY ;
+    GamePanel panelRef;
+    int camPrevX;
     
     int startX;
     
@@ -32,15 +32,18 @@ public class Zenith extends GameObject{
     
     
     
-     public Zenith(int x, int y, int speedX, Handler handler) {
+     public Zenith(int x, int y, int speedX, Handler handler,GamePanel p) {
         super(x, y);
+        this.panelRef = p;
+        this.camPrevX = p.cameraX;
         ct = ct.white; // there is no white Zenith, If white, please check this part for this wasn't initialized.
-        
+         
         this.startX = x;
-        this.speedX = speedX* zenithSpeedX;
+        this.xSpeed = speedX;
+        this.ySpeed = 5;
         this.handlerRef = handler;
         this.hitBox = new Rectangle(2,2);
-        
+        //System.out.println(this.speedX);
         
         
         
@@ -51,12 +54,50 @@ public class Zenith extends GameObject{
     @Override
     public void tick() {
         
+        //collision
         
-        this.x += zenithSpeedX;
-        this.y += zenithSpeedY;
+          //vertical collision
+          hitBox.y += ySpeed;
+        for(Platform p: handlerRef.platforms){
+            if(hitBox.intersects(p.hitBox)){
+                hitBox.y -= ySpeed;
+                while(!p.hitBox.intersects(hitBox)) hitBox.y += Math.signum(ySpeed);
+                hitBox.y -= Math.signum(ySpeed);
+                ySpeed = ySpeed * -1;
+                y = hitBox.y;
+            }
+        }
         
-        hitBox.x = x;
+        
+        
+        //horizontal collision
+        hitBox.x += xSpeed;
+        for(Platform p: handlerRef.platforms){
+            if(hitBox.intersects(p.hitBox)){
+                hitBox.x -= xSpeed;
+               while(!p.hitBox.intersects(hitBox)) hitBox.x += Math.signum(xSpeed);
+                hitBox.x -= Math.signum(xSpeed);
+                xSpeed = xSpeed * -1;
+                x = hitBox.x;
+            }
+        }
+        
+       // this.x += speedX;
+        if(camPrevX != panelRef.cameraX){
+             x += (camPrevX-panelRef.cameraX);
+             x += xSpeed;
+             hitBox.x = x;
+             camPrevX = panelRef.cameraX;
+         }else{
+             x+= xSpeed;
+             hitBox.x = x;
+         }
+        
+        y += ySpeed;
         hitBox.y = y;
+       
+        
+       
         
         
     }
@@ -86,7 +127,7 @@ public class Zenith extends GameObject{
                 break;
         }
         
-        g.drawRect(x, y, 3, 3);
+        g.drawRect(x,y, 3, 3);
         g.fillRect(x+1, y+1, 2, 2);
         
         

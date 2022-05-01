@@ -44,6 +44,7 @@ public class Citizen extends GameObject {
         this.id = id;
         this.startX = x;
         this.startY = y;
+        this.xSpeed = 2;
         this.panel = gp;
         this.camPrevY = panel.cameraY;
         this.camPrevX = panel.cameraX;
@@ -90,7 +91,16 @@ public class Citizen extends GameObject {
       
       
       //Player Movement
-    xSpeed = 0 ;
+    
+    if( x > (startX+100)){
+        Roam();
+        
+    }
+    if( x <(startX-100)){
+        Roam();
+        
+    }
+    
       
       //speed limit/smoothing
       if(xSpeed > 0 && xSpeed<0.75)xSpeed = 0;
@@ -178,8 +188,8 @@ public class Citizen extends GameObject {
         switch(cState){
             case Walking:{
             
-                spriteSheetIndex=1;
-                sheetLenght = 1;
+                spriteSheetIndex=0;
+                sheetLenght = 2;
                 break;
             }
             
@@ -231,7 +241,7 @@ public class Citizen extends GameObject {
     
     
     public void Roam(){
-       
+       xSpeed = xSpeed*-1;
     }
     
     public void SetSpeedX(double speed){
