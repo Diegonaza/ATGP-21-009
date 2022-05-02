@@ -34,7 +34,7 @@ public class GamePanel extends Canvas implements Runnable {
     
     public GamePanel(){
         //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
-        TileMapper tl = new TileMapper("Cave2",handler);
+        TileMapper tl = new TileMapper("firstmap",handler);
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
         //Spawn a playing into the level
