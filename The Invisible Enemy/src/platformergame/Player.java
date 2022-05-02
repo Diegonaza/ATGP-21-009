@@ -29,6 +29,7 @@ public class Player extends GameObject {
     int animPlayRate = 0;
     int spriteSheetIndex, sheetLenght;
     boolean isFalling = true;
+    boolean canJump = true;
     Rectangle hitBox;
     CharacterState cState;
     enum Direction{
@@ -148,8 +149,9 @@ public class Player extends GameObject {
       
       
       //jump Logic
-      if(keyJump){
+      if(keyJump && canJump){
           hitBox.y++;
+          canJump = false;
           for(int i = 0; i<panel.handler.platforms.size(); i++){
               if(panel.handler.platforms.get(i).hitBox.intersects(hitBox))ySpeed = -12;
           }
@@ -343,9 +345,11 @@ public class Player extends GameObject {
         }
         if(key ==KeyEvent.VK_SPACE){
             keyJump = true;
+            
         }
         if(key ==KeyEvent.VK_F){
             keyFire = true;
+            
             
         }
        /* if(e.getKeyChar() == 'i'){
@@ -364,7 +368,10 @@ public class Player extends GameObject {
         if(key ==KeyEvent.VK_A) keyLeft = false;
         if(key ==KeyEvent.VK_D) keyRight = false;
         if(key ==KeyEvent.VK_F)keyFire = false;
-        if(key ==KeyEvent.VK_SPACE)keyJump = false;
+        if(key ==KeyEvent.VK_SPACE){
+            keyJump = false;
+            canJump = true;
+        }
     }
     
     //Load all sprite Sheets into memory

@@ -241,11 +241,7 @@ public class Citizen extends GameObject {
     
     
     public void Roam(){
-        if(xSpeed >0){
-            x = x-5;
-        }else{
-            x = x+5;
-        }
+       
        xSpeed = xSpeed*-1;
     }
     

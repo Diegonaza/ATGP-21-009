@@ -7,6 +7,7 @@ package platformergame;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -16,16 +17,11 @@ public class Zenith extends GameObject{
 
     
     
-   //public int speedX ;
-    int speedY ;
+   
     GamePanel panelRef;
     int camPrevX;
-    
     int startX;
-    
-    
-    
-    
+    int dRandom;
     Handler handlerRef;
     Rectangle hitBox;
     
@@ -39,8 +35,8 @@ public class Zenith extends GameObject{
         ct = ct.white; // there is no white Zenith, If white, please check this part for this wasn't initialized.
          
         this.startX = x;
-        this.xSpeed = speedX;
-        this.ySpeed = 5;
+        this.xSpeed = 6;
+        this.ySpeed = 2;
         this.handlerRef = handler;
         this.hitBox = new Rectangle(2,2);
         //System.out.println(this.speedX);
@@ -64,6 +60,8 @@ public class Zenith extends GameObject{
                 while(!p.hitBox.intersects(hitBox)) hitBox.y += Math.signum(ySpeed);
                 hitBox.y -= Math.signum(ySpeed);
                 ySpeed = ySpeed * -1;
+                dRandom = ThreadLocalRandom.current().nextInt(0,2);
+                if(dRandom == 0) xSpeed = xSpeed * -1;
                 y = hitBox.y;
             }
         }
@@ -78,6 +76,8 @@ public class Zenith extends GameObject{
                while(!p.hitBox.intersects(hitBox)) hitBox.x += Math.signum(xSpeed);
                 hitBox.x -= Math.signum(xSpeed);
                 xSpeed = xSpeed * -1;
+                dRandom = ThreadLocalRandom.current().nextInt(0,2);
+                if(dRandom == 0) ySpeed = ySpeed * -1;
                 x = hitBox.x;
             }
         }
