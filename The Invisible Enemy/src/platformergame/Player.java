@@ -28,6 +28,7 @@ public class Player extends GameObject {
     int spriteIndex = 1;
     int animPlayRate = 0;
     int spriteSheetIndex, sheetLenght;
+    boolean isFalling = true;
     Rectangle hitBox;
     CharacterState cState;
     enum Direction{
@@ -46,11 +47,12 @@ public class Player extends GameObject {
         super(x,y);
         this.x = x;
         this.y = y;
+        this.id = id;
         this.startX = x;
         this.locationX = x;
         this.panel = panel;
-        width = 20;
-        height = 20;
+        width = 32;
+        height = 64;
         hitBox = new Rectangle(x,y,width,height);
         
         
@@ -62,51 +64,62 @@ public class Player extends GameObject {
     //tick  "update"
     @Override
     public void tick(){
-       
+        
+        if(ySpeed!=0 && ySpeed !=0.5)isFalling = true;
+        
       //Update Character State
-      if(keyFire==true&&xSpeed==0){
+       //Shooting State
+       if(keyFire==true&&xSpeed==0&&cState!=cState.Shooting&&cState!=cState.Jumping && isFalling == false ){
           cState = cState.Shooting;
+           spriteIndex = 1;
       }
-       
-       
-      if(xSpeed!=0 && ySpeed==0 ){
-          if(cState == cState.RunFiring && spriteIndex%2 !=0){
-              cState = cState.RunFiring;
-          }else{
+       //Walking / Walking&Shooting State
+      if(xSpeed!=0 && isFalling == false ){
+          
+          if (keyFire== false && cState!=cState.Walking && isFalling == false){
               cState = cState.Walking;
+              spriteIndex = 1;
+          }
+          
+          else if(keyFire==true&&cState!=cState.RunFiring && cState == cState.Walking || 
+                  keyFire==true&&cState!=cState.RunFiring && cState == cState.Shooting ||
+                  keyFire==true&&cState!=cState.RunFiring && cState == cState.JumpingShooting){
+             cState = cState.RunFiring;
+              spriteIndex = 1;
           }
           
       }
       
-      if(xSpeed==0 && ySpeed <=0.5 && keyFire!=true){
-          if(cState == cState.Shooting && spriteIndex!=2){
-              cState = cState.Shooting;
-              
-          }else{
-              cState = cState.Idle;
-          }
+      // Idle State
+      if(isFalling == false && keyFire!=true && cState!= cState.Idle && xSpeed == 0){
+          cState = cState.Idle;
+          spriteIndex = 1;
           
       }
       
-      if(ySpeed>0.5 || ySpeed <0){
-          if(cState == cState.Shooting && spriteIndex!=2){
-              cState = cState.Shooting;
-          }else{
+      
+      //Jump 
+      if(isFalling == true && cState != cState.Jumping && keyFire == false ){
+          
               cState = cState.Jumping;
-          }
+              spriteIndex = 1;
+          
       }
       
-      if(cState == cState.Jumping && keyFire == true){
-          cState = cState.Shooting;
+      // Jumping&Shooting State
+      if(cState == cState.Jumping && keyFire == true && cState!=cState.JumpingShooting && isFalling == true || 
+         cState == cState.Shooting  && cState!= cState.JumpingShooting && isFalling == true ||
+         cState == cState.RunFiring && cState!= cState.JumpingShooting && isFalling == true ||
+         cState == cState.Walking && cState!= cState.JumpingShooting && isFalling == true){
+          
+          cState = cState.JumpingShooting;
+          spriteIndex = 1;
       }
       
      
-      if(keyFire==true&&cState==cState.Walking){
-          cState = cState.RunFiring;
-      }
       
        //Reset The variable the controls the fireRate
-        if(cState!=cState.Shooting && cState!=cState.RunFiring){
+        if(cState!=cState.Shooting && cState!=cState.RunFiring && cState!= cState.JumpingShooting){
             fireRateCounter=10;
         }
       
@@ -129,11 +142,12 @@ public class Player extends GameObject {
       //speed limit/smoothing
       if(xSpeed > 0 && xSpeed<0.75)xSpeed = 0;
       if(xSpeed<0 && xSpeed> -0.75)xSpeed =0;
-      if(xSpeed > 5)xSpeed = 5;
-      if(xSpeed<-5)xSpeed = -5;
+      if(xSpeed > 3)xSpeed= 3;
+      if(xSpeed<-3)xSpeed = -3;
       
       
-      //jump
+      
+      //jump Logic
       if(keyJump){
           hitBox.y++;
           for(int i = 0; i<panel.handler.platforms.size(); i++){
@@ -154,11 +168,15 @@ public class Player extends GameObject {
                 hitBox.y -= ySpeed;
                 while(!p.hitBox.intersects(hitBox)) hitBox.y += Math.signum(ySpeed);
                 hitBox.y -= Math.signum(ySpeed);
+                if(Math.signum(ySpeed)>0){
+                    isFalling = false;
+                }else{
+                    isFalling = true;
+                }
                 ySpeed = 0;
                 y = hitBox.y;
             }
         }
-        
         
         
         //horizontal collision
@@ -197,22 +215,11 @@ public class Player extends GameObject {
            
           // panel.cameraY+= ySpeed;
             
-         //  y +=ySpeed;
-         //hitBox.y = y; 
-
-         
-//         if(y<=200&&ySpeed<=0 || y>=300&&ySpeed>=0){
-//            panel.cameraY+=ySpeed;
-//            locationY+=ySpeed;
-//            hitBox.y =y;
-//           
-//        }else{
-//           y += ySpeed;
-//           hitBox.y = y;
-//        }
+         y +=ySpeed;
+         hitBox.y = y; 
+      
            
-         y += ySpeed;
-           hitBox.y = y;
+         
        
         
         
@@ -227,11 +234,11 @@ public class Player extends GameObject {
         switch(cState){
             case Walking:{
                 //Sprite Sheet to use
-                spriteSheetIndex = 1;
+                spriteSheetIndex=2;
                 //How many Frames we have in this animation
-                sheetLenght = 2;
+                sheetLenght = 8;
                 //How fast should we play this animation
-                animPlayRate = 4;
+                animPlayRate=4;
                 //Call animation Method
                 Animation();
                 break;
@@ -239,47 +246,50 @@ public class Player extends GameObject {
             
             case Idle:{
             
-                spriteSheetIndex = 0;
-                sheetLenght = 2;
-                animPlayRate = 12;
+                spriteSheetIndex=0;
+                sheetLenght = 3;
+                animPlayRate=8;
                 Animation();
                 break;
             }
             
             case Jumping:{
                
-                spriteSheetIndex = 0;
-                sheetLenght = 2;
-                animPlayRate = 2;
+                spriteSheetIndex =3;
+                sheetLenght = 6;
+                animPlayRate=6;
+                Animation();
+                break;
+            }
+            case JumpingShooting:{
+               
+                spriteSheetIndex =7;
+                sheetLenght = 6;
+                animPlayRate=6;
+                Shoot(10);
                 Animation();
                 break;
             }
             
+            
             case Shooting:{
                 
-                spriteSheetIndex = 4;
-                sheetLenght = 1;
-                animPlayRate = 5;
+                spriteSheetIndex = 5;
+                sheetLenght = 6;
+                animPlayRate=8;
                 Shoot(10);
                 Animation();
                 
                 break;
             }
              case RunFiring:{
-                spriteSheetIndex = 4;
-                sheetLenght = 1;
+                spriteSheetIndex = 6;
+                sheetLenght = 6;
                 animPlayRate=4;
                 Shoot(10);
                 Animation();
                 break;
             }
-             
-//              sprites[0] = ImageIO.read(is); // idle (2 frames)
-//         sprites[1] = ImageIO.read(is1); // run (2 frames)
-//         sprites[2] = ImageIO.read(is2); // hit (2 frames)
-//         sprites[3] = ImageIO.read(is3); // death (2 frames)
-//         sprites[4] = ImageIO.read(is4); // attack (1 frame)
-             
         }
          
     }
@@ -289,11 +299,11 @@ public class Player extends GameObject {
         this.fireRate = fr;
         if(fireRateCounter==fireRate){
             if(direction == direction.Right){
-                 projectile = new Projectile(x+30,y,1,panel.handler);
+                 projectile = new Projectile(x+50,y+25,1,panel.handler);
                 panel.handler.projectiles.add(projectile);
                 fireRateCounter=0;
             }else{
-                projectile = new Projectile(x+30,y,-1,panel.handler);
+                projectile = new Projectile(x-50,y+25,-1,panel.handler);
                 panel.handler.projectiles.add(projectile);
                 fireRateCounter=0;
                 
@@ -310,12 +320,12 @@ public class Player extends GameObject {
     public void Draw(Graphics2D gtd){
       
         gtd.setColor(Color.red);
-       //gtd.fillRect(x, y, width, height);  //Hitbox visible for testing
+      // gtd.fillRect(x, y, width, height);
         //Flips the image based on the direction the character is facing
         if(direction == direction.Right)
-            gtd.drawImage(characterSprite, x - 10 , y-30,50,50,panel);
+            gtd.drawImage(characterSprite, x-15, y-30,100,100,panel);
         if(direction == direction.Left)
-            gtd.drawImage(characterSprite, x + 35  , y-30,-50,50,panel);
+            gtd.drawImage(characterSprite, x+45, y-30,-100,100,panel);
         
        
     }
@@ -360,19 +370,24 @@ public class Player extends GameObject {
     //Load all sprite Sheets into memory
     public void ImportImage(){
         
-        InputStream is = getClass().getResourceAsStream("/Images/Character/berg_idle.png");
-        InputStream is1 = getClass().getResourceAsStream("/Images/Character/berg_run.png");
-        InputStream is2 = getClass().getResourceAsStream("/Images/Character/berg_hit.png");
-        InputStream is3 = getClass().getResourceAsStream("/Images/Character/berg_dead.png");
-        InputStream is4 = getClass().getResourceAsStream("/Images/Character/attack_right.png");
-        
+        InputStream is = getClass().getResourceAsStream("/Images/Character/BergIdle.png");
+        InputStream is1 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Crouch.png");
+        InputStream is2 = getClass().getResourceAsStream("/Images/Character/BergWalk.png");
+        InputStream is3 = getClass().getResourceAsStream("/Images/Character/BergJump.png");
+        InputStream is4 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Death.png");
+        InputStream is5 = getClass().getResourceAsStream("/Images/Character/BergShooting.png");
+        InputStream is6 = getClass().getResourceAsStream("/Images/Character/BergWalkShoot.png");
+        InputStream is7 = getClass().getResourceAsStream("/Images/Character/BergJumpShoot.png");
         try{
-         sprites[0] = ImageIO.read(is); // idle (2 frames)
-         sprites[1] = ImageIO.read(is1); // run (2 frames)
-         sprites[2] = ImageIO.read(is2); // hit (2 frames)
-         sprites[3] = ImageIO.read(is3); // death (2 frames)
-         sprites[4] = ImageIO.read(is4); // attack (1 frame)
-                  
+         sprites[0] = ImageIO.read(is);
+         sprites[1] = ImageIO.read(is1);
+         sprites[2] = ImageIO.read(is2);
+         sprites[3] = ImageIO.read(is3);
+         sprites[4] = ImageIO.read(is4);
+         sprites[5] = ImageIO.read(is5);
+         sprites[6] = ImageIO.read(is6);
+         sprites[7] = ImageIO.read(is7);
+         
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -381,7 +396,7 @@ public class Player extends GameObject {
     //Get a sub image from the sprite sheet
      public void updateImage(BufferedImage image,int x, int y){
         
-        characterSprite = image.getSubimage(x, y, 16, 16);
+        characterSprite = image.getSubimage(x, y, 64, 64);
         
     }
      
@@ -399,10 +414,10 @@ public class Player extends GameObject {
           //the higher the play rate value the longer it will take to go to the next frame
         if(animCounter==animPlayRate){
            //if we are not in the last frame go to the next
-            if(spriteIndex <= sheetLenght){
+            if(spriteIndex<=sheetLenght){
                 //get a sub image from the sprite sheet the spriteIndex variable represents 
                 //the current frame, 48 is the size of the sub image,which should be saved in a variable in the future (e.g int spriteSize)
-                updateImage(sprites[spriteSheetIndex],(spriteIndex * 16)-16,0);
+                updateImage(sprites[spriteSheetIndex],(spriteIndex* 64)-64,0);
                 spriteIndex++;
                  
                 

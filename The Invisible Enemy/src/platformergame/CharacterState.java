@@ -13,6 +13,7 @@ public enum CharacterState {
     Idle(),
     Walking(),
     Jumping(),
+    JumpingShooting(),
     Dead(),
     Shooting(),
     RunFiring();
