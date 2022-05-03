@@ -43,10 +43,43 @@ public class GamePanel extends Canvas implements Runnable {
         //adds the player to handler object List
         handler.addObject(player);
         
+        int cicle = 0;
+        
         for(int i = 0 ; i<200; i++){
             int randomX = ThreadLocalRandom.current().nextInt(250,451);
             int randomY = ThreadLocalRandom.current().nextInt(30,100);
             Zenith z = new Zenith(randomX,randomY,5,handler, this);
+            cicle ++;
+            
+            switch(cicle){
+                case 1: 
+                z.ct = z.ct.blue;
+                break;
+                
+                case 2: 
+                z.ct = z.ct.red;
+                break;
+                
+                case 3: 
+                z.ct = z.ct.yellow;
+                break;
+                
+                case 4:
+                z.ct = z.ct.pink;
+                break;
+                
+                case 5:
+                z.ct = z.ct.black;
+                break;
+                
+                        }
+            //applying the switch to create a equally distribuited Zenith particles in the map.
+            
+            if(cicle >= 5){
+                cicle = 0;}
+            
+            
+            
             handler.addObject(z);
         }
         //Adds the key listener 

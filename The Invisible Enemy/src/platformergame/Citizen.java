@@ -55,7 +55,7 @@ public class Citizen extends GameObject {
         this.player = (Player) this.panel.handler.object.get(0);
         
         direction = direction.Left;
-        colour = colour.red;
+        colour = colour.white;
         
         ImportImage();
         SetSpeedX(-1);      

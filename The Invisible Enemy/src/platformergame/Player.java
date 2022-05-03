@@ -378,19 +378,19 @@ public class Player extends GameObject {
     public void ImportImage(){
         
         InputStream is = getClass().getResourceAsStream("/Images/Character/BergIdle.png");
-        InputStream is1 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Crouch.png");
+        
         InputStream is2 = getClass().getResourceAsStream("/Images/Character/BergWalk.png");
         InputStream is3 = getClass().getResourceAsStream("/Images/Character/BergJump.png");
-        InputStream is4 = getClass().getResourceAsStream("/Images/Character/Gunner_Blue_Death.png");
+        
         InputStream is5 = getClass().getResourceAsStream("/Images/Character/BergShooting.png");
         InputStream is6 = getClass().getResourceAsStream("/Images/Character/BergWalkShoot.png");
         InputStream is7 = getClass().getResourceAsStream("/Images/Character/BergJumpShoot.png");
         try{
          sprites[0] = ImageIO.read(is);
-         sprites[1] = ImageIO.read(is1);
+        // sprites[1] = ImageIO.read(is1);
          sprites[2] = ImageIO.read(is2);
          sprites[3] = ImageIO.read(is3);
-         sprites[4] = ImageIO.read(is4);
+         // sprites[4] = ImageIO.read(is4);
          sprites[5] = ImageIO.read(is5);
          sprites[6] = ImageIO.read(is6);
          sprites[7] = ImageIO.read(is7);
