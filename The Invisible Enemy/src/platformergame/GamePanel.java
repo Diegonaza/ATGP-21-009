@@ -38,7 +38,7 @@ public class GamePanel extends Canvas implements Runnable {
         //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
         TileMapper tl = new TileMapper("firstmap",handler);
         
-       AdventureMusic();
+       AdventureMusic(0);
                
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
@@ -293,10 +293,10 @@ public class GamePanel extends Canvas implements Runnable {
         bs.show();
     }
     
-    private void AdventureMusic(){
+    private void AdventureMusic(int i){
         
         //Loads the sound clip
-        music.setSound(0);
+        music.setSound(i);
         //Set's the sound volume to 10% of the total
         music.setVolume((float) 0.10);
         //Play the clip

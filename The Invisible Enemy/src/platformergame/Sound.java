@@ -19,12 +19,12 @@ import javax.sound.sampled.FloatControl;
 public class Sound {
     
     //array of sounds
-    URL url[] = new URL[1];
+    URL url[] = new URL[2];
     Clip clip;
     public Sound() {
         
        url[0] = getClass().getResource("/Sound/WeAreAngels.wav");
-        
+       url[1] = getClass().getResource("/Sound/WeAreDead.wav");
        
     }
     
