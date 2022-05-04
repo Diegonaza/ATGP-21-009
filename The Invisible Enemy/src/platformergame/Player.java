@@ -309,7 +309,9 @@ public class Player extends GameObject {
                 break;
             }
         }
-          if(health ==0)panel.StartGame();
+        
+        
+          if(health ==0)System.exit(0);
     }
     
     //Spawn projectile is still a work in progress

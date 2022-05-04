@@ -32,16 +32,28 @@ public class GamePanel extends Canvas implements Runnable {
     int cameraY;
     LevelOne l = new LevelOne(this);
     Sound music = new Sound();
-       
+    Window w;   
     
     public GamePanel(){
        
          //Start the game Loop
          
          StartGame();
-         new Window(1280,800,"The Invisible Enemy",this);
-         Start();
          
+         w = new Window(1280,800,"The Invisible Enemy",this);
+         Start();
+         this.setBounds(0, 0, 1280, 800);
+         GameOver gameOver = new GameOver();
+         w.frame.add(gameOver);
+         gameOver.setBounds(0, 0, 1280, 800);
+         gameOver.setVisible(true);
+         
+        /*
+         Inventory inv = new Inventory();
+         w.frame.add(inv);
+         inv.setBounds(0, 600, 1280, 200);
+         inv.setVisible(true);
+         */
       
     }
     
