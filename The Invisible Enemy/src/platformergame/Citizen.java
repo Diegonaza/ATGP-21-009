@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
 public class Citizen extends GameObject {
     
     GamePanel panel;
-    double movementSpeed;
+    double movementSpeed = 0;
    
     int startX;
     int startY;
@@ -34,11 +34,13 @@ public class Citizen extends GameObject {
     white(),black(),blue(),pink(),yellow(),red();
     }
     CharacterState cState;
+    
     CitizenType colour;
 
     public Citizen(int x, int y, GamePanel gp) {
          super(x, y);
          
+        cState = cState.Walking;
         this.x = x;
         this.y = y;
         this.id = id;
@@ -49,13 +51,13 @@ public class Citizen extends GameObject {
         this.camPrevY = panel.cameraY;
         this.camPrevX = panel.cameraX;
         width = 16;
-        height = 50;
+        height = 80;
         hitBox = new Rectangle(x,y,width,height);
         ledgeBox = new Rectangle(x,y,25,60);
         this.player = (Player) this.panel.handler.object.get(0);
         
-        direction = direction.Left;
-        colour = colour.white;
+        direction = direction.Right;
+        colour = colour.red;
         
         ImportImage();
         SetSpeedX(-1);      
@@ -66,7 +68,7 @@ public class Citizen extends GameObject {
     Left(),Right();
     }
     Direction direction ;
-    boolean keyLeft,keyRight,keyJump;
+    boolean faceLeft,faceRight;
     
     BufferedImage[] sprites = new BufferedImage[5];
     BufferedImage characterSprite;
@@ -78,28 +80,40 @@ public class Citizen extends GameObject {
 
     @Override
     public void tick() {
+        
+        
        //Character States  
       if(xSpeed!=0){
           cState = cState.Walking;
       }
       
-      if(xSpeed==0 && ySpeed <=0.5){
-          cState = cState.Idle;
-      }
-      
-      if(ySpeed>0.5 || ySpeed <0)cState = cState.Jumping;
+      if(ySpeed != 0){
+          cState = cState.Jumping;
+      }// Jumping state overrides the walking state.
       
       
-      //Player Movement
+      //Citizen Movement
     
-    if( x > (startX+100 - panel.cameraX)){
+    if( x > (startX +500 - panel.cameraX)){
         Roam();
-        
+        direction = this.direction.Right;
     }
-    if( x <(startX-100 - panel.cameraX)){
+    if( x <(startX -500 - panel.cameraX)){
         Roam();
-        
+        direction = this.direction.Left;
     }
+    
+     //Follow the player
+        if(this.colour != this.colour.white)// If the citizen is not infected
+        if(hitBox.x>=player.hitBox.x +10&& movementSpeed >= 0){
+            x +=5;
+            SetSpeedX(movementSpeed*-1);
+        }else if (hitBox.x <= player.hitBox.x-10 && movementSpeed<0){
+            x -= 5;
+            SetSpeedX(movementSpeed*-1);
+        }
+       
+        ledgeBox.height = 30;
     
       
       //speed limit/smoothing
@@ -138,7 +152,7 @@ public class Citizen extends GameObject {
                    hitBox.x += Math.signum(xSpeed);
                }
                 hitBox.x -= Math.signum(xSpeed);
-                xSpeed = 0;
+                xSpeed = 1;
                 x = hitBox.x;
             }
         }
@@ -151,12 +165,12 @@ public class Citizen extends GameObject {
         //Updates Enemy X and Y based on its Speed and ScreenScrolling
          if(camPrevY != panel.cameraY){
              
-             y += (camPrevY-panel.cameraY);
-             y+= ySpeed;
+             y += (camPrevY - panel.cameraY);
+             y += ySpeed;
              hitBox.y = y;
              camPrevY = panel.cameraY;
          }else{
-             y+= ySpeed;
+             y += ySpeed;
              hitBox.y = y;
          }
          
@@ -188,12 +202,12 @@ public class Citizen extends GameObject {
         switch(cState){
             case Walking:{
             
-                spriteSheetIndex=0;
+                spriteSheetIndex = 0;
                 sheetLenght = 2;
                 break;
             }
             
-            case Idle:{
+            case Jumping:{
             
                 spriteSheetIndex=0;
                 sheetLenght = 2;
@@ -202,17 +216,11 @@ public class Citizen extends GameObject {
                       
         }
         
-        /*
-        //Follow the player
-        if(hitBox.x>=player.hitBox.x +10&& movementSpeed>0){
-            x +=5;
-            SetSpeedX(movementSpeed*-1);
-        }else if (hitBox.x <= player.hitBox.x-10 && movementSpeed<0){
-            x -= 5;
-            SetSpeedX(movementSpeed*-1);
-        }d
-       */
-        ledgeBox.height = 30;
+        
+       
+        
+        
+        
        
        Animation();
        
@@ -226,10 +234,11 @@ public class Citizen extends GameObject {
                
                panel.handler.projectiles.remove(i);
                colour = colour.white;
+               xSpeed ++;
                ImportImage();
                
-               
-           }
+              }
+           
        
            
        }
@@ -242,7 +251,7 @@ public class Citizen extends GameObject {
     
     public void Roam(){
        
-       xSpeed = xSpeed*-1;
+       xSpeed = xSpeed * -1;
     }
     
     public void SetSpeedX(double speed){
@@ -254,16 +263,16 @@ public class Citizen extends GameObject {
     @Override
     public void Draw(Graphics2D gtd) {
      /// This rectangle represents the Object HitBox
-        gtd.setColor(Color.red);
+       gtd.setColor(Color.red);
        gtd.fillRect(x, y, width, height); // Hitbox size
        //gtd.fillRect(ledgeBox.x, ledgeBox.y, ledgeBox.width, ledgeBox.height); // Other hitbox Approach
        //these lines flips the image horizontally and adjust their x and y coordinates to match the object HitBox
         if(direction == direction.Right)
-            gtd.drawImage(characterSprite, x-30, y + 2 ,50,50,panel);
+            gtd.drawImage(characterSprite, x-30, y + 5 ,75,75,panel);
                   //                                    /\ /\ 
 //                                            (Size parameters, change both
         if(direction == direction.Left)
-            gtd.drawImage(characterSprite, x+30, y + 2 ,-50,50,panel);
+            gtd.drawImage(characterSprite, x+50, y + 5 ,-75,75,panel);
     }
             
     //Load all character sprite sheets into memory and saves them into an array.
@@ -311,10 +320,10 @@ public class Citizen extends GameObject {
         //Animation play rate, increments this variable every tick, the IF statement is where the actual rate is set
         //in short words it makes the image transition faster.
         animPlayRate++;
-        if(animPlayRate==8){
+        if(animPlayRate == 8){
             
            //Every x Ticks get the new sub image from the sprite sheet
-            if(spriteIndex<sheetLenght){
+            if(spriteIndex<=sheetLenght){
                 UpdateImage(sprites[spriteSheetIndex],(spriteIndex* 16)-16,0);
                 spriteIndex++;
                  

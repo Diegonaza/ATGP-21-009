@@ -73,7 +73,7 @@ public class GamePanel extends Canvas implements Runnable {
                 break;
                 
                         }
-            //applying the switch to create a equally distribuited Zenith particles in the map.
+            //applying the switch to create a equally distribuited Zenith particles in the map
             
             if(cicle >= 5){
                 cicle = 0;}
