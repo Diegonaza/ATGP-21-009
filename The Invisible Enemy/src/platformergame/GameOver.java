@@ -10,11 +10,16 @@ package platformergame;
  */
 public class GameOver extends javax.swing.JPanel {
 
+    
+    GamePanel gp = new GamePanel();
+    Window gameWindow;
     /**
      * Creates new form GameOver
      */
-    public GameOver() {
+    public GameOver(GamePanel window) {
+        gameWindow = window.window;
         initComponents();
+        
     }
 
     /**
@@ -53,6 +58,11 @@ public class GameOver extends javax.swing.JPanel {
         ExitButton.setToolTipText("I am to weak for this.");
         ExitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 0)));
         ExitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitButtonActionPerformed(evt);
+            }
+        });
 
         NewGameButton.setBackground(new java.awt.Color(102, 102, 102));
         NewGameButton.setFont(new java.awt.Font("Maiandra GD", 0, 48)); // NOI18N
@@ -99,10 +109,20 @@ public class GameOver extends javax.swing.JPanel {
     private void NewGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewGameButtonActionPerformed
         
         
-        
+        gp.StartGame();
         
         
     }//GEN-LAST:event_NewGameButtonActionPerformed
+
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        
+
+        gameWindow.frame.dispose();
+        
+        
+     
+        
+    }//GEN-LAST:event_ExitButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
