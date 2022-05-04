@@ -18,6 +18,7 @@ public class PlatformerGame {
      */
     public static void main(String[] args) {
        // MainFrame frame = new MainFrame();
+       
         GamePanel gP = new GamePanel();
         
     }
