@@ -38,7 +38,7 @@ public class GamePanel extends Canvas implements Runnable {
         //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
         TileMapper tl = new TileMapper("firstmap",handler);
         
-        AdventureMusic();
+       // AdventureMusic();
                
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
@@ -84,8 +84,8 @@ public class GamePanel extends Canvas implements Runnable {
                 cicle = 0;}
             
             
-            
-            handler.addObject(z);
+            // add the Zenith instance into the zenith array for the handler class 
+            handler.zenith.add(z);
         }
         //Adds the key listener 
         this.addKeyListener(new PlayerInput(this));
