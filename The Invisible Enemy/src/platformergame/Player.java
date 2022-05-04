@@ -18,6 +18,9 @@ import javax.imageio.ImageIO;
  * @author diego
  */
 public class Player extends GameObject {
+    
+    GameOver gameOver;
+    
     GamePanel panel;
     double maxWalkingSpeed;
     boolean isInputEnable = true;
@@ -56,6 +59,7 @@ public class Player extends GameObject {
         this.startX = x;
         this.locationX = x;
         this.panel = panel;
+        gameOver = new GameOver(this.panel);
         width = 32;
         height = 64;
         this.health = 3;
@@ -309,7 +313,11 @@ public class Player extends GameObject {
                 break;
             }
         }
-          if(health ==0)panel.StartGame();
+          if(health ==0){
+              panel.running = false;
+              panel.Deathmusic();
+              adasd
+          };
     }
     
     //Spawn projectile is still a work in progress

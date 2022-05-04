@@ -22,8 +22,9 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class GamePanel extends Canvas implements Runnable {
    
+    Window window;
     private Thread thread;
-    private boolean running = false;
+    public boolean running = false;
     Player player ;
     Citizen enemy;
     boolean isVisible = true;
@@ -39,7 +40,7 @@ public class GamePanel extends Canvas implements Runnable {
          //Start the game Loop
          
          StartGame();
-         new Window(1280,800,"The Invisible Enemy",this);
+         window = new Window(1280,800,"The Invisible Enemy",this);
          Start();
          
       
@@ -317,7 +318,18 @@ public class GamePanel extends Canvas implements Runnable {
         
     }
   
-    
+    public void Deathmusic(){
+        
+        //Loads the sound clip
+        music.setSound(1);
+        //Set's the sound volume to 10% of the total
+        music.setVolume((float) 0.10);
+        //Play the clip
+        music.play();
+        //Set the clip as a loop.
+        music.loop();
+        
+    }
    
     
 }
