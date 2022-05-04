@@ -34,7 +34,7 @@ public class Citizen extends GameObject {
     white(),black(),blue(),pink(),yellow(),red();
     }
     CharacterState cState;
-    
+    myThread cdThread ;
     CitizenType colour;
 
     public Citizen(int x, int y, GamePanel gp) {
@@ -58,9 +58,10 @@ public class Citizen extends GameObject {
         
         direction = direction.Right;
         colour = colour.red;
+        cdThread = new myThread(player);
         
         ImportImage();
-        SetSpeedX(-1);      
+        //SetSpeedX(-1);      
     }
     
     
@@ -91,7 +92,14 @@ public class Citizen extends GameObject {
           cState = cState.Jumping;
       }// Jumping state overrides the walking state.
       
+      if(xSpeed >0){
+          direction = direction.Right;
+      }
       
+      if(xSpeed <0){
+          direction = direction.Left;
+      }
+      /*
       //Citizen Movement
     
     if( x > (startX +500 - panel.cameraX)){
@@ -102,8 +110,10 @@ public class Citizen extends GameObject {
         Roam();
         direction = this.direction.Left;
     }
-    
+    */
      //Follow the player
+     
+     /*
         if(this.colour != this.colour.white)// If the citizen is not infected
         if(hitBox.x>=player.hitBox.x +10&& movementSpeed >= 0){
             x +=5;
@@ -112,8 +122,8 @@ public class Citizen extends GameObject {
             x -= 5;
             SetSpeedX(movementSpeed*-1);
         }
-       
-        ledgeBox.height = 30;
+       */
+        
     
       
       //speed limit/smoothing
@@ -152,27 +162,50 @@ public class Citizen extends GameObject {
                    hitBox.x += Math.signum(xSpeed);
                }
                 hitBox.x -= Math.signum(xSpeed);
-                xSpeed = 1;
+                //xSpeed = 0;
+                xSpeed = xSpeed *(-1);
                 x = hitBox.x;
             }
         }
         
         y += ySpeed;
-        x += xSpeed;
-        hitBox.x = x;
         hitBox.y = y;
         
-        //Updates Enemy X and Y based on its Speed and ScreenScrolling
-         if(camPrevY != panel.cameraY){
-             
-             y += (camPrevY - panel.cameraY);
-             y += ySpeed;
-             hitBox.y = y;
-             camPrevY = panel.cameraY;
-         }else{
-             y += ySpeed;
-             hitBox.y = y;
-         }
+      //Cause Damage to Player=====================================================================
+        if(hitBox.intersects(player.hitBox)&& player.cState!= cState.Staggered){
+           //Set Player State to Staggered
+            player.cState = cState.Staggered;
+            player.spriteIndex= 1;
+            player.health = player.health-1;
+            //Stop Player input
+            player.isInputEnable = false;
+            //Create a new thread to handle the event
+            cdThread = new myThread(player);
+            //How much force we apply to the player on the X vector
+            player.maxWalkingSpeed =25;
+            //How much force we apply to the player on the Y vector
+            player.ySpeed = -5;
+            //Which direction to apply the push force
+            if(player.x >= x){
+                player.xSpeed = player.maxWalkingSpeed;
+            }else {
+                player.xSpeed = -player.maxWalkingSpeed;;
+            }
+            //As we are Disabling the player input for both cases ( Press and Release )
+            //set all key input variables to false;
+            player.keyFire = false;
+            player.keyJump = false;
+            player.keyLeft = false;
+            player.keyRight = false;
+                
+           
+            
+        }
+        
+        //============================================================================================
+        
+        //Updates Enemy X based on its Speed and ScreenScrolling
+      
          
          if(camPrevX != panel.cameraX){
             
@@ -185,16 +218,7 @@ public class Citizen extends GameObject {
              hitBox.x = x;
          }
          
-         
-         //CollisionBox to verify that enemy is close to a ledge
-         if(direction == direction.Right){
-             ledgeBox.x = x+70;
-         }else{
-             ledgeBox.x = x-45;
-         }
-         
-              ledgeBox.y = y+50;
-       
+     
        
        
         // Character State Machine
@@ -215,10 +239,6 @@ public class Citizen extends GameObject {
             }
                       
         }
-        
-        
-       
-        
         
         
        

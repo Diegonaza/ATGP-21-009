@@ -19,6 +19,9 @@ import javax.imageio.ImageIO;
  */
 public class Player extends GameObject {
     GamePanel panel;
+    double maxWalkingSpeed;
+    boolean isInputEnable = true;
+    int health;
     int fireRateCounter=0;
     int fireRate;
     int startX;
@@ -40,6 +43,7 @@ public class Player extends GameObject {
     
     BufferedImage[] sprites = new BufferedImage[10];
     BufferedImage characterSprite;
+    BufferedImage healthBar;
     
     Projectile projectile;
     
@@ -54,8 +58,9 @@ public class Player extends GameObject {
         this.panel = panel;
         width = 32;
         height = 64;
+        this.health = 3;
         hitBox = new Rectangle(x,y,width,height);
-        
+        this.maxWalkingSpeed = 5;
         
         direction = direction.Right;
         
@@ -66,25 +71,27 @@ public class Player extends GameObject {
     @Override
     public void tick(){
         
+       
+        
         if(ySpeed!=0 && ySpeed !=0.5)isFalling = true;
         
       //Update Character State
        //Shooting State
-       if(keyFire==true&&xSpeed==0&&cState!=cState.Shooting&&cState!=cState.Jumping && isFalling == false ){
+       if(keyFire==true&&xSpeed==0&&cState!=cState.Shooting&&cState!=cState.Jumping && isFalling == false && cState != cState.Staggered ){
           cState = cState.Shooting;
            spriteIndex = 1;
       }
        //Walking / Walking&Shooting State
       if(xSpeed!=0 && isFalling == false ){
           
-          if (keyFire== false && cState!=cState.Walking && isFalling == false){
+          if (keyFire== false && cState!=cState.Walking && isFalling == false && cState != cState.Staggered){
               cState = cState.Walking;
               spriteIndex = 1;
           }
           
-          else if(keyFire==true&&cState!=cState.RunFiring && cState == cState.Walking || 
-                  keyFire==true&&cState!=cState.RunFiring && cState == cState.Shooting ||
-                  keyFire==true&&cState!=cState.RunFiring && cState == cState.JumpingShooting){
+          else if(keyFire==true&&cState!=cState.RunFiring && cState == cState.Walking && cState != cState.Staggered || 
+                  keyFire==true&&cState!=cState.RunFiring && cState == cState.Shooting && cState != cState.Staggered ||
+                  keyFire==true&&cState!=cState.RunFiring && cState == cState.JumpingShooting && cState != cState.Staggered){
              cState = cState.RunFiring;
               spriteIndex = 1;
           }
@@ -92,7 +99,7 @@ public class Player extends GameObject {
       }
       
       // Idle State
-      if(isFalling == false && keyFire!=true && cState!= cState.Idle && xSpeed == 0){
+      if(isFalling == false && keyFire!=true && cState!= cState.Idle && xSpeed == 0 && cState != cState.Staggered){
           cState = cState.Idle;
           spriteIndex = 1;
           
@@ -100,7 +107,7 @@ public class Player extends GameObject {
       
       
       //Jump 
-      if(isFalling == true && cState != cState.Jumping && keyFire == false ){
+      if(isFalling == true && cState != cState.Jumping && keyFire == false && cState != cState.Staggered ){
           
               cState = cState.Jumping;
               spriteIndex = 1;
@@ -108,10 +115,10 @@ public class Player extends GameObject {
       }
       
       // Jumping&Shooting State
-      if(cState == cState.Jumping && keyFire == true && cState!=cState.JumpingShooting && isFalling == true || 
-         cState == cState.Shooting  && cState!= cState.JumpingShooting && isFalling == true ||
-         cState == cState.RunFiring && cState!= cState.JumpingShooting && isFalling == true ||
-         cState == cState.Walking && cState!= cState.JumpingShooting && isFalling == true){
+      if(cState == cState.Jumping && keyFire == true && cState!=cState.JumpingShooting && isFalling == true && cState != cState.Staggered || 
+         cState == cState.Shooting  && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered||
+         cState == cState.RunFiring && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered ||
+         cState == cState.Walking && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered){
           
           cState = cState.JumpingShooting;
           spriteIndex = 1;
@@ -143,8 +150,8 @@ public class Player extends GameObject {
       //speed limit/smoothing
       if(xSpeed > 0 && xSpeed<0.75)xSpeed = 0;
       if(xSpeed<0 && xSpeed> -0.75)xSpeed =0;
-      if(xSpeed > 3)xSpeed= 3;
-      if(xSpeed<-3)xSpeed = -3;
+      if(xSpeed > maxWalkingSpeed)xSpeed= maxWalkingSpeed;
+      if(xSpeed<-maxWalkingSpeed)xSpeed = -maxWalkingSpeed;
       
       
       
@@ -255,6 +262,15 @@ public class Player extends GameObject {
                 break;
             }
             
+             case Staggered:{
+            
+                spriteSheetIndex=1;
+                sheetLenght = 6;
+                animPlayRate=8;
+                Animation();
+                break;
+            }
+            
             case Jumping:{
                
                 spriteSheetIndex =3;
@@ -329,12 +345,17 @@ public class Player extends GameObject {
         if(direction == direction.Left)
             gtd.drawImage(characterSprite, x+45, y-30,-100,100,panel);
         
+        //Draw Player's Health bar
+      if(health >0)gtd.drawImage(healthBar.getSubimage(0, 0, (64*health), 64), 20,30,64*health,64, panel);
+       
+        
        
     }
     
     //Responds to Player Input
      public void KeyPressed(KeyEvent e){
-        int key = e.getKeyCode();
+       if(isInputEnable == true){
+           int key = e.getKeyCode();
         if(key == KeyEvent.VK_A) {
             keyLeft = true;
             
@@ -350,6 +371,8 @@ public class Player extends GameObject {
         if(key ==KeyEvent.VK_F){
             keyFire = true;
             
+       }
+        
             
         }
        /* if(e.getKeyChar() == 'i'){
@@ -364,7 +387,8 @@ public class Player extends GameObject {
     }
     
     public void KeyReleased(KeyEvent e){
-        int key = e.getKeyCode();
+       if(isInputEnable){
+           int key = e.getKeyCode();
         if(key ==KeyEvent.VK_A) keyLeft = false;
         if(key ==KeyEvent.VK_D) keyRight = false;
         if(key ==KeyEvent.VK_F)keyFire = false;
@@ -372,28 +396,33 @@ public class Player extends GameObject {
             keyJump = false;
             canJump = true;
         }
+       }
+        
+        
     }
     
     //Load all sprite Sheets into memory
     public void ImportImage(){
         
         InputStream is = getClass().getResourceAsStream("/Images/Character/BergIdle.png");
-        
+        InputStream is1 = getClass().getResourceAsStream("/Images/Character/BergHurt.png");
         InputStream is2 = getClass().getResourceAsStream("/Images/Character/BergWalk.png");
         InputStream is3 = getClass().getResourceAsStream("/Images/Character/BergJump.png");
-        
+        InputStream is4 = getClass().getResourceAsStream("/Images/Character/BergDeath2.png");
         InputStream is5 = getClass().getResourceAsStream("/Images/Character/BergShooting.png");
         InputStream is6 = getClass().getResourceAsStream("/Images/Character/BergWalkShoot.png");
         InputStream is7 = getClass().getResourceAsStream("/Images/Character/BergJumpShoot.png");
+        InputStream is8 = getClass().getResourceAsStream("/Images/Character/HealthBar.png");
         try{
          sprites[0] = ImageIO.read(is);
-        // sprites[1] = ImageIO.read(is1);
+         sprites[1] = ImageIO.read(is1);
          sprites[2] = ImageIO.read(is2);
          sprites[3] = ImageIO.read(is3);
-         // sprites[4] = ImageIO.read(is4);
+         sprites[4] = ImageIO.read(is4);
          sprites[5] = ImageIO.read(is5);
          sprites[6] = ImageIO.read(is6);
          sprites[7] = ImageIO.read(is7);
+         healthBar = ImageIO.read(is8);
          
         }catch(Exception e){
             e.printStackTrace();

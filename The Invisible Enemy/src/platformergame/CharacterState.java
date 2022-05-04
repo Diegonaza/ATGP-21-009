@@ -14,6 +14,7 @@ public enum CharacterState {
     Walking(),
     Jumping(),
     JumpingShooting(),
+    Staggered(),
     Dead(),
     Shooting(),
     RunFiring();

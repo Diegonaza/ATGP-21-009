@@ -114,7 +114,7 @@ public class TileMapper {
                      
                 }
                 
-                case "Background":{
+                case "BackGround":{
                     backgroundData = new int[tilesetHeight][tilesetWidth];
                     int index = 0;
                      for(int j = 0; j<tilesetHeight; j++){
