@@ -38,7 +38,7 @@ public class GamePanel extends Canvas implements Runnable {
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
         //Spawn a playing into the level
-        player = new Player(250,200,this);
+        player = new Player(100,400,this);
         // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
         //adds the player to handler object List
         handler.addObject(player);
