@@ -35,10 +35,22 @@ public class GamePanel extends Canvas implements Runnable {
        
     
     public GamePanel(){
-        //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
-        TileMapper tl = new TileMapper("firstmap",handler);
-        
-       AdventureMusic();
+       
+         //Start the game Loop
+         
+         StartGame();
+         new Window(1280,800,"The Invisible Enemy",this);
+         Start();
+         
+      
+    }
+    
+    public void StartGame(){
+        handler = new Handler();
+         //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
+        TileMapper tl = new TileMapper("Cave3",handler);
+        cameraX = 0;
+       //AdventureMusic();
                
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
@@ -96,11 +108,7 @@ public class GamePanel extends Canvas implements Runnable {
              enemy = new Citizen(400,250,this);
          //adds the Enemy to the handler Enemies List
          handler.enemies.add(enemy);
-         new Window(1280,800,"The Invisible Enemy",this);
-         //Start the game Loop
-         Start();
          
-      
     }
      public synchronized void Start(){
         thread = new Thread(this);

@@ -71,7 +71,7 @@ public class Player extends GameObject {
     @Override
     public void tick(){
         
-       
+      
         
         if(ySpeed!=0 && ySpeed !=0.5)isFalling = true;
         
@@ -309,7 +309,7 @@ public class Player extends GameObject {
                 break;
             }
         }
-         
+          if(health ==0)panel.StartGame();
     }
     
     //Spawn projectile is still a work in progress
