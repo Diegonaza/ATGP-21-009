@@ -62,9 +62,11 @@ public class GamePanel extends Canvas implements Runnable {
     }
     
     public void StartGame(){
+        this.setVisible(true);
+        
         handler = new Handler();
          //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
-        TileMapper tl = new TileMapper("Cave3",handler);
+        TileMapper tl = new TileMapper("Cave4",handler);
         cameraX = 0;
        //AdventureMusic();
                

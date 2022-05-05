@@ -118,6 +118,9 @@ public class GameOver extends javax.swing.JPanel {
         
         
         gp.StartGame();
+        this.setVisible(false);
+        gp.player.health = 3;
+        gp.setVisible(true);
         
         
     }                                             
