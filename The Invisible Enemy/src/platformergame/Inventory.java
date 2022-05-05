@@ -32,7 +32,7 @@ public class Inventory extends JPanel  {
     ImageIcon weaponSelectedImg = new ImageIcon(Inventory.class.getResource("/Images/GunLvl1.png"));
     ImageIcon weaponImg = new ImageIcon(Inventory.class.getResource("/Images/GunLvl1icon.png"));
     ImageIcon maskSelectedImg = new ImageIcon(Inventory.class.getResource("/Images/maskSelected.png"));
-    ImageIcon maskImg = new ImageIcon(Inventory.class.getResource("/Images/maskIcon.png"));
+    ImageIcon maskImg = new ImageIcon(Inventory.class.getResource("/Images/maskSelected.png"));
     ImageIcon skillImg = new ImageIcon(Inventory.class.getResource("/Images/skillIcon.png"));
     ImageIcon arrowUp = new ImageIcon(Inventory.class.getResource("/Images/ArrowUp.png"));
     ImageIcon arrowDown = new ImageIcon(Inventory.class.getResource("/Images/ArrowDown.png"));
@@ -63,40 +63,40 @@ public class Inventory extends JPanel  {
        
     public Inventory(){
         
-       this.setSize(800,600);
+       
        this.setBackground(Color.DARK_GRAY);
        this.setVisible(false);
        this.setLayout(null);
        
-       selected.setIcon(weaponSelectedImg);
+       selected.setIcon(weaponImg);
        selected.setVisible(true);
-       selected.setBounds(0,0, 250, 250);
+       selected.setBounds(100,0, 62, 62);
        
        weapon.setIcon(weaponImg);
        weapon.setVisible(true);
-       weapon.setBounds(10, 350, 100, 100);
-       weaponUpIcon.setBounds(20, 315, 50, 50);
-       weaponDownIcon.setBounds(20, 435, 50, 50);
+       weapon.setBounds(25, 58, 62, 62);
+       weaponUpIcon.setBounds(30, 35, 50, 50);
+       weaponDownIcon.setBounds(30, 95, 50, 50);
       
        mask.setIcon(maskImg);
        mask.setVisible(true);
-       mask.setBounds(85,350,100,100);
-       maskUpIcon.setBounds(95, 315, 50, 50);
-       maskDownIcon.setBounds(90, 435, 50, 50);
+       mask.setBounds(110,58,62,62);
+       maskUpIcon.setBounds(105, 35, 50, 50);
+       maskDownIcon.setBounds(105, 95, 50, 50);
        
        skill.setIcon(skillImg);
        skill.setVisible(true);
-       skill.setBounds(160, 350, 100, 100);
-       skillUpIcon.setBounds(170, 315, 50, 50);
-       skillDownIcon.setBounds(170, 435, 50, 50);
+       skill.setBounds(185, 58, 62, 62);
+       skillUpIcon.setBounds(180, 35, 50, 50);
+       skillDownIcon.setBounds(180, 95, 50, 50);
        
-       equipmentL.setBounds(75, 0, 100, 50);
+       equipmentL.setBounds(350, 0, 100, 50);
        equipmentL.setForeground(Color.white);
       
        
        equipment.setLayout(null);
        equipment.setBackground(Color.gray);
-       equipment.setBounds(0,50,250,510);
+       equipment.setBounds(250,25,250,135);
        equipment.setVisible(true);
        equipment.add(selected);
        equipment.add(weapon);
@@ -109,13 +109,15 @@ public class Inventory extends JPanel  {
        equipment.add(skillUpIcon);
        equipment.add(skillDownIcon);
        equipment.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
-       this.add(equipment);
        this.add(equipmentL);
+       this.add(equipment);
        
-       cardsArtifacts.setBounds(320, 0, 250, 50);
+       
+       cardsArtifacts.setBounds(570, 0, 250, 50);
        cardsArtifacts.setForeground(Color.white);
        this.add(cardsArtifacts);
        cards.setBackground(Color.gray);
+       
        cards.setLayout(new GridLayout(43,2,0,0));
      //  cards.setPreferredSize(new Dimension(30,1900));
        JScrollPane scrollPane = new JScrollPane(cards);
@@ -124,7 +126,7 @@ public class Inventory extends JPanel  {
        scrollPane.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
        scrollPane.getVerticalScrollBar().setBackground(Color.gray);
-       scrollPane.setBounds(250, 50, 250, 510);
+       scrollPane.setBounds(500, 25, 250, 135);
        
        scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
     @Override
@@ -166,7 +168,7 @@ public class Inventory extends JPanel  {
 "\n" +
 "Proin commodo arcu metus, ac bibendum nulla feugiat aliquam. Fusce sed neque consectetur, vestibulum nulla ut, euismod urna. Maecenas maximus posuere libero quis faucibus. Donec sed ipsum vel purus cursus euismod ut sed enim. Suspendisse sed faucibus dui. Sed lectus ex, commodo eget auctor in, commodo quis lectus. Duis porttitor odio a tristique sagittis. Cras non enim varius, vehicula dui vitae, malesuada enim.");
        
-       textPane.setBounds(500, 300, 250, 250);
+       textPane.setBounds(0, 0, 250, 135);
        textPane.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
        textPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
        textPane.getVerticalScrollBar().setBackground(Color.gray);
@@ -176,19 +178,19 @@ public class Inventory extends JPanel  {
         this.thumbColor = Color.DARK_GRAY;
     }
 });
-       
+       description.setLayout(null);
        description.setBackground(Color.gray);
-       description.setBounds(500, 50, 283, 510);
+       description.setBounds(750, 25, 250, 135);
        description.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
        description.add(descriptionLabel);
        descriptionLabel.setBounds(550,250, 150, 150);
        description.add(textPane);
-       detailedInfoL.setBounds(600, 0, 100, 50);
+       detailedInfoL.setBounds(835, 0, 100, 50);
        detailedInfoL.setForeground(Color.white);
       // detailedInfoL.setFont(new Font("", Font.PLAIN, 20));
-       
-       this.add(description);
        this.add(detailedInfoL);
+       this.add(description);
+       this.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
        
     }
     

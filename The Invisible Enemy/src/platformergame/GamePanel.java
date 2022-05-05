@@ -33,22 +33,27 @@ public class GamePanel extends Canvas implements Runnable {
     int cameraX;
     int cameraY;
     LevelOne l = new LevelOne(this);
+    Inventory inv = new Inventory();
     Sound music = new Sound();
+    int gameUPS;
+    int gameFPS;
     
     
     public GamePanel(){
-       
+        gameFPS = 60;
+        gameUPS = 60;
          //Start the game Loop
-          window = new Window(1280,800,"The Invisible Enemy",this);
+    
+          window = new Window(1280,800,"The Invisible Enemy",this, inv);
          StartGame();
          
          window.frame.setLayout(null);
          this.setVisible(true);
-         
-         
+       
          gO.setBounds(0, 0, 1280,800);
          gO.setVisible(false);
          window.frame.add(gO);
+         window.frame.add(inv);
          
          Start();
          
@@ -73,7 +78,7 @@ public class GamePanel extends Canvas implements Runnable {
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
         //Spawn a playing into the level
-        player = new Player(100,400,this);
+        player = new Player(250,200,this);
         // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
         //adds the player to handler object List
         handler.addObject(player);
@@ -236,15 +241,15 @@ public class GamePanel extends Canvas implements Runnable {
     @Override
     public  void run()
     {
-        //Desired  updates/Frames per second 
-        final int desiredFPS = 60;
-        final int desiredUPS = 60;
+        //Definalsired  updates/Frames per second 
+         int desiredFPS = gameFPS;
+         int desiredUPS = gameUPS;
         
         //Time is in nanoseconds, 1 second has 1 billion nano seconds so we divide 1 billion by the amount of times we want the game to upate
         // this will result in 1 update every 33 million nanoseconds which is equivalent to 60 updates per second
        
-        final long updateThreshold = 1000000000 / desiredUPS;
-        final long drawThreshold = 1000000000 / desiredFPS;
+         long updateThreshold = 1000000000 / desiredUPS;
+         long drawThreshold = 1000000000 / desiredFPS;
         
         long lastFPS = 0, lastUPS = 0, lastFPSUPSOutput = 0;
         
@@ -253,6 +258,11 @@ public class GamePanel extends Canvas implements Runnable {
         loop:
         while(running)
         {
+            desiredFPS = gameFPS;
+            desiredUPS = gameUPS;
+            updateThreshold = 1000000000 / desiredUPS;
+            drawThreshold = 1000000000 / desiredFPS;
+            
             if((System.nanoTime() - lastFPSUPSOutput) > 1000000000)
             {
               //  System.out.println("FPS: " + (double)fps);

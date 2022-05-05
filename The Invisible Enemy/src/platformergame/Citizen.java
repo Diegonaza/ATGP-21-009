@@ -29,11 +29,21 @@ public class Citizen extends GameObject {
     int animPlayRate = 0;
     int spriteSheetIndex, sheetLenght;
     Rectangle hitBox;
-    Rectangle ledgeBox;
-   
+    
+   BufferedImage[] sprites = new BufferedImage[6];
     CharacterState cState;
     myThread cdThread ;
     ColourType colour;
+      enum Direction{
+    Left(),Right();
+    }
+    Direction direction ;
+    boolean faceLeft,faceRight;
+    
+    
+    BufferedImage characterSprite;
+    Player player;
+    int aTimer;
 
     public Citizen(int x, int y, GamePanel gp) {
          super(x, y);
@@ -48,12 +58,11 @@ public class Citizen extends GameObject {
         this.panel = gp;
         this.camPrevY = panel.cameraY;
         this.camPrevX = panel.cameraX;
-        width = 16;
-        height = 80;
+        width = 32;
+        height = 64;
         hitBox = new Rectangle(x,y,width,height);
-        ledgeBox = new Rectangle(x,y,25,60);
-        this.player = (Player) this.panel.handler.object.get(0);
         
+        this.player = (Player) this.panel.handler.object.get(0);
         direction = direction.Right;
         colour = colour.red;
         cdThread = new myThread(player);
@@ -63,16 +72,7 @@ public class Citizen extends GameObject {
     }
     
     
-    enum Direction{
-    Left(),Right();
-    }
-    Direction direction ;
-    boolean faceLeft,faceRight;
-    
-    BufferedImage[] sprites = new BufferedImage[5];
-    BufferedImage characterSprite;
-    Player player;
-    int aTimer;
+  
 
      
    
@@ -225,14 +225,14 @@ public class Citizen extends GameObject {
         switch(cState){
             case Walking:{
             
-                spriteSheetIndex = 0;
-                sheetLenght = 2;
+                //spriteSheetIndex = 0;
+                sheetLenght = 6;
                 break;
             }
             
             case Jumping:{
             
-                spriteSheetIndex=0;
+                //spriteSheetIndex=0;
                 sheetLenght = 2;
                 break;
             }
@@ -243,18 +243,18 @@ public class Citizen extends GameObject {
        
        Animation();
        
-       
+       //Check Collision vs Projectiles
        for( int i = 0 ; i < panel.handler.projectiles.size(); i++  ){
            
-           if(panel.handler.projectiles.get(i).hitBox.intersects(this.hitBox)){
+           if(panel.handler.projectiles.get(i).hitBox.intersects(this.hitBox) && colour!= colour.white){
                
                //Event ( dano)
                
                
                panel.handler.projectiles.remove(i);
                colour = colour.white;
-               xSpeed ++;
-               ImportImage();
+               spriteSheetIndex = 1;
+              
     }           
               }
            
@@ -270,7 +270,33 @@ public class Citizen extends GameObject {
                //remove the zenith particle from the array
                panel.handler.zenith.remove(i);
                //import the new citizen image
-               ImportImage();
+               switch(colour){
+                   case blue:{
+                       spriteSheetIndex=0;
+                       break;
+                   }
+                   case white:{
+                       spriteSheetIndex=1;
+                       break;
+                   }
+                   
+                   case red:{
+                       spriteSheetIndex=2;
+                       break;
+                   }
+                   case yellow:{
+                       spriteSheetIndex=3;
+                       break;
+                   }
+                   case black:{
+                       spriteSheetIndex=4;
+                       break;
+                   }
+                   case pink:{
+                       spriteSheetIndex=5;
+                       break;
+                   }
+               }
                
               }
        
@@ -297,56 +323,67 @@ public class Citizen extends GameObject {
     @Override
     public void Draw(Graphics2D gtd) {
      /// This rectangle represents the Object HitBox
-       gtd.setColor(Color.red);
-       gtd.fillRect(x, y, width, height); // Hitbox size
+      // gtd.setColor(Color.red);
+      // gtd.fillRect(x, y, width, height); // Hitbox size
        //gtd.fillRect(ledgeBox.x, ledgeBox.y, ledgeBox.width, ledgeBox.height); // Other hitbox Approach
        //these lines flips the image horizontally and adjust their x and y coordinates to match the object HitBox
         if(direction == direction.Right)
-            gtd.drawImage(characterSprite, x-30, y + 5 ,75,75,panel);
+            gtd.drawImage(characterSprite, x-30, y-30,100,100,panel);
                   //                                    /\ /\ 
 //                                            (Size parameters, change both
         if(direction == direction.Left)
-            gtd.drawImage(characterSprite, x+50, y + 5 ,-75,75,panel);
+            gtd.drawImage(characterSprite, x+65, y-30,-100,100,panel);
     }
             
     //Load all character sprite sheets into memory and saves them into an array.
      public void ImportImage(){
          
          InputStream is = null;
-         
-         switch(colour){
-             case blue:
-              is = getClass().getResourceAsStream("/Images/Citizen/Blue/blue_animation.png");
+         try{
+         for(int i = 0; i<=5; i++){
+             switch(i){
+             case 0:
+              is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenBlue.png");
+              sprites[i] = ImageIO.read(is);
              break;
-             case white:
-             is = getClass().getResourceAsStream("/Images/Citizen/white/white_animation.png");
+             case 1:
+             is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenWhite.png");
+             sprites[i] = ImageIO.read(is);
              break;
-             case red:
-             is = getClass().getResourceAsStream("/Images/Citizen/Red/red_animation.png");
+             case 2:
+             is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenRed.png");
+             sprites[i] = ImageIO.read(is);
              break;
-             case yellow:
-             is = getClass().getResourceAsStream("/Images/Citizen/Yellow/yellow_animation.png");
+             case 3:
+             is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenGreen.png");
+             sprites[i] = ImageIO.read(is);
              break;
-             case black:
-             is = getClass().getResourceAsStream("/Images/Citizen/Black/black_animation.png");
+             case 4:
+             is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenBlack.png");
+             sprites[i] = ImageIO.read(is);
              break;
-             case pink:
-             is = getClass().getResourceAsStream("/Images/Citizen/Pink/pink_animation.png");
+             case 5:
+             is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenPink.png");
+             sprites[i] = ImageIO.read(is);
              break;    
          }
-         
-        
-       
+            
+         }
+         }catch(Exception e){
+                  e.printStackTrace();
+                 }
+       /*
         try{
-         sprites[0] = ImageIO.read(is);
+         sprites[i] = ImageIO.read(is);
                   
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
+     
     // this method get subImages from a sprite sheet based on the x and y input coordinates
      public void UpdateImage(BufferedImage image,int x, int y){
-        characterSprite = image.getSubimage(x, y, 16, 16);
+        characterSprite = image.getSubimage(x, y, 64, 64);
         
     }
      
@@ -358,7 +395,7 @@ public class Citizen extends GameObject {
             
            //Every x Ticks get the new sub image from the sprite sheet
             if(spriteIndex<=sheetLenght){
-                UpdateImage(sprites[spriteSheetIndex],(spriteIndex* 16)-16,0);
+                UpdateImage(sprites[spriteSheetIndex],(spriteIndex* 64)-64,0);
                 spriteIndex++;
                  
                 

@@ -72,32 +72,32 @@ public class Player extends GameObject {
     @Override
     public void tick(){
         
-      if(health == 0) {
-          panel.running = false;
-          panel.setVisible(false);
-          panel.gO.setVisible(true);
-          
-      } 
+     
         
         if(ySpeed!=0 && ySpeed !=0.5)isFalling = true;
         
       //Update Character State
+      //Dead State
+      if(health==0&& cState!= cState.Dead){
+          cState= cState.Dead;
+      }
+      
        //Shooting State
-       if(keyFire==true&&xSpeed==0&&cState!=cState.Shooting&&cState!=cState.Jumping && isFalling == false && cState != cState.Staggered ){
+       if(keyFire==true&&xSpeed==0&&cState!=cState.Shooting&&cState!=cState.Jumping && isFalling == false && cState != cState.Staggered && cState!=cState.Dead ){
           cState = cState.Shooting;
            spriteIndex = 1;
       }
        //Walking / Walking&Shooting State
       if(xSpeed!=0 && isFalling == false ){
           
-          if (keyFire== false && cState!=cState.Walking && isFalling == false && cState != cState.Staggered){
+          if (keyFire== false && cState!=cState.Walking && isFalling == false && cState != cState.Staggered && cState!=cState.Dead ){
               cState = cState.Walking;
               spriteIndex = 1;
           }
           
-          else if(keyFire==true&&cState!=cState.RunFiring && cState == cState.Walking && cState != cState.Staggered || 
-                  keyFire==true&&cState!=cState.RunFiring && cState == cState.Shooting && cState != cState.Staggered ||
-                  keyFire==true&&cState!=cState.RunFiring && cState == cState.JumpingShooting && cState != cState.Staggered){
+          else if(keyFire==true&&cState!=cState.RunFiring && cState == cState.Walking && cState != cState.Staggered && cState!=cState.Dead || 
+                  keyFire==true&&cState!=cState.RunFiring && cState == cState.Shooting && cState != cState.Staggered && cState!=cState.Dead ||
+                  keyFire==true&&cState!=cState.RunFiring && cState == cState.JumpingShooting && cState != cState.Staggered&& cState!=cState.Dead ){
              cState = cState.RunFiring;
               spriteIndex = 1;
           }
@@ -105,7 +105,7 @@ public class Player extends GameObject {
       }
       
       // Idle State
-      if(isFalling == false && keyFire!=true && cState!= cState.Idle && xSpeed == 0 && cState != cState.Staggered){
+      if(isFalling == false && keyFire!=true && cState!= cState.Idle && xSpeed == 0 && cState != cState.Staggered && cState!=cState.Dead ){
           cState = cState.Idle;
           spriteIndex = 1;
           
@@ -113,7 +113,7 @@ public class Player extends GameObject {
       
       
       //Jump 
-      if(isFalling == true && cState != cState.Jumping && keyFire == false && cState != cState.Staggered ){
+      if(isFalling == true && cState != cState.Jumping && keyFire == false && cState != cState.Staggered && cState!=cState.Dead  ){
           
               cState = cState.Jumping;
               spriteIndex = 1;
@@ -121,10 +121,10 @@ public class Player extends GameObject {
       }
       
       // Jumping&Shooting State
-      if(cState == cState.Jumping && keyFire == true && cState!=cState.JumpingShooting && isFalling == true && cState != cState.Staggered || 
-         cState == cState.Shooting  && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered||
-         cState == cState.RunFiring && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered ||
-         cState == cState.Walking && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered){
+      if(cState == cState.Jumping && keyFire == true && cState!=cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead || 
+         cState == cState.Shooting  && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead ||
+         cState == cState.RunFiring && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead ||
+         cState == cState.Walking && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead ){
           
           cState = cState.JumpingShooting;
           spriteIndex = 1;
@@ -133,7 +133,7 @@ public class Player extends GameObject {
      
       
        //Reset The variable the controls the fireRate
-        if(cState!=cState.Shooting && cState!=cState.RunFiring && cState!= cState.JumpingShooting){
+        if(cState!=cState.Shooting && cState!=cState.RunFiring && cState!= cState.JumpingShooting&& cState!=cState.Dead ){
             fireRateCounter=10;
         }
       
@@ -247,6 +247,16 @@ public class Player extends GameObject {
         //This will select which sprite sheet to use depending on which state the character is
         //and set the variables accordingly so the animation works correctly 
         switch(cState){
+            case Dead:{
+            
+                spriteSheetIndex=4;
+                sheetLenght = 3;
+                animPlayRate=8;
+                Animation();
+                myThreadEventDeath myDeath = new myThreadEventDeath(this);
+                break;
+            }
+            
             case Walking:{
                 //Sprite Sheet to use
                 spriteSheetIndex=2;
