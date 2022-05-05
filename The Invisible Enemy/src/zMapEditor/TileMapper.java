@@ -185,7 +185,7 @@ public class TileMapper {
             }catch(Exception e){e.printStackTrace();}
                 
             
-            allTiles = new BufferedImage[tilesetHeight*tilesetWidth];
+            allTiles = new BufferedImage[30000];
            
               for(int i = 0; i<19; i++){
            for(int j = 0; j<30; j++){
