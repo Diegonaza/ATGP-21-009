@@ -65,7 +65,7 @@ public class Inventory extends JPanel  {
         
        this.setSize(800,600);
        this.setBackground(Color.DARK_GRAY);
-       this.setVisible(true);
+       this.setVisible(false);
        this.setLayout(null);
        
        selected.setIcon(weaponSelectedImg);

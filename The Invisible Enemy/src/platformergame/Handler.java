@@ -20,6 +20,8 @@ public class Handler {
     //It was initially design to store all objects into a single list, now its only saving the player
     // it will be update in the future for a single variable holding a reference to the player
     LinkedList<GameObject> object = new LinkedList<GameObject>();
+    //Stores all the zenith particles.
+    LinkedList<Zenith> zenith = new LinkedList<Zenith>();
     //Stores all the platforms that has collision checks on their tick() methods
     LinkedList<Platform> platforms = new LinkedList<Platform>();
     //Stores all tiles that are only for visual purpose 
@@ -50,6 +52,11 @@ public class Handler {
         
         for(int i = 0; i<platforms.size(); i++){
             platforms.get(i).tick(this);
+            
+        }
+        
+        for(int i = 0; i<zenith.size(); i++){
+            zenith.get(i).tick();
             
         }
         
@@ -105,15 +112,21 @@ public class Handler {
             
         }
         
-             for(int i= 0; i<object.size(); i++){
+          for(int i = 0; i<zenith.size(); i++){
+                
+             zenith.get(i).Draw(g);
             
-            object.get(i).Draw(g);
         }
         
+                    
        for(int i = 0; i<enemies.size(); i++){
            enemies.get(i).Draw(g);
        }
         
+        for(int i= 0; i<object.size(); i++){
+            
+            object.get(i).Draw(g);
+        }
         
     }
     public void addPlatform(Platform platform){

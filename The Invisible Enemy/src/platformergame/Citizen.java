@@ -30,12 +30,10 @@ public class Citizen extends GameObject {
     int spriteSheetIndex, sheetLenght;
     Rectangle hitBox;
     Rectangle ledgeBox;
-    enum CitizenType{
-    white(),black(),blue(),pink(),yellow(),red();
-    }
+   
     CharacterState cState;
     myThread cdThread ;
-    CitizenType colour;
+    ColourType colour;
 
     public Citizen(int x, int y, GamePanel gp) {
          super(x, y);
@@ -172,7 +170,8 @@ public class Citizen extends GameObject {
         hitBox.y = y;
         
       //Cause Damage to Player=====================================================================
-        if(hitBox.intersects(player.hitBox)&& player.cState!= cState.Staggered){
+      
+        if(hitBox.intersects(player.hitBox)&& player.cState!= cState.Staggered && this.colour != colour.white){
            //Set Player State to Staggered
             player.cState = cState.Staggered;
             player.spriteIndex= 1;
@@ -256,16 +255,31 @@ public class Citizen extends GameObject {
                colour = colour.white;
                xSpeed ++;
                ImportImage();
-               
+    }           
               }
            
+       //for each zenith particle
+            for(int i = 0 ; i < panel.handler.zenith.size(); i++  ){
+           
+                //if the hitBox intersects with the citizen hitbox AND the citizen colour is white
+           if(panel.handler.zenith.get(i).hitBox.intersects(this.hitBox) && colour == colour.white){
+               
+               //Infection Event               
+               //copy the zenith particle colour to the citizen
+               colour = panel.handler.zenith.get(i).ct;
+               //remove the zenith particle from the array
+               panel.handler.zenith.remove(i);
+               //import the new citizen image
+               ImportImage();
+               
+              }
        
            
        }
        
-        
-        
     }
+        
+    
     
     
     

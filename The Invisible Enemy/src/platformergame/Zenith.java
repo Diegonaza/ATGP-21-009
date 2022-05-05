@@ -95,6 +95,10 @@ public class Zenith extends GameObject{
         
         y += ySpeed;
         hitBox.y = y;
+        
+        
+        
+        
        
         
        
