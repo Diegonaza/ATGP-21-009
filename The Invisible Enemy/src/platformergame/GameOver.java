@@ -117,18 +117,18 @@ public class GameOver extends javax.swing.JPanel {
     private void NewGameButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         
         
-        gp.StartGame();
-        this.setVisible(false);
-        gp.player.health = 3;
-        gp.setVisible(true);
+        
+        this.gp.window.frame.dispose();
+        this.gp = new GamePanel();
+        
         
         
     }                                             
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         
-
-        gameWindow.frame.dispose();
+        System.out.println("I expected more from you!!!");
+        System.exit(1);
         
         
      
