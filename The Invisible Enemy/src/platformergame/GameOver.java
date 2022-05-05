@@ -128,7 +128,7 @@ public class GameOver extends javax.swing.JPanel {
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         
         System.out.println("I expected more from you!!!");
-        System.exit(1);
+        System.exit(0);
         
         
      
