@@ -23,6 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GamePanel extends Canvas implements Runnable {
    
     Window window;
+    GameOver gO = new GameOver(this);
     private Thread thread;
     public boolean running = false;
     Player player ;
@@ -42,17 +43,13 @@ public class GamePanel extends Canvas implements Runnable {
          StartGame();
          
          window.frame.setLayout(null);
-         this.setVisible(false);
-         Inventory inv = new Inventory();
-         window.frame.add(inv);
-         inv.setBounds(0, 0, 1280, 800);
-         inv.setVisible(true);
+         this.setVisible(true);
          
-         GameOver gameOver = new GameOver(this);
-         window.frame.add(gameOver);
-         gameOver.setBounds(0, 0, 1280, 800);
-         gameOver.setVisible(true);
-        
+         
+         gO.setBounds(0, 0, 1280,800);
+         gO.setVisible(false);
+         window.frame.add(gO);
+         
          Start();
          
       

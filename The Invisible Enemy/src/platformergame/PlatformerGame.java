@@ -20,6 +20,7 @@ public class PlatformerGame {
        // MainFrame frame = new MainFrame();
        
         GamePanel gP = new GamePanel();
+        
        
     }
     

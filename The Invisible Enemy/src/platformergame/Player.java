@@ -19,8 +19,6 @@ import javax.imageio.ImageIO;
  */
 public class Player extends GameObject {
     
-    GameOver gameOver;
-    
     GamePanel panel;
     double maxWalkingSpeed;
     boolean isInputEnable = true;
@@ -59,7 +57,6 @@ public class Player extends GameObject {
         this.startX = x;
         this.locationX = x;
         this.panel = panel;
-        gameOver = new GameOver(this.panel);
         width = 32;
         height = 64;
         this.health = 3;
@@ -77,8 +74,9 @@ public class Player extends GameObject {
         
       if(health == 0) {
           panel.running = false;
-          panel = new GamePanel(0);
-          window = new Window(1280,800,"The Invisible Enemy",gameOver);
+          panel.setVisible(false);
+          panel.gO.setVisible(true);
+          
       } 
         
         if(ySpeed!=0 && ySpeed !=0.5)isFalling = true;
