@@ -47,7 +47,7 @@ public class Player extends GameObject {
     BufferedImage[] sprites = new BufferedImage[10];
     BufferedImage characterSprite;
     BufferedImage healthBar;
-    
+    Window window;
     Projectile projectile;
     
     
@@ -75,7 +75,11 @@ public class Player extends GameObject {
     @Override
     public void tick(){
         
-      
+      if(health == 0) {
+          panel.running = false;
+          panel = new GamePanel(0);
+          window = new Window(1280,800,"The Invisible Enemy",gameOver);
+      } 
         
         if(ySpeed!=0 && ySpeed !=0.5)isFalling = true;
         
@@ -313,11 +317,7 @@ public class Player extends GameObject {
                 break;
             }
         }
-          if(health ==0){
-              panel.running = false;
-              panel.Deathmusic();
-              adasd
-          };
+          
     }
     
     //Spawn projectile is still a work in progress

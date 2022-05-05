@@ -22,12 +22,28 @@ public class Window extends Canvas{
         frame.setMinimumSize(new Dimension(width,height));
         frame.setMaximumSize(new Dimension(width,height));
         
+        //frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.add(game);
         frame.setVisible(true);
-       // game.Start();
+      
+    }
+    
+    public Window(int width, int height, String title, GameOver game){
+        frame = new JFrame(title);
+        frame.setPreferredSize(new Dimension(width,height));
+        frame.setMinimumSize(new Dimension(width,height));
+        frame.setMaximumSize(new Dimension(width,height));
+        
+        //frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.add(game);
+        frame.setVisible(true);
+      
     }
     
 }

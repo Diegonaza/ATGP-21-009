@@ -11,13 +11,13 @@ package platformergame;
 public class GameOver extends javax.swing.JPanel {
 
     
-    GamePanel gp = new GamePanel();
+    GamePanel gp ;
     Window gameWindow;
     /**
      * Creates new form GameOver
      */
-    public GameOver(GamePanel window) {
-        gameWindow = window.window;
+    public GameOver(GamePanel gp ) {
+        this.gp = gp;
         initComponents();
         
     }
@@ -38,6 +38,8 @@ public class GameOver extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(102, 102, 102));
         setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+
+        jScrollPane1.setFocusable(false);
 
         jTextPane1.setEditable(false);
         jTextPane1.setBackground(new java.awt.Color(0, 0, 0));
