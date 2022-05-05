@@ -36,14 +36,14 @@ public class GamePanel extends Canvas implements Runnable {
     
     public GamePanel(){
         //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
-        TileMapper tl = new TileMapper("firstmap",handler);
+        TileMapper tl = new TileMapper("final",handler);
         
         AdventureMusic();
                
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
         //Spawn a playing into the level
-        player = new Player(100,400,this);
+        player = new Player(250,400,this);
         // this will be changed in the future as the player doesn't need to be stored in a list, it will be better to store him into a variable
         //adds the player to handler object List
         handler.addObject(player);
@@ -295,9 +295,9 @@ public class GamePanel extends Canvas implements Runnable {
     
     private void AdventureMusic(){
         
-        music.setSound(0);
-        music.play();
-        music.loop();
+//        music.setSound(0);
+//        music.play();
+//        music.loop();
         
     }
   
