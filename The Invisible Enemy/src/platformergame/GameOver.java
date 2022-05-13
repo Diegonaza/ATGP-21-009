@@ -6,7 +6,7 @@ package platformergame;
 
 /**
  *
- * @author aliss
+ * @author alisson
  */
 public class GameOver extends javax.swing.JPanel {
 
@@ -31,7 +31,9 @@ public class GameOver extends javax.swing.JPanel {
     
     
     private void initComponents() {
-
+        
+        
+        
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         ExitButton = new javax.swing.JButton();

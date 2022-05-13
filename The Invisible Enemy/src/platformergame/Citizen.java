@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author diego
+ * @author alisson
  */
 public class Citizen extends GameObject {
     

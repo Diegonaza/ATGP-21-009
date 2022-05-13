@@ -45,12 +45,17 @@ public class myThreadEventDeath extends Thread {
                     player.cState = player.cState.Idle;
                     player.maxWalkingSpeed =5;
                    
-                     interrupt();
+                    interrupt();
                 
                
-            }catch(Exception e){
+            }
+            
+            
+            catch(Exception e){
                 
             }
+            
+            player.panel.Deathmusic();
         }
         
     

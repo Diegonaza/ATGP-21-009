@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author aliss
+ * @author alisson
  */
 public class Zenith extends GameObject{
 

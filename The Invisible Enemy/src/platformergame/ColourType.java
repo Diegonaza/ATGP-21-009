@@ -6,7 +6,7 @@ package platformergame;
 
 /**
  *
- * @author aliss
+ * @author alisson
  */
 public enum ColourType {
     white(),black(),blue(),pink(),yellow(),red();

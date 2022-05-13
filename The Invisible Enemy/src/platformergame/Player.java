@@ -253,7 +253,9 @@ public class Player extends GameObject {
                 sheetLenght = 3;
                 animPlayRate=8;
                 Animation();
+                panel.music.stop();
                 myThreadEventDeath myDeath = new myThreadEventDeath(this);
+                
                 break;
             }
             

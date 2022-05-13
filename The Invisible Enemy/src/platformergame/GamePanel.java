@@ -22,6 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class GamePanel extends Canvas implements Runnable {
    
+    boolean musicLoop = false;
     Window window;
     GameOver gO = new GameOver(this);
     private Thread thread;
@@ -73,7 +74,7 @@ public class GamePanel extends Canvas implements Runnable {
          //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
         TileMapper tl = new TileMapper("Cave4",handler);
         cameraX = 0;
-       //AdventureMusic();
+       AdventureMusic();
                
         //this method set a reference to the TileMapper class into the handler class
         handler.setMapper(tl);
@@ -347,6 +348,9 @@ public class GamePanel extends Canvas implements Runnable {
   
     public void Deathmusic(){
         
+        if(musicLoop == false){
+            
+        musicLoop = true;
         //Loads the sound clip
         music.setSound(1);
         //Set's the sound volume to 10% of the total
@@ -355,7 +359,7 @@ public class GamePanel extends Canvas implements Runnable {
         music.play();
         //Set the clip as a loop.
         music.loop();
-        
+        }        
     }
    
     
