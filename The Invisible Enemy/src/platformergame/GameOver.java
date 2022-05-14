@@ -60,7 +60,7 @@ public class GameOver extends javax.swing.JPanel {
         ExitButton.setFont(new java.awt.Font("Maiandra GD", 0, 36)); // NOI18N
         ExitButton.setForeground(new java.awt.Color(255, 0, 0));
         ExitButton.setText("I WANT TO QUIT");
-        ExitButton.setToolTipText("I am to weak for this.");
+        ExitButton.setToolTipText("I am too weak for this.");
         ExitButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 0)));
         ExitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         ExitButton.addActionListener(new java.awt.event.ActionListener() {

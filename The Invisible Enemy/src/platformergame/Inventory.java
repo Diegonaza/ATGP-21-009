@@ -26,43 +26,43 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  */
 public class Inventory extends JPanel  {
 
-   
+       
+    public void initComponents(){
+     weaponSelectedImg = new ImageIcon(Inventory.class.getResource("/Images/GunLvl1.png"));
+     weaponImg = new ImageIcon(Inventory.class.getResource("/Images/GunLvl1icon.png"));
+     maskSelectedImg = new ImageIcon(Inventory.class.getResource("/Images/maskSelected.png"));
+     maskImg = new ImageIcon(Inventory.class.getResource("/Images/maskSelected.png"));
+     skillImg = new ImageIcon(Inventory.class.getResource("/Images/skillIcon.png"));
+     arrowUp = new ImageIcon(Inventory.class.getResource("/Images/ArrowUp.png"));
+     arrowDown = new ImageIcon(Inventory.class.getResource("/Images/ArrowDown.png"));
+    
+     selected = new JLabel();
+     weapon = new JLabel();
+     skill = new JLabel();
+     mask = new JLabel();
+     descriptionLabel = new JLabel("Description");
+     weaponUpIcon = new JLabel(arrowUp);
+     weaponDownIcon = new JLabel(arrowDown);
+     maskUpIcon = new JLabel(arrowUp);
+     maskDownIcon = new JLabel(arrowDown);
+     skillUpIcon = new JLabel(arrowUp);
+     skillDownIcon = new JLabel (arrowDown);
+     cardsArtifacts = new JLabel ("Cards & Artifacts");
+     equipmentL = new JLabel("Equipment");
+     detailedInfoL = new JLabel("Deitailed Info");
     
     
-    ImageIcon weaponSelectedImg = new ImageIcon(Inventory.class.getResource("/Images/GunLvl1.png"));
-    ImageIcon weaponImg = new ImageIcon(Inventory.class.getResource("/Images/GunLvl1icon.png"));
-    ImageIcon maskSelectedImg = new ImageIcon(Inventory.class.getResource("/Images/maskSelected.png"));
-    ImageIcon maskImg = new ImageIcon(Inventory.class.getResource("/Images/maskSelected.png"));
-    ImageIcon skillImg = new ImageIcon(Inventory.class.getResource("/Images/skillIcon.png"));
-    ImageIcon arrowUp = new ImageIcon(Inventory.class.getResource("/Images/ArrowUp.png"));
-    ImageIcon arrowDown = new ImageIcon(Inventory.class.getResource("/Images/ArrowDown.png"));
+     weaponUp = new JButton();
+     weaponDown = new JButton();
     
-    JLabel selected = new JLabel();
-    JLabel weapon = new JLabel();
-    JLabel skill = new JLabel();
-    JLabel mask = new JLabel();
-    JLabel descriptionLabel = new JLabel("Description");
-    JLabel weaponUpIcon = new JLabel(arrowUp);
-    JLabel weaponDownIcon = new JLabel(arrowDown);
-    JLabel maskUpIcon = new JLabel(arrowUp);
-    JLabel maskDownIcon = new JLabel(arrowDown);
-    JLabel skillUpIcon = new JLabel(arrowUp);
-    JLabel skillDownIcon = new JLabel (arrowDown);
-    JLabel cardsArtifacts = new JLabel ("Cards & Artifacts");
-    JLabel equipmentL = new JLabel("Equipment");
-    JLabel detailedInfoL = new JLabel("Deitailed Info");
-    
-    
-    JButton weaponUp = new JButton();
-    JButton weaponDown = new JButton();
-    
-    JPanel equipment = new JPanel();
-    JPanel cards = new JPanel();
-    JPanel description = new JPanel();
-    JTextArea textArea = new JTextArea(20,20);
+     equipment = new JPanel();
+     cards = new JPanel();
+     description = new JPanel();
+     textArea = new JTextArea(20,20);
+    }
        
     public Inventory(){
-        
+        initComponents();
        
        this.setBackground(Color.DARK_GRAY);
        this.setVisible(false);
@@ -195,6 +195,32 @@ public class Inventory extends JPanel  {
     }
     
     
-
+private ImageIcon weaponSelectedImg;
+    private ImageIcon weaponImg;
+    private ImageIcon maskSelectedImg;
+    private ImageIcon maskImg;
+    private ImageIcon skillImg;
+    private ImageIcon arrowUp;
+    private ImageIcon arrowDown;    
+    private JLabel selected;
+    private JLabel weapon;
+    private JLabel skill;
+    private JLabel mask;
+    private JLabel descriptionLabel;
+    private JLabel weaponUpIcon;
+    private JLabel weaponDownIcon;
+    private JLabel maskUpIcon;
+    private JLabel maskDownIcon;
+    private JLabel skillUpIcon;
+    private JLabel skillDownIcon;
+    private JLabel cardsArtifacts;
+    private JLabel equipmentL;
+    private JLabel detailedInfoL;
+    private JButton weaponUp;
+    private JButton weaponDown;    
+    private JPanel equipment;
+    private JPanel cards;
+    private JPanel description;
+    private JTextArea textArea;
     
 }
