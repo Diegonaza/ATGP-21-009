@@ -53,7 +53,6 @@ public class Player extends GameObject {
         super(x,y);
         this.x = x;
         this.y = y;
-        this.id = id;
         this.startX = x;
         this.locationX = x;
         this.panel = panel;

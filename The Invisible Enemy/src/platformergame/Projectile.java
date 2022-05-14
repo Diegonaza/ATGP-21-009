@@ -21,8 +21,8 @@ public class Projectile extends GameObject{
     Handler handlerRef;
     Rectangle hitBox;
     
-     public Projectile(int x, int y, ID id) {
-        super(x, y, id);
+     public Projectile(int x, int y) {
+        super(x, y);
     }
 
     public Projectile(int x, int y,int speedX, Handler h) {

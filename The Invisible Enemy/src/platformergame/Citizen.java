@@ -51,7 +51,6 @@ public class Citizen extends GameObject {
         cState = cState.Walking;
         this.x = x;
         this.y = y;
-        this.id = id;
         this.startX = x;
         this.startY = y;
         this.xSpeed = 1;

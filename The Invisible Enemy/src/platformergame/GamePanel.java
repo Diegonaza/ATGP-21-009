@@ -346,7 +346,7 @@ public class GamePanel extends Canvas implements Runnable {
         
     }
   
-    public void Deathmusic(){
+    public void DeathMusic(){
         
         if(musicLoop == false){
             

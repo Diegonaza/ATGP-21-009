@@ -55,7 +55,7 @@ public class myThreadEventDeath extends Thread {
                 
             }
             
-            player.panel.Deathmusic();
+            player.panel.DeathMusic();
         }
         
     

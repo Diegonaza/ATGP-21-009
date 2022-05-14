@@ -14,19 +14,13 @@ import java.awt.Graphics2D;
 public abstract class GameObject {
     
     protected int x, y, width, height;
-    protected ID id;
     protected double xSpeed, ySpeed;
     
     ColourType ct;
     
     
     
-    public GameObject(int x, int y, ID id){
-        this.x = x;
-        this.y = y;
-        this.id = id;
-    }
-    
+     
     public GameObject(int x, int y){
         this.x = x;
         this.y = y;
@@ -43,9 +37,7 @@ public abstract class GameObject {
         this.y = y;
     }
 
-    public void setId(ID id) {
-        this.id = id;
-    }
+    
 
     public void setSpeedX(int velX) {
         this.xSpeed = xSpeed;
@@ -65,9 +57,6 @@ public abstract class GameObject {
         return y;
     }
 
-    public ID getId() {
-        return id;
-    }
 
     public double getSpeedX() {
         return xSpeed;

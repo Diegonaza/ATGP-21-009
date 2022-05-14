@@ -25,4 +25,6 @@ public class Animation {
         BufferedImage img = image.getSubimage(x, y, 32, 32);
         return img;
     }
+    //Method reads a sub image starting from a point in a bigger image for a fixed image size on 32x32
+    
 }
