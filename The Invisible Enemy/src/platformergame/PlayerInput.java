@@ -36,5 +36,4 @@ public class PlayerInput extends KeyAdapter{
        
     }
     
-   
 }
