@@ -93,7 +93,8 @@ public class Citizen extends GameObject {
       
       if(xSpeed >0){
           direction = direction.Right;
-          //This sets up the enum state where the character is facing, if positive speed, the right position is selected.      }
+          //This sets up the enum state where the character is facing, if positive speed, the right position is selected.
+      }
       
       if(xSpeed <0){
           direction = direction.Left;
@@ -124,8 +125,8 @@ public class Citizen extends GameObject {
           //vertical collision
           hitBox.y += ySpeed;
           for(Platform p: panel.handler.platforms){
-           //Checks each platform for a colision with this character;
-              if(hitBox.intersects(p.hitBox)){
+              //for each platform in the handler object, collision will be checked.
+            if(hitBox.intersects(p.hitBox)){
                 hitBox.y -= ySpeed;
                 
                 while(!p.hitBox.intersects(hitBox)){
@@ -143,7 +144,6 @@ public class Citizen extends GameObject {
         hitBox.x += xSpeed;
         
         for(Platform p: panel.handler.platforms){
-            //Checks each platform for a colision with this character;
             if(hitBox.intersects(p.hitBox)){
                 hitBox.x -= xSpeed;
                while(!p.hitBox.intersects(hitBox)){
@@ -165,7 +165,7 @@ public class Citizen extends GameObject {
       //Cause Damage to Player=====================================================================
       
         if(hitBox.intersects(player.hitBox)&& player.cState!= cState.Staggered && this.colour != colour.white){
-           //Set Player State to Staggered, modifying the player object accordingly
+           //Set Player State to Staggered
             player.cState = cState.Staggered;
             player.spriteIndex= 1;
             player.health = player.health-1;
@@ -184,13 +184,15 @@ public class Citizen extends GameObject {
                 player.xSpeed = -player.maxWalkingSpeed;;
             }
             //As we are Disabling the player input for both cases ( Press and Release )
-            //set all key input variables to false;
+            //set all key input variables to false, finishig all actions leaving the obejct open for any event again;
             player.keyFire = false;
             player.keyJump = false;
             player.keyLeft = false;
-            player.keyRight = false;        
+            player.keyRight = false;
+                
+           
+            
         }
-        
         
         //============================================================================================
         
@@ -198,53 +200,56 @@ public class Citizen extends GameObject {
       
          
          if(camPrevX != panel.cameraX){
-            
+            //checks if the camera state is different, which would mean the camera have moved.
              x += (camPrevX-panel.cameraX);
+             //changes the position relative to the camera position
              x += xSpeed;
+             // add the normal movement change to it.
              hitBox.x = x;
+             //moves the hitbox accordingly
              camPrevX = panel.cameraX;
+             //sets the camera state again for the next tick event.
          }else{
              x+= xSpeed;
              hitBox.x = x;
+             //if the camera haven't moved, the normal movement state happens normally.
          }
          
      
-       
        
         // Character State Machine
         // this will check which state the character is , select the appropriated sprite sheet 
         switch(cState){
             case Walking:{
-            
-                //spriteSheetIndex = 0;
                 sheetLenght = 6;
                 break;
             }
             
             case Jumping:{
-            
-                //spriteSheetIndex=0;
                 sheetLenght = 2;
                 break;
             }
                       
         }
-        
+        //this will be responsible to pass on information to the artefact to load the correct sprite accordignly.
         
        
        Animation();
        
        //Check Collision vs Projectiles
        for( int i = 0 ; i < panel.handler.projectiles.size(); i++  ){
-           
+           //checks every projectile existent in the handler to be checked for colision.
            if(panel.handler.projectiles.get(i).hitBox.intersects(this.hitBox) && colour!= colour.white){
+               //if the hitbox of the citizen intersects with a projectile shot by the player
                
-               //Event ( dano)
                
-               
+               //Event (damage)
                panel.handler.projectiles.remove(i);
+               //removes the projectile from the game
                colour = colour.white;
+               //changes the Citizen state to white.
                spriteSheetIndex = 1;
+               //reset the spriteSheet for animation for white type sprite.
               
     }           
               }
@@ -258,33 +263,38 @@ public class Citizen extends GameObject {
                //Infection Event               
                //copy the zenith particle colour to the citizen
                colour = panel.handler.zenith.get(i).ct;
-               //remove the zenith particle from the array
+               //remove the zenith particle from the game
                panel.handler.zenith.remove(i);
                //import the new citizen image
                switch(colour){
                    case blue:{
                        spriteSheetIndex=0;
+                       //selects the spriteSheet refferent to the colour blue
                        break;
                    }
                    case white:{
                        spriteSheetIndex=1;
+                       //selects the spriteSheet refferent to the colour white
                        break;
                    }
-                   
                    case red:{
                        spriteSheetIndex=2;
+                       //selects the spriteSheet refferent to the colour red
                        break;
                    }
                    case yellow:{
                        spriteSheetIndex=3;
+                       //selects the spriteSheet refferent to the colour yellow
                        break;
                    }
                    case black:{
                        spriteSheetIndex=4;
+                       //selects the spriteSheet refferent to the colour black
                        break;
                    }
                    case pink:{
                        spriteSheetIndex=5;
+                       //selects the spriteSheet refferent to the colour pink
                        break;
                    }
                }
@@ -298,30 +308,27 @@ public class Citizen extends GameObject {
         
     
     
-    }
+    
     
     public void Roam(){
        
        xSpeed = xSpeed * -1;
     }
-    
-    public void SetSpeedX(double speed){
-        movementSpeed =  speed;
-        if(movementSpeed>0)direction = direction.Right;
-           else if(movementSpeed<0)direction = direction.Left;
-    }
+ 
 
     @Override
     public void Draw(Graphics2D gtd) {
-     /// This rectangle represents the Object HitBox
+     /// This commented part is code to see the invisible hitbox for the Citizen
       // gtd.setColor(Color.red);
       // gtd.fillRect(x, y, width, height); // Hitbox size
-       //gtd.fillRect(ledgeBox.x, ledgeBox.y, ledgeBox.width, ledgeBox.height); // Other hitbox Approach
+       //gtd.fillRect(ledgeBox.x, ledgeBox.y, ledgeBox.width, ledgeBox.height);
+       
+       
        //these lines flips the image horizontally and adjust their x and y coordinates to match the object HitBox
         if(direction == direction.Right)
             gtd.drawImage(characterSprite, x-30, y-30,100,100,panel);
                   //                                    /\ /\ 
-//                                            (Size parameters, change both
+//                                            (Size parameters)
         if(direction == direction.Left)
             gtd.drawImage(characterSprite, x+65, y-30,-100,100,panel);
     }
@@ -336,26 +343,32 @@ public class Citizen extends GameObject {
              case 0:
               is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenBlue.png");
               sprites[i] = ImageIO.read(is);
+              //loads the character sprites to a position in the array 
              break;
              case 1:
              is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenWhite.png");
              sprites[i] = ImageIO.read(is);
+             //loads the character sprites to a position in the array
              break;
              case 2:
              is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenRed.png");
              sprites[i] = ImageIO.read(is);
+             //loads the character sprites to a position in the array
              break;
              case 3:
              is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenGreen.png");
              sprites[i] = ImageIO.read(is);
+             //loads the character sprites to a position in the array
              break;
              case 4:
              is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenBlack.png");
              sprites[i] = ImageIO.read(is);
+             //loads the character sprites to a position in the array
              break;
              case 5:
              is = getClass().getResourceAsStream("/Images/CitizenNew/CitizenPink.png");
              sprites[i] = ImageIO.read(is);
+             //loads the character sprites to a position in the array
              break;    
          }
             
@@ -388,12 +401,15 @@ public class Citizen extends GameObject {
             if(spriteIndex<=sheetLenght){
                 UpdateImage(sprites[spriteSheetIndex],(spriteIndex* 64)-64,0);
                 spriteIndex++;
+                //choses the next sprite index 
                  
                 
             }else{
                 spriteIndex = 1;
+                //resets the spriteIndex when the sheetLenght is reached.
             }
             animPlayRate = 0;
+            //resets the animation play rate.
            }
      }
 }
