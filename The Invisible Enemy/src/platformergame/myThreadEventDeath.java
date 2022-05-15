@@ -24,10 +24,10 @@ public class myThreadEventDeath extends Thread {
     public void run(){
      
             try{
-                //stop music
-                player.panel.music.stop();
-                //play player character death music
-                player.panel.deathMusic.loop();
+              //stop music
+              player.panel.music.stop();
+              //play player character death music
+              player.panel.deathMusic.loop();
               //disable player's input
               player.isInputEnable = false;
               //transition between states
