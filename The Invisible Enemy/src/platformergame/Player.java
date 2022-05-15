@@ -60,7 +60,7 @@ public class Player extends GameObject {
         height = 64;
         this.health = 3;
         hitBox = new Rectangle(x,y,width,height);
-        this.maxWalkingSpeed = 5;
+        this.maxWalkingSpeed = 4;
         
         direction = direction.Right;
         

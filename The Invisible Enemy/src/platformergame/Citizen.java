@@ -66,7 +66,7 @@ public class Citizen extends GameObject {
         this.player = (Player) this.panel.handler.object.get(0);
         direction = direction.Right;
         colour = colour.red;
-        cdThread = new myThread(player);
+        
         
         ImportImage();
              

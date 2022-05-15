@@ -16,25 +16,23 @@ import javax.imageio.ImageIO;
  * @author diego
  */
 public class LevelOne {
-    BufferedImage imgRockTwo;
-    BufferedImage img1;
+    BufferedImage Dublin;
+    BufferedImage Clouds2;
     BufferedImage img2;
-    BufferedImage img3;
+    BufferedImage Sky;
     GamePanel p;
     int x;
-    int rockSpeed;
+    int DublinSpeed;
     
     public LevelOne(GamePanel p){
         InputStream is = getClass().getResourceAsStream("/Images/Map1/dublin.png");
         InputStream is1 = getClass().getResourceAsStream("/Images/Map1/clouds_2.png");
-       // InputStream is2 = getClass().getResourceAsStream("/Images/Map1/rocks_1.png");//remored mountain
-         InputStream is3 = getClass().getResourceAsStream("/Images/Map1/sky.png");
-        p = p;
+        InputStream is2 = getClass().getResourceAsStream("/Images/Map1/sky.png");
+        this.p = p;
         try{
-            imgRockTwo = ImageIO.read(is);
-            img1 = ImageIO.read(is1);
-            //img2 = ImageIO.read(is2);//remored mountain
-            img3 = ImageIO.read(is3);
+            Dublin = ImageIO.read(is);
+            Clouds2 = ImageIO.read(is1);
+            Sky = ImageIO.read(is2);
             
         }catch(Exception e){
             
@@ -44,18 +42,17 @@ public class LevelOne {
     
    
     public void Draw(Graphics2D gtd){
-        gtd.setColor(Color.red);
-        //gtd.fillRect(x, y, width, height);
-        gtd.drawImage(img3,0,0,1280,800,p);
-            gtd.drawImage(img2,-50,0,1280,800,p);
-            gtd.drawImage(img1, x, 0,1280,800,p);
-            gtd.drawImage(imgRockTwo, rockSpeed-20, 0,1280,800,p); 
-            gtd.drawImage(img1, x+800, 0,1280,800,p);
-        gtd.drawImage(imgRockTwo, rockSpeed+1280-20, 0,1280,800,p);
+       
+            gtd.drawImage(Sky,0,0,1280,800,p);
+            gtd.drawImage(Clouds2, x, 0,1280,800,p);
+            gtd.drawImage(Clouds2, x+800, 0,1280,800,p);
+            gtd.drawImage(Dublin, DublinSpeed-20, -100,1280,800,p); 
+            
+            gtd.drawImage(Dublin, DublinSpeed+1280-20, 0,1280,800,p);
     }
     
     public void updateLocation(int cam){
-        x = -(cam/32);
-        rockSpeed = -(cam/16);
+        x = -(cam/6);
+        DublinSpeed = -(cam/4);
     }
 }

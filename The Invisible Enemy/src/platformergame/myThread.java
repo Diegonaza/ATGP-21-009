@@ -12,10 +12,12 @@ package platformergame;
 //This class handles a specific transition between states in the character state machine
 public class myThread extends Thread {
     Player player;
+    double temp;
     
     public myThread(Player p ){
         //saves reference to the player character
         this.player = p;
+        this.temp = p.maxWalkingSpeed;
         //starts the thread
         start();
     }
@@ -24,6 +26,7 @@ public class myThread extends Thread {
     public void run(){
      
             try{
+                
                 //Time in milliseconds
                 //wait 0.8 seconds
                 Thread.sleep(800);
@@ -32,7 +35,7 @@ public class myThread extends Thread {
                     //transition between states
                     player.cState = player.cState.Idle;
                     //player movement speed
-                    player.maxWalkingSpeed =5;
+                    player.maxWalkingSpeed =temp;
                    //"kills" the thread
                      interrupt();
                 
