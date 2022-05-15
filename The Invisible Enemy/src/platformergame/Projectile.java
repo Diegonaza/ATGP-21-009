@@ -14,10 +14,12 @@ import java.awt.Rectangle;
  * @author diegof
  */
 public class Projectile extends GameObject{
-
+    //projecttile speed on the X vector
     int projectileSpeedX = 10;
+    //Projectile Start position
     int startX;
     int projectileSpeedY;
+    //reference to the handler class
     Handler handlerRef;
     Rectangle hitBox;
     
@@ -27,8 +29,11 @@ public class Projectile extends GameObject{
 
     public Projectile(int x, int y,int speedX, Handler h) {
         super(x, y);
+        //set start position
         this.startX = x;
+        //set speed on X vector
         this.projectileSpeedX = projectileSpeedX*speedX;
+        //reference to the handler class
         this.handlerRef = h;
         this.hitBox = new Rectangle(2,2);
     }

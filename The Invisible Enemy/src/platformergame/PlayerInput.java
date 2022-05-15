@@ -20,6 +20,7 @@ public class PlayerInput extends KeyAdapter{
     GamePanel panel;
     
     public PlayerInput(GamePanel p){
+        //gamePanel reference
         panel = p;
     }
     

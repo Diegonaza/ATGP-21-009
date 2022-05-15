@@ -32,7 +32,8 @@ public class Platform extends GameObject{
         this.startY = y;
         this.img = image;
         this.hasCollision = hasCollision;
-        
+        //The tileMapper class defines which platform will have collision
+        //if collision is enabled create a hitbox
         if(hasCollision == true){
             
         hitBox = new Rectangle(x,y,width,height);
@@ -43,10 +44,11 @@ public class Platform extends GameObject{
     //commented lines inside this method are for debug purposes, will draw the collision boxes for each platform
     @Override
     public void Draw(Graphics2D gtd){
-       // gtd.setColor(Color.BLACK);
-    //    gtd.drawRect(x, y, width, height);
-     //   gtd.setColor(Color.white);
-     //   gtd.fillRect(x+1, y+1, width-2, height-2);
+       /* gtd.setColor(Color.BLACK);
+          gtd.drawRect(x, y, width, height);
+          gtd.setColor(Color.white);
+          gtd.fillRect(x+1, y+1, width-2, height-2);
+        */
         gtd.drawImage(img,x,y,width,height,null);
         
     }
