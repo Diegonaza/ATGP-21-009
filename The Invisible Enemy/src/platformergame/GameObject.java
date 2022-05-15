@@ -25,6 +25,7 @@ public abstract class GameObject {
         this.x = x;
         this.y = y;
     }
+    //instanciate 
     
     public abstract void tick();
     public abstract void Draw(Graphics2D g);

@@ -121,7 +121,7 @@ public class GameOver extends javax.swing.JPanel {
         
         
         this.gp.window.frame.dispose();
-        this.gp.music.stop();
+        this.gp.deathMusic.stop();
         this.gp = new GamePanel();
         
         
