@@ -33,12 +33,13 @@ public class Zenith extends GameObject{
         this.panelRef = p;
         this.camPrevX = p.cameraX;
         ct = ct.white; // there is no white Zenith, If white, please check this part for this wasn't initialized.
+         
         this.startX = x;
         this.xSpeed = 6;
         this.ySpeed = 2;
         this.handlerRef = handler;
         this.hitBox = new Rectangle(2,2);
-        
+        //System.out.println(this.speedX);
         
         
         
@@ -81,14 +82,13 @@ public class Zenith extends GameObject{
             }
         }
         
-      //Adjust the Object X position to the Camera Movement
+       // this.x += speedX;
         if(camPrevX != panelRef.cameraX){
              x += (camPrevX-panelRef.cameraX);
              x += xSpeed;
              hitBox.x = x;
              camPrevX = panelRef.cameraX;
          }else{
-            //If there is no camera movement
              x+= xSpeed;
              hitBox.x = x;
          }
@@ -113,27 +113,21 @@ public class Zenith extends GameObject{
         switch(ct){
             case blue:
             g.setColor(Color.BLUE);
-            //Changes the zenith's color instatiation to blue
                 break;
             case red:
             g.setColor(Color.RED);
-             //Changes the zenith's color instatiation to red
                 break;
             case yellow:
             g.setColor(Color.YELLOW);
-             //Changes the zenith's color instatiation to Yellow
                 break; 
             case pink:
             g.setColor(Color.PINK);
-             //Changes the zenith's color instatiation to Pink
                 break;
             case black:
             g.setColor(Color.BLACK);
-             //Changes the zenith's color instatiation to Black
                 break;
             case white:
             g.setColor(Color.WHITE);
-             //Changes the zenith's color instatiation to White
                 break;
         }
         

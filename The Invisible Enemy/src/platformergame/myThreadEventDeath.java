@@ -24,10 +24,10 @@ public class myThreadEventDeath extends Thread {
     public void run(){
      
             try{
-              //stop music
-              player.panel.music.stop();
-              //play player character death music
-              player.panel.deathMusic.loop();
+                player.panel.music.stop();
+                // player.panel.DeathMusic();
+                 player.panel.deathMusic.loop();
+                 player.panel.deathMusic.play();
               //disable player's input
               player.isInputEnable = false;
               //transition between states
@@ -61,7 +61,7 @@ public class myThreadEventDeath extends Thread {
                     //transition between states
                     player.cState = player.cState.Idle;
                     player.maxWalkingSpeed =5;
-                   //this kills the "thread"
+                   
                     interrupt();
                 
                

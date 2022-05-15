@@ -7,7 +7,6 @@ package platformergame;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -60,6 +59,7 @@ public class Inventory extends JPanel  {
      description = new JPanel();
      textArea = new JTextArea(20,20);
     }
+    //initializes the components used to implement the JPanel feature.
        
     public Inventory(){
         initComponents();
@@ -193,6 +193,7 @@ public class Inventory extends JPanel  {
        this.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
        
     }
+    //inventory constructor will position and instanciate all feature to the Panel
     
     
 private ImageIcon weaponSelectedImg;

@@ -36,31 +36,29 @@ public class Handler {
     //Update all Objects in the level
     public void tick(){
         for (int i = 0; i<object.size(); i++){
-          
             object.get(i).tick();
+            //reads each object in the linkedList
         }
         
         for(int i = 0; i<projectiles.size(); i++){
-               
              projectiles.get(i).tick();
-              
+             //reads each projectile in the linkedList
         }
         
         for(int i = 0; i<enemies.size(); i++){
             enemies.get(i).tick();
+            //reads each enemy in the linkedList
         }
         
         for(int i = 0; i<platforms.size(); i++){
             platforms.get(i).tick(this);
-            
+            //reads each platform in the linkedList
         }
         
         for(int i = 0; i<zenith.size(); i++){
             zenith.get(i).tick();
-            
+            //reads each zenith in the linkedList
         }
-        
-        
       
     }
     
@@ -93,58 +91,64 @@ public class Handler {
             if(backgroundTiles.get(i).startX <= (p.locationX )&& backgroundTiles.get(i).startX>= p.locationX-300|| backgroundTiles.get(i).startX >= p.locationX && backgroundTiles.get(i).startX <= p.locationX+1285){
                 backgroundTiles.get(i).Draw(g);
             }
-            
+        //draws the backgroundTiles objects     
             
             
         }
        
-         
+         //Render Objects that are within the offSet , the offset is calculated based on the X position of the Player character on the screen
         for (int i = 0; i<platforms.size(); i++){
           if(platforms.get(i).startX <= (p.locationX )&& platforms.get(i).startX>= p.locationX-300|| platforms.get(i).startX >= p.locationX && platforms.get(i).startX <= p.locationX+1285)
             platforms.get(i).Draw(g);
         }
+        //draws the platform objects 
         
     
         
         for(int i = 0; i<projectiles.size(); i++){
-                
              projectiles.get(i).Draw(g);
+             //draws the projectiles objects 
             
         }
         
           for(int i = 0; i<zenith.size(); i++){
-                
              zenith.get(i).Draw(g);
-            
+            //draws the zenith objects 
         }
         
                     
        for(int i = 0; i<enemies.size(); i++){
            enemies.get(i).Draw(g);
+           //draws the enemy objects 
        }
         
         for(int i= 0; i<object.size(); i++){
-            
             object.get(i).Draw(g);
+            //draws the other objects 
         }
         
     }
     public void addPlatform(Platform platform){
         this.platforms.add(platform);
     }
+    //adds a platform into the Platform Linked list
     
     public void addTile(Platform p){
         this.backgroundTiles.add(p);
     }
+    //adds a tile into the tile Linked list
     
     public void addObject(GameObject object){
         this.object.add(object);
     }
+    //adds a object into the Object Linked list
     
     public void removeObject(GameObject object){
         this.object.remove(object);
     }
+    //remove a object from the gameObject linked list
     public void setMapper(TileMapper mapper){
         tl = mapper;
     }
+    //sets the mapper variable.
 }

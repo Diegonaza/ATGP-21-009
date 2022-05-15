@@ -115,7 +115,8 @@ public class GameOver extends javax.swing.JPanel {
         
         
     }// </editor-fold>                        
-
+//initializes the components for this frame
+    
     private void NewGameButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         
         
@@ -127,7 +128,8 @@ public class GameOver extends javax.swing.JPanel {
         
         
     }                                             
-
+//the function event for when the button is clicked
+    
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         
         System.out.println("I expected more from you!!!");
@@ -137,8 +139,8 @@ public class GameOver extends javax.swing.JPanel {
      
         
     }                                          
-
-
+//the function event for when the button is clicked
+    
     // Variables declaration - do not modify                     
     private javax.swing.JButton ExitButton;
     private javax.swing.JButton NewGameButton;
