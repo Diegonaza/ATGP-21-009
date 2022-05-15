@@ -72,31 +72,36 @@ public class Player extends GameObject {
     public void tick(){
         
      
-        
+        //check if player is falling
         if(ySpeed!=0 && ySpeed !=0.5)isFalling = true;
         
       //Update Character State
-      //Dead State
+      //Dead State when player heath is 0
       if(health==0&& cState!= cState.Dead){
           cState= cState.Dead;
       }
       
        //Shooting State
+        //State used for animation and trigger the instanciation of projectiles, when not moving on X axis and in colision with a platform vertically.
        if(keyFire==true&&xSpeed==0&&cState!=cState.Shooting&&cState!=cState.Jumping && isFalling == false && cState != cState.Staggered && cState!=cState.Dead ){
           cState = cState.Shooting;
            spriteIndex = 1;
       }
        //Walking / Walking&Shooting State
+        //state for movement over a platform
       if(xSpeed!=0 && isFalling == false ){
-          
+          //conditions for the transition between states
           if (keyFire== false && cState!=cState.Walking && isFalling == false && cState != cState.Staggered && cState!=cState.Dead ){
+              //transition between states
               cState = cState.Walking;
+              //set the animation to the first frame
               spriteIndex = 1;
           }
-          
+          //conditions for the transition between states
           else if(keyFire==true&&cState!=cState.RunFiring && cState == cState.Walking && cState != cState.Staggered && cState!=cState.Dead || 
                   keyFire==true&&cState!=cState.RunFiring && cState == cState.Shooting && cState != cState.Staggered && cState!=cState.Dead ||
                   keyFire==true&&cState!=cState.RunFiring && cState == cState.JumpingShooting && cState != cState.Staggered&& cState!=cState.Dead ){
+           //transition between states
              cState = cState.RunFiring;
               spriteIndex = 1;
           }
@@ -104,28 +109,38 @@ public class Player extends GameObject {
       }
       
       // Idle State
+      //state without movement
+      //conditions for the transition between states
       if(isFalling == false && keyFire!=true && cState!= cState.Idle && xSpeed == 0 && cState != cState.Staggered && cState!=cState.Dead ){
+         //transition between states
           cState = cState.Idle;
+         //set the animation to the first frame
           spriteIndex = 1;
           
       }
       
       
       //Jump 
+      //state no colision with platforms, applicable for when moving on X axis or not.
+      //conditions for the transition between states
       if(isFalling == true && cState != cState.Jumping && keyFire == false && cState != cState.Staggered && cState!=cState.Dead  ){
-          
+          //transition between states
               cState = cState.Jumping;
+          //set the animation to the first frame
               spriteIndex = 1;
           
       }
       
       // Jumping&Shooting State
+      //state with no colision with platforms, applicable when moving on X axis or not but the character is also in shooting state.
+      //conditions for the transition between states
       if(cState == cState.Jumping && keyFire == true && cState!=cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead || 
          cState == cState.Shooting  && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead ||
          cState == cState.RunFiring && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead ||
          cState == cState.Walking && cState!= cState.JumpingShooting && isFalling == true && cState != cState.Staggered && cState!=cState.Dead ){
-          
+           //transition between states
           cState = cState.JumpingShooting;
+          //set the animation to the first frame
           spriteIndex = 1;
       }
       
@@ -138,6 +153,7 @@ public class Player extends GameObject {
       
       
       //Update Player Movement
+      //KeyInput conditions
       if(keyLeft && keyRight || !keyLeft && !keyRight) xSpeed *= 0.8;
       else if(keyLeft && !keyRight){
           xSpeed --;
@@ -146,7 +162,7 @@ public class Player extends GameObject {
           direction = direction.Left;
           
       }
-      
+      //KeyInput conditions
       else if(keyRight && !keyLeft){
           xSpeed ++;
           direction = direction.Right;
@@ -154,16 +170,22 @@ public class Player extends GameObject {
       
       //speed limit/smoothing
       if(xSpeed > 0 && xSpeed<0.75)xSpeed = 0;
+       //defines the speed in X to be equal to zero if smaller to 0.75 in module.
       if(xSpeed<0 && xSpeed> -0.75)xSpeed =0;
+      //defines the speed in X to be equal to zero if smaller to 0.75 in module.
       if(xSpeed > maxWalkingSpeed)xSpeed= maxWalkingSpeed;
+      //defines the speed in X to be equal to one if bigger to one in module.
       if(xSpeed<-maxWalkingSpeed)xSpeed = -maxWalkingSpeed;
+      //defines the speed in X to be equal to one if bigger to one in module.
       
       
       
       //jump Logic
+      //conditions
       if(keyJump && canJump){
           hitBox.y++;
           canJump = false;
+          //collision check
           for(int i = 0; i<panel.handler.platforms.size(); i++){
               if(panel.handler.platforms.get(i).hitBox.intersects(hitBox))ySpeed = -12;
           }
@@ -247,12 +269,15 @@ public class Player extends GameObject {
         //and set the variables accordingly so the animation works correctly 
         switch(cState){
             case Dead:{
-            
+                 //Sprite Sheet to use
                 spriteSheetIndex=4;
+                //How many Frames we have in this animation
                 sheetLenght = 3;
+                //How fast should we play this animation
                 animPlayRate=8;
+                //Call animation Method
                 Animation();
-                //panel.music.stop();
+                //Death Event
                 myThreadEventDeath myDeath = new myThreadEventDeath(this);
                 
                 break;
@@ -271,57 +296,79 @@ public class Player extends GameObject {
             }
             
             case Idle:{
-            
+                //Sprite Sheet to use
                 spriteSheetIndex=0;
+                //How many Frames we have in this animation
                 sheetLenght = 3;
+                //How fast should we play this animation
                 animPlayRate=8;
+                //Call animation Method
                 Animation();
                 break;
             }
             
              case Staggered:{
-            
+                //Sprite Sheet to use
                 spriteSheetIndex=1;
+                //How many Frames we have in this animation
                 sheetLenght = 6;
+                //How fast should we play this animation
                 animPlayRate=8;
+                //Call animation Method
                 Animation();
                 break;
             }
             
             case Jumping:{
-               
+                //Sprite Sheet to use
                 spriteSheetIndex =3;
+                //How many Frames we have in this animation
                 sheetLenght = 6;
+                //How fast should we play this animation
                 animPlayRate=6;
+                //Call animation Method
                 Animation();
                 break;
             }
             case JumpingShooting:{
-               
+                //Sprite Sheet to use
                 spriteSheetIndex =7;
+                //How many Frames we have in this animation
                 sheetLenght = 6;
+                //How fast should we play this animation
                 animPlayRate=6;
+                //Call Shoot Method
                 Shoot(10);
+                //Call animation Method
                 Animation();
                 break;
             }
             
             
             case Shooting:{
-                
+                //Sprite Sheet to use
                 spriteSheetIndex = 5;
+                //How many Frames we have in this animation
                 sheetLenght = 6;
+                //How fast should we play this animation
                 animPlayRate=8;
+                //Call Shoot Method
                 Shoot(10);
+                //Call animation Method
                 Animation();
                 
                 break;
             }
              case RunFiring:{
+                //Sprite Sheet to use 
                 spriteSheetIndex = 6;
+                //How many Frames we have in this animation
                 sheetLenght = 6;
+                //How fast should we play this animation
                 animPlayRate=4;
+                //Call Shoot Method
                 Shoot(10);
+                //Call animation Method
                 Animation();
                 break;
             }
@@ -329,15 +376,19 @@ public class Player extends GameObject {
           
     }
     
-    //Spawn projectile is still a work in progress
+    //Spawn projectile
     public void Shoot(int fr){
         this.fireRate = fr;
+        //FireRate determines how fast the character can shoot projectiles
+        //FireRateCounter increases every tick
         if(fireRateCounter==fireRate){
+            //projectile direction ( right )
             if(direction == direction.Right){
                  projectile = new Projectile(x+50,y+25,1,panel.handler);
                 panel.handler.projectiles.add(projectile);
                 fireRateCounter=0;
             }else{
+                //projectile direction ( left )
                 projectile = new Projectile(x-50,y+25,-1,panel.handler);
                 panel.handler.projectiles.add(projectile);
                 fireRateCounter=0;
@@ -353,7 +404,7 @@ public class Player extends GameObject {
     
     @Override
     public void Draw(Graphics2D gtd){
-      
+      //Show Player character hitbox for debug purpose only
         gtd.setColor(Color.red);
       // gtd.fillRect(x, y, width, height);
         //Flips the image based on the direction the character is facing
@@ -392,15 +443,7 @@ public class Player extends GameObject {
         
             
         }
-       /* if(e.getKeyChar() == 'i'){
-            if(isVisible==true){
-                this.setVisible(false);
-                isVisible = false;
-            }else{
-                this.setVisible(true);
-                isVisible = true;
-            }
-        }*/
+     
     }
     
     public void KeyReleased(KeyEvent e){

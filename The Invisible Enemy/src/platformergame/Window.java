@@ -17,7 +17,7 @@ public class Window extends Canvas{
     JFrame frame;
     GamePanel gamePanel;
     Inventory inv;
-    
+    //Window Settings for instantiation
     public Window(int width, int height, String title, GamePanel game, Inventory inventory){
         frame = new JFrame(title);
         gamePanel = game;
@@ -25,8 +25,6 @@ public class Window extends Canvas{
         frame.setPreferredSize(new Dimension(width,height));
         frame.setMinimumSize(new Dimension(width,height));
         frame.setMaximumSize(new Dimension(width,height));
-        
-        //frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -40,20 +38,5 @@ public class Window extends Canvas{
         frame.setVisible(true);
       
     }
-    
-    public Window(int width, int height, String title, GameOver game){
-        frame = new JFrame(title);
-        frame.setPreferredSize(new Dimension(width,height));
-        frame.setMinimumSize(new Dimension(width,height));
-        frame.setMaximumSize(new Dimension(width,height));
-        
-        //frame.setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.add(game);
-        frame.setVisible(true);
-      
-    }
-    
+   
 }
