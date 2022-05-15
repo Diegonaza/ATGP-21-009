@@ -26,8 +26,11 @@ public class LevelOne {
     
     public LevelOne(GamePanel p){
         InputStream is = getClass().getResourceAsStream("/Images/Map1/dublin.png");
+        //loads background image
         InputStream is1 = getClass().getResourceAsStream("/Images/Map1/clouds_2.png");
+        //loads background image
         InputStream is2 = getClass().getResourceAsStream("/Images/Map1/sky.png");
+        //loads background image
         this.p = p;
         try{
             Dublin = ImageIO.read(is);
@@ -44,15 +47,21 @@ public class LevelOne {
     public void Draw(Graphics2D gtd){
        
             gtd.drawImage(Sky,0,0,1280,800,p);
+            //position the background image
             gtd.drawImage(Clouds2, x, 0,1280,800,p);
+            //position the background image
             gtd.drawImage(Clouds2, x+800, 0,1280,800,p);
+            //position the background image
             gtd.drawImage(Dublin, DublinSpeed-20, -100,1280,800,p); 
-            
+            //position the background image
             gtd.drawImage(Dublin, DublinSpeed+1280-20, 0,1280,800,p);
+            //position the background image
     }
     
     public void updateLocation(int cam){
         x = -(cam/6);
+        //paralax for cloud image
         DublinSpeed = -(cam/4);
+        //paralax for dublin image
     }
 }
