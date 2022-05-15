@@ -88,30 +88,40 @@ public class GamePanel extends Canvas implements Runnable {
         int cicle = 0;
         
         for(int i = 0 ; i<200; i++){
+            //creates 200 instances of Zenith particles
             int randomX = ThreadLocalRandom.current().nextInt(250,451);
+            //for each particle, the position X will be positioned randomply between the coordinates 250 and 451
             int randomY = ThreadLocalRandom.current().nextInt(30,100);
+            //for each particle, the position X will be positioned randomply between the coordinates 30 and 100
             Zenith z = new Zenith(randomX,randomY,5,handler, this);
+            //creates a new Zenith Object
             cicle ++;
+            //increments the cicle variable
             
             switch(cicle){
                 case 1: 
                 z.ct = z.ct.blue;
+                //depending on the cicle number, it chooses the accodingly 
                 break;
                 
                 case 2: 
                 z.ct = z.ct.red;
+                //depending on the cicle number, it chooses the accodingly 
                 break;
                 
                 case 3: 
                 z.ct = z.ct.yellow;
+                //depending on the cicle number, it chooses the accodingly 
                 break;
                 
                 case 4:
                 z.ct = z.ct.pink;
+                //depending on the cicle number, it chooses the accodingly 
                 break;
                 
                 case 5:
                 z.ct = z.ct.black;
+                //depending on the cicle number, it chooses the accodingly 
                 break;
                 
                         }
@@ -119,6 +129,7 @@ public class GamePanel extends Canvas implements Runnable {
             
             if(cicle >= 5){
                 cicle = 0;}
+            //if the cicle reached the final index, it resets the counter.
             
             
             // add the Zenith instance into the zenith array for the handler class 
@@ -143,107 +154,24 @@ public class GamePanel extends Canvas implements Runnable {
         thread.start();
         running = true;
     }
+     //Starts the thread as a new thread.
+     //changes the running state to true.
+     
       public synchronized void Stop(){
         try{
-            thread.join();
+            thread.interrupt();
             running = false;
         }
         catch(Exception e){
           e.printStackTrace();
       }
+        //interupts the thread and change the running state to false.
     }
-    /*
-    public void runOld(){
-        long lastTime = System.nanoTime();
-        double amountOfTicks = 60.0;
-        double ns = 1000000000 / amountOfTicks;
-        double delta = 0;
-        long timer = System.currentTimeMillis();
-        int frames = 0;
-        
-        while(running){
-          
-            long now = System.nanoTime();
-            delta += (now - lastTime)/ ns;
-            lastTime = now;
-            if(delta >= 1){
-                handler.tick();
-                
-                delta--;
-                render();
-                frames++;
-            }
-            if(System.currentTimeMillis() - timer > 1000){
-                    timer += 1000;
-                    System.out.println("FPS: " + frames);
-                    frames = 0;
-                }
-            if(running)
-               
-                render();
-                frames++;
-                
-                
-                        
-        }
-        Stop();
-    }
-      */
-    /*
-    @Override
-    public void run(){
-        final int max_FPS = 60;
-        final int max_UPS = 60;
-        
-        final double uOptimal_Time = 1000000000/ max_UPS;
-        final double fOptimal_Time = 1000000000/ max_FPS;
-        
-        int ticks = 0, frames = 0;
-        
-        double uDeltaTime = 0, fDeltaTime = 0;
-        long startTime = System.nanoTime();
-        long timer = System.currentTimeMillis();
-        
-        while(running){
-           
-            long currentTime = System.nanoTime();
-            uDeltaTime += (currentTime - startTime);
-            fDeltaTime += (currentTime - startTime);
-            startTime = currentTime;
-            
-            if(uDeltaTime >= uOptimal_Time){
-                handler.tick();
-                ticks++;
-                uDeltaTime -= uOptimal_Time;
-            }
-            
-            if(fOptimal_Time >= fOptimal_Time){
-                
-                frames++;
-                fDeltaTime -= fOptimal_Time;
-                render();
-            }
-            
-            if(System.currentTimeMillis() - timer >=1000){
-                System.out.println("Updates " + ticks + " FPS " + frames);
-                
-                ticks = 0;
-                frames = 0;
-                timer += 1000;
-            }
-            
-        }
-        
-        Stop();
-    }
-    */
-      //GameLoop code Reference
-     //https://stackoverflow.com/questions/66079677/how-to-improve-the-framerate-in-simple-java-game-loop
-      
+  
     @Override
     public  void run()
     {
-        //Definalsired  updates/Frames per second 
+        //Define updates and frames per second 
          int desiredFPS = gameFPS;
          int desiredUPS = gameUPS;
         
@@ -320,23 +248,30 @@ public class GamePanel extends Canvas implements Runnable {
     private void render(){
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
+            //if this BufferStrategy is null, it creates a new one.
             this.createBufferStrategy(3);
             return;
         }
         
         Graphics g = bs.getDrawGraphics();
+        // Instanciates the Graphics g using the BufferStrategy item.
         Graphics2D gtd = (Graphics2D)g;
+        // define the graphs 2d variable ocnverted from g.
         g.setColor(Color.black);
-        g.fillRect(0, 0, 800, 600);
+        // Buffer has a background colour not to conflit with the tiles
         l.Draw(gtd);
+        // draws the level one using the graphs object.
         handler.render(gtd);
+        // loads this decorated objecto to handler
         g.dispose();
+        //removes g from memory as it won't be used again.
         bs.show();
+        //presents the BufferStrategy item
     }
     
     private void AdventureMusic(){
         
-        //Loads the sound clip
+        //Loads the sound clip for the adventure
         music.setSound(0);
         //Set's the sound volume to 10% of the total
         music.setVolume((float) 0.10);
@@ -344,7 +279,7 @@ public class GamePanel extends Canvas implements Runnable {
         music.play();
         //Set the clip as a loop.
         music.loop();
-        
+        //Set's the Death sound volume to 10% of the total
         deathMusic.setVolume((float)0.10);
         
         

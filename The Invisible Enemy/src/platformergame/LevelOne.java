@@ -22,18 +22,23 @@ public class LevelOne {
     BufferedImage img3;
     GamePanel p;
     int x;
-    int rockSpeed;
+    int Speed;
     
+       
     public LevelOne(GamePanel p){
         InputStream is = getClass().getResourceAsStream("/Images/Map1/dublin.png");
+        //loads the dublin backgound image from the resources and saves it as a variable
         InputStream is1 = getClass().getResourceAsStream("/Images/Map1/clouds_2.png");
        // InputStream is2 = getClass().getResourceAsStream("/Images/Map1/rocks_1.png");//remored mountain
          InputStream is3 = getClass().getResourceAsStream("/Images/Map1/sky.png");
-        p = p;
+         // import the sky image from resources and save it as a variable.
+         
+        this.p = p;
+        // writes the gamePanel variable with the actual gamePanel.
+        
         try{
-            imgRockTwo = ImageIO.read(is);
-            img1 = ImageIO.read(is1);
-            //img2 = ImageIO.read(is2);//remored mountain
+            img1 = ImageIO.read(is);
+            img2 = ImageIO.read(is1);
             img3 = ImageIO.read(is3);
             
         }catch(Exception e){
@@ -47,15 +52,15 @@ public class LevelOne {
         gtd.setColor(Color.red);
         //gtd.fillRect(x, y, width, height);
         gtd.drawImage(img3,0,0,1280,800,p);
-            gtd.drawImage(img2,-50,0,1280,800,p);
-            gtd.drawImage(img1, x, 0,1280,800,p);
-            gtd.drawImage(imgRockTwo, rockSpeed-20, 0,1280,800,p); 
+            gtd.drawImage(img1,-50,0,1280,800,p);
+            gtd.drawImage(img2, x, 0,1280,800,p);
+            gtd.drawImage(img3, Speed-20, 0,1280,800,p); 
             gtd.drawImage(img1, x+800, 0,1280,800,p);
-        gtd.drawImage(imgRockTwo, rockSpeed+1280-20, 0,1280,800,p);
+        gtd.drawImage(img2, Speed+1280-20, 0,1280,800,p);
     }
     
     public void updateLocation(int cam){
         x = -(cam/32);
-        rockSpeed = -(cam/16);
+        Speed = -(cam/16);
     }
 }
