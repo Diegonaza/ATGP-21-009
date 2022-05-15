@@ -5,7 +5,6 @@
  */
 package platformergame;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -14,7 +13,8 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author alisson
+ * @author Alisson, Diego
+ * @comment Alisson, Diego
  */
 public class Citizen extends GameObject {
     
@@ -34,12 +34,14 @@ public class Citizen extends GameObject {
     CharacterState cState;
     myThread cdThread ;
     ColourType colour;
+    
       enum Direction{
     Left(),Right();
     }
-    Direction direction ;
+      //enum for indication of direction for character movement and animation sprite selection.
+      
+    Direction direction;
     boolean faceLeft,faceRight;
-    
     
     BufferedImage characterSprite;
     Player player;
@@ -67,13 +69,10 @@ public class Citizen extends GameObject {
         cdThread = new myThread(player);
         
         ImportImage();
-        //SetSpeedX(-1);      
+             
     }
+    //instanciation of the constructor, to be used in GamePanel's instanciation on the game environment.
     
-    
-  
-
-     
    
 
     @Override
@@ -81,65 +80,54 @@ public class Citizen extends GameObject {
         
         
        //Character States  
+       
       if(xSpeed!=0){
           cState = cState.Walking;
+          //when speed on axis X is not zero, this character will be in position walking
       }
       
       if(ySpeed != 0){
           cState = cState.Jumping;
-      }// Jumping state overrides the walking state.
+      }// Jumping state overrides the walking state as it comes after it, 
+       // When the speed on axis Y is different to Zero, the character will be in Jumping State
       
       if(xSpeed >0){
           direction = direction.Right;
-      }
+          //This sets up the enum state where the character is facing, if positive speed, the right position is selected.      }
       
       if(xSpeed <0){
           direction = direction.Left;
+          //This sets up the enum state where the character is facing, if negative speed, the left position is selected.
       }
-      /*
-      //Citizen Movement
-    
-    if( x > (startX +500 - panel.cameraX)){
-        Roam();
-        direction = this.direction.Right;
-    }
-    if( x <(startX -500 - panel.cameraX)){
-        Roam();
-        direction = this.direction.Left;
-    }
-    */
-     //Follow the player
-     
-     /*
-        if(this.colour != this.colour.white)// If the citizen is not infected
-        if(hitBox.x>=player.hitBox.x +10&& movementSpeed >= 0){
-            x +=5;
-            SetSpeedX(movementSpeed*-1);
-        }else if (hitBox.x <= player.hitBox.x-10 && movementSpeed<0){
-            x -= 5;
-            SetSpeedX(movementSpeed*-1);
-        }
-       */
-        
-    
       
-      //speed limit/smoothing
+      
+      //speed limit - smoothing
       if(xSpeed > 0 && xSpeed<0.75)xSpeed = 0;
+      //defines the speed in X to be equal to zero if smaller to 0.75 in module.
       if(xSpeed<0 && xSpeed> -0.75)xSpeed =0;
+      //defines the speed in X to be equal to zero if smaller to 0.75 in module.
       if(xSpeed > 1)xSpeed= 1;
+      //defines the speed in X to be equal to one if bigger to one in module.
       if(xSpeed< -1)xSpeed = -1;
+      //defines the speed in X to be equal to one if bigger to one in module.
       
-      //jump
-    
+      
+      
+      
+      
+      //jump    
       
       //gravity
         ySpeed += 0.5;
+        //constantly the y Speed increases, simulating gravity.
         
           //vertical collision
           hitBox.y += ySpeed;
-        for(Platform p: panel.handler.platforms){
-            if(hitBox.intersects(p.hitBox)){
+          for(Platform p: panel.handler.platforms){
+           //Checks each platform for a colision with this character;
+              if(hitBox.intersects(p.hitBox)){
                 hitBox.y -= ySpeed;
+                
                 while(!p.hitBox.intersects(hitBox)){
                     hitBox.y += Math.signum(ySpeed);
                 }
@@ -147,31 +135,37 @@ public class Citizen extends GameObject {
                 ySpeed = 0;
                 y = hitBox.y;
             }
+            //when there is intersection between the character hitbox and a platform hitbox on axis Y, the speed on Y will be decreased until it reaches zero.
+            // the hitbox will be repositioned to start from the platform hitbox axis Y; The gravity will keep creating the colisions and the character will be constantly positioned on the intersection point.
         }
         
         //horizontal collision
         hitBox.x += xSpeed;
         
         for(Platform p: panel.handler.platforms){
+            //Checks each platform for a colision with this character;
             if(hitBox.intersects(p.hitBox)){
                 hitBox.x -= xSpeed;
                while(!p.hitBox.intersects(hitBox)){
                    hitBox.x += Math.signum(xSpeed);
                }
                 hitBox.x -= Math.signum(xSpeed);
-                //xSpeed = 0;
                 xSpeed = xSpeed *(-1);
                 x = hitBox.x;
             }
         }
+        //when there is intersection between the character hitbox and a platform hitbox on axis X, the speed on X will be inverted
         
         y += ySpeed;
         hitBox.y = y;
         
+        
+        
+        
       //Cause Damage to Player=====================================================================
       
         if(hitBox.intersects(player.hitBox)&& player.cState!= cState.Staggered && this.colour != colour.white){
-           //Set Player State to Staggered
+           //Set Player State to Staggered, modifying the player object accordingly
             player.cState = cState.Staggered;
             player.spriteIndex= 1;
             player.health = player.health-1;
@@ -194,11 +188,9 @@ public class Citizen extends GameObject {
             player.keyFire = false;
             player.keyJump = false;
             player.keyLeft = false;
-            player.keyRight = false;
-                
-           
-            
+            player.keyRight = false;        
         }
+        
         
         //============================================================================================
         
@@ -306,7 +298,7 @@ public class Citizen extends GameObject {
         
     
     
-    
+    }
     
     public void Roam(){
        

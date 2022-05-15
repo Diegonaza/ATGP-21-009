@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 /**
  *
  * @author diego
+ * @comment: Alisson
  */
 public class Animation {
     
@@ -20,6 +21,7 @@ public class Animation {
     public Animation(BufferedImage image){
         this.image = image;
     }
+    //the is a constructor that works as a Setter method.
     
     public BufferedImage updateImage(int x, int y, int width, int height){
         BufferedImage img = image.getSubimage(x, y, 32, 32);
