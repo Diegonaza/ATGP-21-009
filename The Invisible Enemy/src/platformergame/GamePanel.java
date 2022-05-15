@@ -36,6 +36,7 @@ public class GamePanel extends Canvas implements Runnable {
     LevelOne l = new LevelOne(this);
     Inventory inv = new Inventory();
     Sound music = new Sound();
+    Sound deathMusic = new Sound();
     int gameUPS;
     int gameFPS;
     
@@ -69,7 +70,7 @@ public class GamePanel extends Canvas implements Runnable {
     
     public void StartGame(){
         this.setVisible(true);
-        
+        deathMusic.setSound(1);
         handler = new Handler();
          //Instantiate the TileMapper Object, the constructor takes 2 parameters the map name and a reference to the handler object.
         TileMapper tl = new TileMapper("Cave4",handler);
@@ -344,8 +345,11 @@ public class GamePanel extends Canvas implements Runnable {
         //Set the clip as a loop.
         music.loop();
         
+        deathMusic.setVolume((float)0.10);
+        
+        
     }
-  
+  /*
     public void DeathMusic(){
         
         if(musicLoop == false){
@@ -356,11 +360,11 @@ public class GamePanel extends Canvas implements Runnable {
         //Set's the sound volume to 10% of the total
         music.setVolume((float) 0.10);
         //Play the clip
-        music.play();
+      //  music.play();
         //Set the clip as a loop.
         music.loop();
         }        
     }
    
-    
+    */
 }

@@ -177,6 +177,7 @@ public class TileMapper {
             }
            
         }
+        //method is commented on line 193
         LoadTiles(mapName,tilesetWidth,tilesetHeight);
        
         
@@ -186,25 +187,31 @@ public class TileMapper {
     }catch(Exception e){
         e.printStackTrace();
     }
+    //method is commented on line 218
         GenerateMap();
     }
  
     public void LoadTiles(String mapName,int width,int height){
+        //load the image containing the tile set into memory
         InputStream is = getClass().getResourceAsStream("/Images/Map1/"+mapName+"TS.png");
        
             try{
+                // store the image into a variable
                 tileSet = ImageIO.read(is);
                 
             }catch(Exception e){e.printStackTrace();}
                 
-            
+            //array containing all the tiles used in the level
             allTiles = new BufferedImage[30000];
-           
+           //19 is the level height in tiles, should be stored in a variable in the future 
               for(int i = 0; i<19; i++){
+                  //30 is the width of the level in tiles
            for(int j = 0; j<30; j++){
-             //  String temp = values[i][j];
+              //get the data that was extracted form the json file and saved into a 2d array
+              //this data contains the Index where each sub image from the tile set should be stored
+              //some variables are hard coded , but it is designed to be dynamic, this will be changed in the future
                int p = tilesetData[i][j];
-               
+               //get a sub-image from the tile set image and store into the array
                allTiles[p]= tileSet.getSubimage(j*tileWidth, i*tileHeight, tileWidth, tileHeight);
                
            }
@@ -214,26 +221,32 @@ public class TileMapper {
     }
     
     public void GenerateMap(){
+        //this variable will scale the Tiles if needed
         int scaleImage = 1;
         
         for(int i = 0; i<tilesetHeight; i++){
             for(int j = 0; j<tilesetWidth; j++){
+                //0 is equal to an empty space on the level
                 if(backgroundData[i][j]!= 0){
+                    //Instantiate a new platform, set its image and send it to the handler class
                     platform = new Platform((j*tileWidth)*scaleImage, (i*tileHeight)*scaleImage, tileWidth*scaleImage, tileHeight*scaleImage,GetTile(backgroundData[i][j]),false);
                 handler.addTile(platform);
                 }
                 
                  if(decorationData[i][j]!= 0){
+                      //Instantiate a new platform, set its image and send it to the handler class
                     platform = new Platform((j*tileWidth)*scaleImage, (i*tileHeight)*scaleImage, tileWidth*scaleImage, tileHeight*scaleImage,GetTile(decorationData[i][j]),false);
                 handler.addTile(platform);
                 }
                 
                 if(solidData[i][j]!= 0){
+                     //Instantiate a new platform, set its image and send it to the handler class
                 platform = new Platform((j*tileWidth)*scaleImage, (i*tileHeight)*scaleImage, tileWidth*scaleImage, tileHeight*scaleImage,GetTile(solidData[i][j]),true);
                 handler.addPlatform(platform);
                 }
                 
                 if(objectsData[i][j]!= 0){
+                     //Instantiate a new platform, set its image and send it to the handler class
                 platform = new Platform((j*tileWidth)*scaleImage, (i*tileHeight)*scaleImage, tileWidth*scaleImage, tileHeight*scaleImage,GetTile(objectsData[i][j]),false);
                 handler.addTile(platform);
                 }
@@ -246,7 +259,7 @@ public class TileMapper {
        
       
   }
-    
+    //returns a specific tile with the given index
    public BufferedImage GetTile(int index){
     
        return allTiles[index];
