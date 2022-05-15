@@ -349,22 +349,4 @@ public class GamePanel extends Canvas implements Runnable {
         
         
     }
-  /*
-    public void DeathMusic(){
-        
-        if(musicLoop == false){
-            
-        musicLoop = true;
-        //Loads the sound clip
-        music.setSound(1);
-        //Set's the sound volume to 10% of the total
-        music.setVolume((float) 0.10);
-        //Play the clip
-      //  music.play();
-        //Set the clip as a loop.
-        music.loop();
-        }        
-    }
-   
-    */
 }
