@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package zMapEditor;
+package map;
 
 
 import java.awt.Graphics2D;
@@ -14,8 +14,7 @@ import javax.imageio.ImageIO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import platformergame.Handler;
-import platformergame.Platform;
+import engine.Handler;
 
 
 
@@ -52,7 +51,7 @@ public class TileMapper {
     JSONParser parser = new JSONParser();
     try{
         //Read the json file and load it into memory
-        Object obj = parser.parse(new FileReader("src/zMapEditor/Maps/"+mapName+".json"));
+        Object obj = parser.parse(new FileReader("src/map/Maps/"+mapName+".json"));
         // convert Object into a json Object
         JSONObject jsonObject = (JSONObject) obj;
         JSONArray layers = (JSONArray)jsonObject.get("layers");

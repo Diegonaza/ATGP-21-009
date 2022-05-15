@@ -1,13 +1,23 @@
-package platformergame;
+package engine;
 
 
+import engine.Handler;
+import map.LevelOne;
+import characters.Player;
+import characters.Zenith;
+import characters.Citizen;
+import sound.Sound;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import zMapEditor.TileMapper;
+import map.TileMapper;
 import java.util.concurrent.ThreadLocalRandom;
+import display.GameOver;
+import display.Inventory;
+import characters.PlayerInput;
+import display.Window;
 
 
 /*
@@ -22,23 +32,23 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class GamePanel extends Canvas implements Runnable {
    
-    boolean musicLoop = false;
-    Window window;
-    GameOver gO = new GameOver(this);
+    private boolean musicLoop = false;
+    public Window window;
+    public GameOver gO = new GameOver(this);
     private Thread thread;
     public boolean running = false;
-    Player player ;
-    Citizen enemy;
-    boolean isVisible = true;
-    Handler handler = new Handler();
-    int cameraX;
-    int cameraY;
-    LevelOne l = new LevelOne(this);
-    Inventory inv = new Inventory();
-    Sound music = new Sound();
-    Sound deathMusic = new Sound();
-    int gameUPS;
-    int gameFPS;
+    public Player player ;
+    public Citizen enemy;
+    public boolean isVisible = true;
+    public Handler handler = new Handler();
+    public int cameraX;
+    public int cameraY;
+    public LevelOne l = new LevelOne(this);
+    public Inventory inv = new Inventory();
+    protected Sound music = new Sound();
+    public Sound deathMusic = new Sound();
+    protected int gameUPS;
+    protected int gameFPS;
     
     
     public GamePanel(){

@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package display;
+import engine.GamePanel;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -14,9 +15,9 @@ import javax.swing.JFrame;
  */
 public class Window extends Canvas{
     
-    JFrame frame;
-    GamePanel gamePanel;
-    Inventory inv;
+    public JFrame frame;
+    public GamePanel gamePanel;
+    public Inventory inv;
     //Window Settings for instantiation
     public Window(int width, int height, String title, GamePanel game, Inventory inventory){
         frame = new JFrame(title);

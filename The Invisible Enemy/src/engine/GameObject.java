@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package engine;
 
 import java.awt.Graphics2D;
 
@@ -13,9 +13,9 @@ import java.awt.Graphics2D;
  */
 public abstract class GameObject {
     
-    protected int x, y, width, height;
-    protected double xSpeed, ySpeed;
-    ColourType ct;
+    public  int x, y, width, height;
+    public double xSpeed, ySpeed;
+    public  ColourType ct;
     
     
     

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package characters;
 
+import characters.CharacterState;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -12,6 +13,11 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+import engine.GameObject;
+import engine.GamePanel;
+import map.Platform;
+import display.Window;
+import engine.myThreadEventDeath;
 
 /**
  *
@@ -19,34 +25,34 @@ import javax.imageio.ImageIO;
  */
 public class Player extends GameObject {
     
-    GamePanel panel;
-    double maxWalkingSpeed;
-    boolean isInputEnable = true;
-    int health;
-    int fireRateCounter=0;
-    int fireRate;
-    int startX;
-    int locationX;
-    int locationY;
-    int animCounter= 0;
-    int spriteIndex = 1;
-    int animPlayRate = 0;
-    int spriteSheetIndex, sheetLenght;
-    boolean isFalling = true;
-    boolean canJump = true;
-    Rectangle hitBox;
-    CharacterState cState;
+    public GamePanel panel;
+    public double maxWalkingSpeed;
+    public boolean isInputEnable = true;
+    public int health;
+    public int fireRateCounter=0;
+    public int fireRate;
+    public int startX;
+    public int locationX;
+    public int locationY;
+    public int animCounter= 0;
+    public int spriteIndex = 1;
+    public int animPlayRate = 0;
+    public int spriteSheetIndex, sheetLenght;
+    public boolean isFalling = true;
+    public boolean canJump = true;
+    public Rectangle hitBox;
+    public CharacterState cState;
     enum Direction{
     Left(),Right();
     }
     Direction direction ;
-    boolean keyLeft,keyRight,keyJump,keyFire;
+    public boolean keyLeft,keyRight,keyJump,keyFire;
     
-    BufferedImage[] sprites = new BufferedImage[10];
-    BufferedImage characterSprite;
-    BufferedImage healthBar;
-    Window window;
-    Projectile projectile;
+    protected BufferedImage[] sprites = new BufferedImage[10];
+    protected BufferedImage characterSprite;
+    protected BufferedImage healthBar;
+    public Window window;
+    public Projectile projectile;
     
     
     public Player(int x, int y, GamePanel panel){

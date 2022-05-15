@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package characters;
 
+import engine.Handler;
+import engine.GameObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -15,13 +17,13 @@ import java.awt.Rectangle;
  */
 public class Projectile extends GameObject{
     //projecttile speed on the X vector
-    int projectileSpeedX = 10;
+   public int projectileSpeedX = 10;
     //Projectile Start position
-    int startX;
-    int projectileSpeedY;
+   public  int startX;
+   public  int projectileSpeedY;
     //reference to the handler class
-    Handler handlerRef;
-    Rectangle hitBox;
+   public  Handler handlerRef;
+   public  Rectangle hitBox;
     
      public Projectile(int x, int y) {
         super(x, y);

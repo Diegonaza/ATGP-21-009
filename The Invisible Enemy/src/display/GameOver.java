@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package platformergame;
+package display;
+
+import engine.GamePanel;
 
 /**
  *
@@ -120,7 +122,7 @@ public class GameOver extends javax.swing.JPanel {
     private void NewGameButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         
         
-        
+        System.out.println("We fight for a better world!");
         this.gp.window.frame.dispose();
         this.gp.deathMusic.stop();
         this.gp = new GamePanel();

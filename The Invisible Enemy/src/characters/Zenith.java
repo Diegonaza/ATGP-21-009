@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package platformergame;
+package characters;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.concurrent.ThreadLocalRandom;
+import engine.GameObject;
+import engine.GamePanel;
+import engine.Handler;
+import map.Platform;
 
 /**
  *
@@ -18,12 +22,12 @@ public class Zenith extends GameObject{
     
     
    
-    GamePanel panelRef;
-    int camPrevX;
-    int startX;
-    int dRandom;
-    Handler handlerRef;
-    Rectangle hitBox;
+    public GamePanel panelRef;
+    public int camPrevX;
+    public int startX;
+    public int dRandom;
+    public Handler handlerRef;
+    public Rectangle hitBox;
     
     
     

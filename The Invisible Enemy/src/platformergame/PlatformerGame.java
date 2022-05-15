@@ -5,7 +5,8 @@
  */
 package platformergame;
 
-import zMapEditor.TileMapper;
+import engine.GamePanel;
+import map.TileMapper;
 
 /**
  *

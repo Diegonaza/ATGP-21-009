@@ -3,13 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package characters;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+import engine.ColourType;
+import engine.GameObject;
+import engine.GamePanel;
+import map.Platform;
+import engine.myThread;
 
 /**
  *

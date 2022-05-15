@@ -3,11 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package engine;
 
+import characters.Player;
+import characters.Zenith;
+import characters.Citizen;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
-import zMapEditor.TileMapper;
+import map.Platform;
+import characters.Projectile;
+import map.TileMapper;
 
 /**
  *
@@ -19,19 +24,19 @@ import zMapEditor.TileMapper;
 public class Handler {
     //It was initially design to store all objects into a single list, now its only saving the player
     // it will be update in the future for a single variable holding a reference to the player
-    LinkedList<GameObject> object = new LinkedList<GameObject>();
+    public LinkedList<GameObject> object = new LinkedList<GameObject>();
     //Stores all the zenith particles.
-    LinkedList<Zenith> zenith = new LinkedList<Zenith>();
+    public LinkedList<Zenith> zenith = new LinkedList<Zenith>();
     //Stores all the platforms that has collision checks on their tick() methods
-    LinkedList<Platform> platforms = new LinkedList<Platform>();
+    public LinkedList<Platform> platforms = new LinkedList<Platform>();
     //Stores all tiles that are only for visual purpose 
-    LinkedList<Platform> backgroundTiles = new LinkedList<Platform>();
+    public LinkedList<Platform> backgroundTiles = new LinkedList<Platform>();
     //Stores all Projectiles from the player Character
-    LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
+    public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
     //Stores all enemies in the level
-    LinkedList<Citizen> enemies = new LinkedList<Citizen>();
+    public LinkedList<Citizen> enemies = new LinkedList<Citizen>();
     //Reference to the TileMapper Class
-    TileMapper tl ;
+    public TileMapper tl ;
     
     //Update all Objects in the level
     public void tick(){

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformergame;
+package map;
 
+import engine.Handler;
+import engine.GameObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -16,11 +18,11 @@ import java.awt.image.BufferedImage;
  */
 public class Platform extends GameObject{
     
-    Rectangle hitBox;
-    int startX;
-    int startY;
-    BufferedImage img;
-    boolean hasCollision;
+    public Rectangle hitBox;
+    public int startX;
+    public int startY;
+    public BufferedImage img;
+    public boolean hasCollision;
     
     public Platform(int x, int y, int width, int height,BufferedImage image, boolean hasCollision){
         super(x,y);
