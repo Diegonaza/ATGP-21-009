@@ -76,22 +76,26 @@ public class TileMapper {
             tempo = data.split(",");
            
              lTemp = (Long)jsonObject.get("width");
+              //Extracts data from the json object, this is the width of the level
              tilesetWidth = lTemp.intValue();
              
              lTemp = (Long)jsonObject.get("height");
+             //height of the level
              tilesetHeight = lTemp.intValue();
              
            
            
         
             
-            
-            
-            
-            
-            
+             //The Levels are designed using the concept of Layers, each layer holds data for differents objects in the level
+            //the data of each layer should be stored in a different list, that would improve the overall performance of the game
+            //as we can have more control when we need to iterate throught objects in the level
+            //e.g(Collision checks, Z Order ( the order the objects are draw on the screen )
             switch(layerName){
+                //This layer contains all the tiles used to build the level
                 case "TileMap":{
+                    //Determines the size of the array based on the data extracted from the json file
+                    //This array is where the tiles used to build the map are stored.
                     tilesetData = new int[tilesetHeight][tilesetWidth];
                      int index = 0;
                      for(int j = 0; j<tilesetHeight; j++){
@@ -103,9 +107,11 @@ public class TileMapper {
              
              
             }
-                     jsonObject = (JSONObject)tileInfo.get(0);
+             jsonObject = (JSONObject)tileInfo.get(0);
+             //Extracts from the json file the Width of each tile
              lTemp = (Long)jsonObject.get("tilewidth");
              tileWidth = lTemp.intValue();
+              //Extracts from the json file the Height of each tile
              lTemp = (Long)jsonObject.get("tileheight");
              tileHeight = lTemp.intValue();
                       
@@ -113,8 +119,10 @@ public class TileMapper {
                      break;
                      
                 }
-                
+                 //These are tiles that will not have a collision box component
                 case "BackGround":{
+                    //Determines the size of the array based on the data extracted from the json file
+                    //This array is where the tiles used to build the map are stored.
                     backgroundData = new int[tilesetHeight][tilesetWidth];
                     int index = 0;
                      for(int j = 0; j<tilesetHeight; j++){
@@ -124,8 +132,9 @@ public class TileMapper {
                          }
                      }break;
                 }
-                
+                 //These are tiles that will not have a collision box component
                 case "Decoration":{
+                     
                     decorationData = new int[tilesetHeight][tilesetWidth];
                     int index = 0;
                      for(int j = 0; j<tilesetHeight; j++){
@@ -135,8 +144,10 @@ public class TileMapper {
                          }
             }break;
                 }
-                
+                 
                 case "Objects":{
+                    //These tiles are saved in a different array so we can easily control the draw order
+                    //Determines the size of the array based on the data extracted from the json file
                     objectsData = new int[tilesetHeight][tilesetWidth];
                     int index = 0;
                      for(int j = 0; j<tilesetHeight; j++){
@@ -147,8 +158,10 @@ public class TileMapper {
               
             }break;
                 }
-                
+                //These are tiles that will  have a collision box component
                 case "Solid":{
+                    //These tiles are saved in this array as we will need to itarate trhought this array every tick for collision checks
+                    //Determines the size of the array based on the data extracted from the json file
                     solidData = new int[tilesetHeight][tilesetWidth];
                     
                     int index = 0;
